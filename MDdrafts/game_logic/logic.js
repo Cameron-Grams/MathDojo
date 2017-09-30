@@ -31,13 +31,15 @@ const session = {
 }
 // is the best way to advance through the number of practice questions a global counting variable?
 
+
 function practice( num ){
-    if ( questionNumber < num ){
+    if ( questionNumber <= num ){
         $( '#js-displayQuestion' ).html( `${ session.questions[ questionNumber ].problem }` );
     }
     $( '#js-userResponse' ).keydown( function( e ){
+        let responseAnswer = $( '#js-userResponse' ).val();
         if ( e.keyCode === 13 ){
-            let responseAnswer = $( '#js-userResponse' ).val();
+            console.log( 'in handler', responseAnswer );
             evaluateResponse( responseAnswer );
         }
     } )
@@ -48,19 +50,15 @@ function evaluateResponse( userResp ){
     let responseString = `<div>${ session.questions[ questionNumber ].problem } = ${ userResp }</div>`;
     if ( +userResp === session.questions[ questionNumber ].solution ){
         console.log( 'correct response' );
-        $( '#correctResponses' ).append( responseString ).css( 'class', 'correct' );
+        $( responseString ).attr( 'class', 'correct' );
+        $( '#correctResponses' ).append( responseString );
     } else {
         console.log( 'incorrect response' );
-        $( '#incorrectResponses' ).append( responseString ).css( 'class', 'incorrect' );
+        $( responseString ).attr( 'class', 'incorrect' ); 
+        $( '#incorrectResponses' ).append( responseString );
     }
     questionNumber += 1;
-    practice( questionNumber );
-    return; 
-}
-
-
-function generatreNumbers(){
-    //
+    return practice( questionNumber );
 }
 
 $( '#js-startExercise' ).on( 'click', function(){     

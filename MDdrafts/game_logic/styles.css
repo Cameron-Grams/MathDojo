@@ -18,9 +18,14 @@ section{
 }
 
 .correct{
+    border: 1px solid green;
     color: green;
 }
 
 .incorrect{
+    border: 1px solid red;
     color: red;
+}
+.accuracy{
+    color: black;
 }
