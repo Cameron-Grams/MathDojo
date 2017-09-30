@@ -1,0 +1,26 @@
+body{
+    background-color: grey;
+    text-align: center;
+}
+
+section{
+    border: 1px solid black;
+}
+
+.record{
+    display: inline-block;
+    width: 100%;
+}
+
+.division{
+    width: 48%;
+    height: 100px;
+}
+
+.correct{
+    color: green;
+}
+
+.incorrect{
+    color: red;
+}
