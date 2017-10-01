@@ -1,7 +1,10 @@
 const express = require( 'express' );
 const morgan = require( 'morgan' );
+const mongoose = require( 'mongoose' );
 
 const app = express();
+
+const { user } = require( './models/user' );
 
 //routing info? 
 
@@ -9,8 +12,9 @@ app.use( morgan( 'dev' ) );
 
 app.use( express.static( 'public' ) );
 
+//gotta lose this for the routing....
 app.get( '/', ( req, res ) => {
-  res.sendFile( __dirname + '/views/login.html' );
+  res.sendFile( __dirname + '/views/training.html' );
 } );
 
 
