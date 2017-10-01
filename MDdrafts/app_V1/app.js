@@ -10,7 +10,7 @@ app.use( morgan( 'dev' ) );
 app.use( express.static( 'public' ) );
 
 app.get( '/', ( req, res ) => {
-  res.sendFile( _dirname + '/views/login.html' );
+  res.sendFile( __dirname + '/views/login.html' );
 } );
 
 
@@ -38,8 +38,11 @@ function closerServer(){
         return;
       }
       resolve();
-  } );
+    } );
+  } )
 }
 
-
+if ( require.main === module ){
+  runServer().catch( err => console.error( err ) );
+};
 
