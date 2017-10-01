@@ -1,0 +1,15 @@
+{
+  "name": "app_v1",
+  "version": "1.0.0",
+  "description": "model_login",
+  "main": "app.js",
+  "scripts": {
+    "start":"nodemon",
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.1"
+  }
+}
