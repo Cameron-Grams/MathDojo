@@ -16,7 +16,7 @@ function requestSession( operation, number, min, max ){
       contentType: 'application/json'
     });
   }
-
+ 
 function practice( session ){
     console.log( session );
     console.log( 'number of problems: ', session.length )
@@ -26,6 +26,7 @@ function practice( session ){
     }
 }
 
+//this still needs to be updated to reflect the db...
 function evaluateResponse( userResp ){
     console.log( ' in eval ', questionNumber );
     let responseString = `<div>${ session[ questionNumber ].problem } = ${ userResp }</div>`;

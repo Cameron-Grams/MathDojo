@@ -6,6 +6,11 @@ const jsonParser = bodyParser.json();
 
 const { PORT, DATBASE_URL } = require( './.config' );
 
+//two data models exported from the practiceSession.js 
+const { Problem, Session } = require( './models/practiceSession' );
+
+
+
 function generateTerm( min, max ){
   return Math.floor( Math.random() * ( max - min ) + min );
 }
@@ -34,15 +39,17 @@ router.post( '/generate-session', jsonParser, ( req, res ) => {
 
     let session = [];  
     for ( let i = 0; i < req.body.number; i++ ){
+        let problem = Object.assign( {}, Problem );
         let firstTerm = generateTerm( req.body.min, req.body.max );
         let secondTerm = generateTerm( req.body.min, req.body.max );
-        session.push( { 
+        Object.assign( problem, { 
             operator: req.body.operation,
             firstTerm,
             secondTerm,
             problem: `${ firstTerm } ${ req.body.operation } ${ secondTerm }`,
             correctResponse: generateCorrectResponse( firstTerm, secondTerm, req.body.operation )
-        } );
+        } )
+        session.push( problem );
     }
 
 // save session into db 
