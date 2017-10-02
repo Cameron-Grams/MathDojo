@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
 //the model of the data to be generated and returned as the session object
+//think this is the problem....
 const { session } = require('./models/practiceSession' );
 
 router.get( '/', ( req, res ) => {
