@@ -9,6 +9,23 @@
 <section>
     <h3>User Name</h3>
     <h3>Current Level</h3>
+    
+    <section id="operationType">  
+        <span class="instructionFormat" >Select operation</span>
+        <select id="js-operationType" >  
+            <option value="+" >Addition ( + )</option>
+            <option value="-" >Subtraction ( - )</option>
+            <option value="*" >Multiplication ( X )</option>
+            <option value="/" >Division ( / )</option>
+        </select>
+    </section>
+
+    <section id="numberRange" >    
+        <span class="instructionFormat">From <input  type="text" class="js-inputBox" id="js-minRange" value="Enter min" /> to
+        <input type="text" class="js-inputBox" id="js-maxRange" value="Enter max" /></span>
+    </section>
+    
+
     <p>Select Type of Practice Session</p>
     <select id="js-practiceType" >  
         <option value="5" >Mouse</option>
@@ -20,10 +37,10 @@
     </select>
     <button id="js-startExercise" >Begin</button>
 </section>
-
+ 
 <section>
     <h3 id="js-displayQuestion" >Current Question</h3>
-    <input id="js-userResponse" type="text" value="Enter Answer" />
+    <input class="js-inputBox" id="js-userResponse" type="text" value="Enter Answer" />
     <p>If an incorrect response show the equation in red with a correct response beneath</p>
 </section>
 
@@ -35,6 +52,7 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="./logic.js" ></script>    
+<script src="./logic.js" ></script>   
+<script src="../models/practiceSession.js"></script>
 </body>
 </html>

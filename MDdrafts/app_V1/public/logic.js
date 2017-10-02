@@ -1,39 +1,30 @@
+
+
 var questionNumber = 0;
-const session = {
-	questions: [{
-    	problem: '2 + 2',
-        solution: 4,
-        usersInput: 7,
-        wasCorrect: false,
-    }, {
-    	problem: '4 + 2',
-        solution: 6,
-        usersInput: 6,
-        wasCorrect: true,
-    }, {
-    	problem: '1 + 2',
-        solution: 3,
-        usersInput: null,
-    }, {
-    	problem: '8 + 2',
-        solution: 10,
-        usersInput: null,
-    },
-    {
-    	problem: '11 + 2',
-        solution: 13,
-        usersInput: null,
-    }, {
-    	problem: '8 + 4',
-        solution: 12,
-        usersInput: null,
-    } ]
-}
+
 // is the best way to advance through the number of practice questions a global counting variable?
 
+//client will need to have the AJAX calls to the endpoints in the session router...
 
-function practice( num ){
-    if ( questionNumber <= num ){
+function requestSession( operation, number, min, max ){
+    $.ajax({
+      method: 'POST',
+      url: 'localhost:8080/',
+      data: JSON.stringify(operation, number, min, max ),
+      success: function(data) {
+        practice( data );
+      },
+      dataType: 'json',
+      contentType: 'application/json'
+    });
+  }
+
+function practice( session ){
+    console.log( session );
+
+/*
+
+    if ( questionNumber <= session.length ){
         $( '#js-displayQuestion' ).html( `${ session.questions[ questionNumber ].problem }` );
     }
     $( '#js-userResponse' ).keydown( function( e ){
@@ -43,6 +34,8 @@ function practice( num ){
             evaluateResponse( responseAnswer );
         }
     } )
+
+    */
 }
 
 function evaluateResponse( userResp ){
@@ -61,13 +54,17 @@ function evaluateResponse( userResp ){
     return practice( questionNumber );
 }
 
-$( '#js-startExercise' ).on( 'click', function(){     
-    let goal = $( '#js-practiceType' ).val();
-    practice( goal );
+$( '#js-startExercise' ).on( 'click', function(){  
+    let operation = $( '#js-operationType' ).val();   
+    let number = $( '#js-practiceType' ).val();
+    let min = $( '#js-minRange' ).val();
+    let max = $( '#js-maxRange' ).val();
+
+    requestSession( operation, number, min, max );
 } );
 
-$( '#js-userResponse' ).focus( function(){
-    $( '#js-userResponse' ).val( '' );
+$( '.js-inputBox' ).focus( function(){
+    $( this ).val( '' );
 } );
 
 $( '#js-numberQuestions' ).focus( function(){

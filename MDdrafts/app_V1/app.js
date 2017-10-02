@@ -4,18 +4,13 @@ const mongoose = require( 'mongoose' );
 
 const app = express();
 
-const { user } = require( './models/user' );
-
-//routing info? 
-
+const sessionRouter = require( './sessionRouter' );
+ 
 app.use( morgan( 'dev' ) );
 
 app.use( express.static( 'public' ) );
 
-//gotta lose this for the routing....
-app.get( '/', ( req, res ) => {
-  res.sendFile( __dirname + '/views/training.html' );
-} );
+app.use( '/', sessionRouter );
 
 
 
