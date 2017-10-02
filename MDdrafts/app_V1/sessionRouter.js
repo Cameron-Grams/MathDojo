@@ -4,10 +4,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
-//the model of the data to be generated and returned as the session object
-//think this is the problem....
-const { session } = require('./models/practiceSession' );
-
+const { PORT, DATBASE_URL } = require( './.config' );
 
 function generateTerm( min, max ){
   return Math.floor( Math.random() * ( max - min ) + min );
@@ -50,7 +47,7 @@ router.post( '/generate-session', jsonParser, ( req, res ) => {
 
 // save session into db 
     
-
+ 
 
 //    const item = session.create( req.body.operation, req.body.number, req.body.min, req.body.max );
    res.status( 201 ).json( session );
