@@ -9,8 +9,8 @@ var questionNumber = 0;
 function requestSession( operation, number, min, max ){
     $.ajax({
       method: 'POST',
-      url: 'localhost:8080/',
-      data: JSON.stringify(operation, number, min, max ),
+      url: '/api/generate-session',
+      data: JSON.stringify( { operation, number, min, max } ),
       success: function(data) {
         practice( data );
       },

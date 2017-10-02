@@ -10,7 +10,7 @@ app.use( morgan( 'dev' ) );
 
 app.use( express.static( 'public' ) );
 
-app.use( '/', sessionRouter );
+app.use( '/api', sessionRouter );
 
 
 
