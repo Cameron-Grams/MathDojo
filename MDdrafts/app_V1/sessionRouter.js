@@ -31,8 +31,7 @@ function generateResult( num1, num2, operator ){
           return; 
       }
   }
-
-}
+};
 
 router.post( '/generate-session', jsonParser, ( req, res ) => {
 

@@ -1,5 +1,3 @@
-
-
 var questionNumber = 0;
 
 // is the best way to advance through the number of practice questions a global counting variable?
@@ -21,27 +19,17 @@ function requestSession( operation, number, min, max ){
 
 function practice( session ){
     console.log( session );
-
-/*
-
-    if ( questionNumber <= session.length ){
-        $( '#js-displayQuestion' ).html( `${ session.questions[ questionNumber ].problem }` );
+    console.log( 'number of problems: ', session.length )
+    let practiceLength = session.length;
+    if ( questionNumber <= practiceLength ){
+        $( '#js-displayQuestion' ).html( `${ session[ questionNumber ].problem }` );
     }
-    $( '#js-userResponse' ).keydown( function( e ){
-        let responseAnswer = $( '#js-userResponse' ).val();
-        if ( e.keyCode === 13 ){
-            console.log( 'in handler', responseAnswer );
-            evaluateResponse( responseAnswer );
-        }
-    } )
-
-    */
 }
 
 function evaluateResponse( userResp ){
     console.log( ' in eval ', questionNumber );
-    let responseString = `<div>${ session.questions[ questionNumber ].problem } = ${ userResp }</div>`;
-    if ( +userResp === session.questions[ questionNumber ].solution ){
+    let responseString = `<div>${ session[ questionNumber ].problem } = ${ userResp }</div>`;
+    if ( +userResp === session[ questionNumber ].solution ){
         console.log( 'correct response' );
         $( responseString ).attr( 'class', 'correct' );
         $( '#correctResponses' ).append( responseString );
@@ -54,19 +42,27 @@ function evaluateResponse( userResp ){
     return practice( questionNumber );
 }
 
+//  *************
+// The Event Handlers
+//handler for user response to questions
+$( '#js-userResponse' ).keydown( function( e ){
+    let responseAnswer = $( '#js-userResponse' ).val();
+    if ( e.keyCode === 13 ){
+        console.log( 'in handler', responseAnswer );
+        evaluateResponse( responseAnswer );
+    }
+} )
+
+//handler for initial start of practice session, enters the session values
 $( '#js-startExercise' ).on( 'click', function(){  
     let operation = $( '#js-operationType' ).val();   
     let number = $( '#js-practiceType' ).val();
     let min = $( '#js-minRange' ).val();
     let max = $( '#js-maxRange' ).val();
-
     requestSession( operation, number, min, max );
 } );
 
+//handler to clear values in input boxes
 $( '.js-inputBox' ).focus( function(){
     $( this ).val( '' );
 } );
-
-$( '#js-numberQuestions' ).focus( function(){
-    $( '#js-numberQuestions' ).val( '' );
-})
