@@ -13,7 +13,7 @@ function generateTerm( min, max ){
   return Math.floor( Math.random() * ( max - min ) + min );
 }
 
-function generateResult( num1, num2, operator ){
+function generateCorrectResponse( num1, num2, operator ){
   switch( operator ){
       case "+":{
           return Number( num1 ) + Number( num2 );
@@ -44,7 +44,7 @@ router.post( '/generate-session', jsonParser, ( req, res ) => {
             firstTerm,
             secondTerm,
             problem: `${ firstTerm } ${ req.body.operation } ${ secondTerm }`,
-            correctResponse: generateResult( firstTerm, secondTerm, req.body.operation )
+            correctResponse: generateCorrectResponse( firstTerm, secondTerm, req.body.operation )
         } );
     }
 

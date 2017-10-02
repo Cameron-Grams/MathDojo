@@ -48,7 +48,6 @@ function evaluateResponse( userResp ){
 $( '#js-userResponse' ).keydown( function( e ){
     let responseAnswer = $( '#js-userResponse' ).val();
     if ( e.keyCode === 13 ){
-        console.log( 'in handler', responseAnswer );
         evaluateResponse( responseAnswer );
     }
 } )
