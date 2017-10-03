@@ -34,7 +34,7 @@ function runServer(databaseUrl = DATABASE_URL, port = PORT ){
     } );
 };
 
-function closerServer(){
+function closeServer(){
   return mongoose.disconnect().then( () => {    
     return new Promise( ( resolve, reject ) => {
       console.log( 'Closing Server' );
@@ -53,3 +53,4 @@ if ( require.main === module ){
   runServer().catch( err => console.error( err ) );
 };
 
+module.exports = { app, runServer, closeServer };
