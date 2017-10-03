@@ -5,7 +5,7 @@ const mongoose = require( 'mongoose' );
 mongoose.Promise = global.Promise; 
 
 const app = express();
-
+const { PORT, DATABASE_URL } = require( './.config' );
 const sessionRouter = require( './sessionRouter' );
  
 app.use( morgan( 'dev' ) );
@@ -14,11 +14,9 @@ app.use( express.static( 'public' ) );
 
 app.use( '/api', sessionRouter );
 
-
-
 let server;
-
-function runServer(databaseUrl=DATABASE_URL, port=PORT ){
+ 
+function runServer(databaseUrl = DATABASE_URL, port = PORT ){
     return new Promise( ( resolve, reject ) => {
         mongoose.connect( databaseUrl, err => {
           if ( err ){

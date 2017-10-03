@@ -36,10 +36,10 @@ function generateCorrectResponse( num1, num2, operator ){
 };
 
 router.post( '/generate-session', jsonParser, ( req, res ) => {
-
-    let session = [];  
+    let problem;
+    let practiceSession = [];  
     for ( let i = 0; i < req.body.number; i++ ){
-        let problem = Object.assign( {}, Problem );
+        problem = Object.assign( {}, Problem );
         let firstTerm = generateTerm( req.body.min, req.body.max );
         let secondTerm = generateTerm( req.body.min, req.body.max );
         Object.assign( problem, { 
@@ -49,20 +49,20 @@ router.post( '/generate-session', jsonParser, ( req, res ) => {
             problem: `${ firstTerm } ${ req.body.operation } ${ secondTerm }`,
             correctResponse: generateCorrectResponse( firstTerm, secondTerm, req.body.operation )
         } )
-        session.push( problem );
+        practiceSession.push( problem );
     }
-
-// save session into db 
     
- 
-
-//    const item = session.create( req.body.operation, req.body.number, req.body.min, req.body.max );
-   res.status( 201 ).json( session );
-})
-
-
-
-
-
+// save session into db 
+    Session
+    .create( {
+        problems: practiceSession  
+    } )
+    .then(
+        session => res.status( 201 ).json( session) )
+    .catch( err => {
+        console.error( err );
+        res.status( 500 ).json( { message: 'Internal Server Error' } );
+    });
+} )
 
 module.exports = router;

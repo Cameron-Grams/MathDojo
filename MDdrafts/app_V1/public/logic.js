@@ -1,8 +1,5 @@
 var questionNumber = 0;
-
-// is the best way to advance through the number of practice questions a global counting variable?
-
-//client will need to have the AJAX calls to the endpoints in the session router...
+var sessionProblemsArray = [];
 
 function requestSession( operation, number, min, max ){
     $.ajax({
@@ -10,27 +7,36 @@ function requestSession( operation, number, min, max ){
       url: '/api/generate-session',
       data: JSON.stringify( { operation, number, min, max } ),
       success: function(data) {
-        practice( data );
+        manageSessionData( data );
       },
       dataType: 'json',
       contentType: 'application/json'
     });
   }
  
-function practice( session ){
-    console.log( session );
-    console.log( 'number of problems: ', session.length )
-    let practiceLength = session.length;
+//extracts the current session's problems as an array from the session data object
+function manageSessionData( session ){
+    sessionProblemsArray = session.problems;
+    console.log( sessionProblemsArray );
+    displayProblem( sessionProblemsArray );
+    return sessionProblemsArray;
+}
+
+//manages the display of the currentQuestion based on questionNumber
+function displayProblem( sessionProblemsArray ){
+    console.log( 'number of problems: ', sessionProblemsArray.length )
+    let practiceLength = sessionProblemsArray.length;
     if ( questionNumber <= practiceLength ){
-        $( '#js-displayQuestion' ).html( `${ session[ questionNumber ].problem }` );
+        $( '#js-displayQuestion' ).html( `${ sessionProblemsArray[ questionNumber ].problem }` );
     }
 }
 
-//this still needs to be updated to reflect the db...
-function evaluateResponse( userResp ){
+//evaluates user answer based on questionNumber in session array, controls advance of the 
+// global questionNumber variable
+function evaluateResponse( userResponse ){
     console.log( ' in eval ', questionNumber );
-    let responseString = `<div>${ session[ questionNumber ].problem } = ${ userResp }</div>`;
-    if ( +userResp === session[ questionNumber ].solution ){
+    let responseString = `<div>${ sessionProblemsArray[ questionNumber ].problem } = ${ userResponse }</div>`;
+    if ( +userResponse === sessionProblemsArray[ questionNumber ].correctResponse ){
         console.log( 'correct response' );
         $( responseString ).attr( 'class', 'correct' );
         $( '#correctResponses' ).append( responseString );
@@ -40,7 +46,7 @@ function evaluateResponse( userResp ){
         $( '#incorrectResponses' ).append( responseString );
     }
     questionNumber += 1;
-    return practice( questionNumber );
+    displayProblem( sessionProblemsArray )
 }
 
 //  *************
