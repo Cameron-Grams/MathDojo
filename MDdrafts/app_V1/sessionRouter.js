@@ -42,7 +42,7 @@ router.post( '/generate-session', jsonParser, ( req, res ) => {
         problem = Object.assign( {}, Problem );
         let firstTerm = generateTerm( req.body.min, req.body.max );
         let secondTerm = generateTerm( req.body.min, req.body.max );
-        Object.assign( problem, { 
+        Object.assign( problem, {  //change to just object for pushing to session  
             operator: req.body.operation,
             firstTerm,
             secondTerm,

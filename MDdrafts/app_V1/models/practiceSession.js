@@ -8,12 +8,12 @@ const Problem = {
     problem: String,
     correctResponse: String, 
     userResponse: String,
-    wasCorrect: Boolean
+    wasCorrect: null 
 };
 
 const sessionSchema = mongoose.Schema( {
     problems: { type: Array }
-})
+}, { timestamps: true } )
 
 const Session = mongoose.model( 'Session', sessionSchema );
 

@@ -61,7 +61,7 @@ describe( 'End-point for practice session resources', function() {
  //               'problems' );
  //             res.body.problems.should.be.a( 'array' );
  //             res.body.id.should.not.be.null;
- //             return Session.findById( res.body.id );
+              return Session.findById( res.body._id );
             })
             .then(function( session ){ 
               session.problems.should.equal( session.problems );
@@ -70,3 +70,5 @@ describe( 'End-point for practice session resources', function() {
     });
 } );
 
+// ExtractJwt.fromAuthHeader
+//ExtractJwt.fromAuthHeaderAsBearerToken
