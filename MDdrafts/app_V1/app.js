@@ -1,8 +1,12 @@
 const express = require( 'express' );
-const morgan = require( 'morgan' );
 
 const mongoose = require( 'mongoose' );
 mongoose.Promise = global.Promise; 
+
+var bodyParser = require('body-parser');  
+var morgan = require('morgan');  
+var passport = require('passport');  
+var jwt = require('jsonwebtoken'); 
 
 const app = express();
 const { PORT, DATABASE_URL } = require( './.config' );
