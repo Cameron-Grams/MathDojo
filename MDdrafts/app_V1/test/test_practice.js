@@ -52,10 +52,8 @@ describe( 'End-point for practice session resources', function() {
             .post( '/api/generate-session' )
             .send( newPracticeSession )
             .then(function(res) {
-              console.log( '=============' );
-              console.log( res );
-              res.should.have.status(201);
- //             res.should.be.json;
+             res.should.have.status(201);
+             res.should.be.json;
  //             res.body.should.be.a( 'object' );
  //             res.body.should.include.keys(
  //               'problems' );
