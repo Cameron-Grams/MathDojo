@@ -72,17 +72,20 @@ router.post( '/register', function( req, res ) {
     if( !req.body.email || !req.body.password ) {
       res.json( { success: false, message: 'Please enter email and password.' } );
     } else {
-      var newUser = User.create( {
-        email: req.body.email,
-        password: req.body.password
-      } );
-  
-      // Attempt to save the user
-    try{
-        res.json( { success: true, message: 'Successfully created new user.' } );
-    }  catch( err ){
-        return res.json({ success: false, message: 'That email address already exists.'});
-    }
+        const alreadyUser = User.findOne( {
+            email: req.body.email
+        });
+        console.log( alreadyUser );
+        if ( alreadyUser ){
+            return res.json({ success: false, message: 'That email address already exists.'});
+        } else {
+            var newUser = User.create( {
+                email: req.body.email,
+                password: req.body.password
+            } );
+            res.json( { success: true, message: 'Successfully created new user.' } );
+        }
+        
     /*
     newUser.save(function(err) {
       if (err) {
