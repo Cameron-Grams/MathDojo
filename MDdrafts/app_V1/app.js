@@ -10,7 +10,7 @@ var jwt = require('jsonwebtoken');
 
 const app = express();
 const { PORT, DATABASE_URL } = require( './config/mainConfig.js' );
-const User = require( './models/user' ); 
+const { User } = require( './models/user' ); 
 
 const sessionRouter = require( './sessionRouter' );
  
@@ -19,7 +19,7 @@ app.use( bodyParser.json() );
 app.use( morgan( 'dev' ) );
 
 app.use( passport.initialize() );
-const Strategy = require( './models/passportStrategy' );
+const { basicStrategy: Strategy } = require( './config/passportStrategy' );
 Strategy( passport );
 
 app.use( express.static( 'public' ) ); //is this still needed? 

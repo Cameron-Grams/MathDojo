@@ -3,6 +3,8 @@ const router = express.Router();
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+var passport = require('passport');  
+var jwt = require('jsonwebtoken'); 
 
 const { PORT, DATBASE_URL } = require( './config/mainConfig.js' );
 
@@ -70,18 +72,24 @@ router.post( '/register', function( req, res ) {
     if( !req.body.email || !req.body.password ) {
       res.json( { success: false, message: 'Please enter email and password.' } );
     } else {
-      var newUser = new User( {
+      var newUser = User.create( {
         email: req.body.email,
         password: req.body.password
       } );
   
       // Attempt to save the user
+    try{
+        res.json( { success: true, message: 'Successfully created new user.' } );
+    }  catch( err ){
+        return res.json({ success: false, message: 'That email address already exists.'});
+    }
+    /*
     newUser.save(function(err) {
       if (err) {
         return res.json({ success: false, message: 'That email address already exists.'});
       }
       res.json({ success: true, message: 'Successfully created new user.' });
-    });
+    });  */
   }
 });
 

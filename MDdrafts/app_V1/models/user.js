@@ -1,4 +1,5 @@
 const mongoose = require( 'mongoose' );
+const bcrypt = require( 'bcrypt' );
 
 const userSchema = mongoose.Schema( {
   email: {
@@ -11,7 +12,7 @@ const userSchema = mongoose.Schema( {
     type: String,
     required: true
   }
-}
+} );
 
 // re-write this with Promises instead of callbacks 
 //from the model, before export hash the password 
@@ -44,5 +45,7 @@ userSchema.methods.comparePassword = function( pw, cb ) {
     cb( null, isMatch );
   });
 };
+ 
+const User = mongoose.model( 'User', userSchema );  
 
-module.exports = mongoose.model( 'User', userSchema );  
+module.exports = { User };
