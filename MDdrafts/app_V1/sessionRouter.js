@@ -6,10 +6,9 @@ const jsonParser = bodyParser.json();
 
 const { PORT, DATBASE_URL } = require( './config/mainConfig.js' );
 
-//two data models exported from the practiceSession.js 
+//two data models exported models folder
 const { Problem, Session } = require( './models/practiceSession' );
-
-
+const { User } = require( './models/user' );
 
 function generateTerm( min, max ){
   return Math.floor( Math.random() * ( max - min ) + min );
@@ -86,9 +85,35 @@ router.post( '/register', function( req, res ) {
   }
 });
 
+//Authentication if user exists
+router.post( '/authenticate', function( req, res ) {  
+    User.findOne({
+      email: req.body.email
+    }, function( err, user ) {
+      if ( err ) throw err;
+      if ( !user ) {
+        res.send( { success: false, message: 'Authentication failed. User not found.' } );
+      } else {
+        // Check if password matches
+        user.comparePassword( req.body.password, function( err, isMatch ) {
+          if ( isMatch && !err ) {
+            // Create token if the password matched and no error was thrown
+            var token = jwt.sign( user, config.secret, {
+            expiresIn: 10080 // in seconds, one week
+            });
+            res.json( { success: true, token: 'JWT ' + token } );
+          } else {
+            res.send( { success: false, message: 'Authentication failed. Passwords did not match.' } );
+        }
+      });
+    }
+  });
+});
 
-
-
+//protected route to the dashboard
+router.get('/dashboard', passport.authenticate('jwt', { session: false }), function(req, res) {  
+    res.send('It worked! User id is: ' + req.user._id + '.');
+  });
 
 
 
