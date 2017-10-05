@@ -66,7 +66,7 @@ router.post( '/generate-session', jsonParser, ( req, res ) => {
     });
 } );
 
-
+// read me:  https://woutr.me/2017/01/01/authenticating-with-json-web-tokens.html
 //route to register a user
 router.post( '/register', function( req, res ) {  
     if( !req.body.email || !req.body.password ) {
@@ -85,15 +85,7 @@ router.post( '/register', function( req, res ) {
             } );
             res.json( { success: true, message: 'Successfully created new user.' } );
         }
-        
-    /*
-    newUser.save(function(err) {
-      if (err) {
-        return res.json({ success: false, message: 'That email address already exists.'});
-      }
-      res.json({ success: true, message: 'Successfully created new user.' });
-    });  */
-  }
+    }
 });
 
 //Authentication if user exists
