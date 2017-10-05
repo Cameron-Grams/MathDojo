@@ -68,39 +68,22 @@ router.post( '/generate-session', jsonParser, ( req, res ) => {
 
 //route to register a user
 router.post( '/register', function( req, res ) {  
-    if( !req.body.email || !req.body.password ) {
+    if( !req.body.name || !req.body.email || !req.body.password ) {
       res.json( { success: false, message: 'Please enter email and password.' } );
     } else {
-
-        /*
- //       const alreadyUser = User.findOne( {
- //           email: req.body.email
-        }
-    );
-        console.log( alreadyUser );
-        if ( alreadyUser ){
-            return res.json({ success: false, message: 'That email address already exists.'});
-        } else {
-            var newUser = User.create( {
+      User.findOne( {
+          email: req.body.email 
+      }).then( function( foundUser ){ 
+          if ( foundUser ){
+              return res.json({ success: false, message: 'That email address already exists.'});
+          } else {
+              User.create( {
+                name: req.body.name,   
                 email: req.body.email,
                 password: req.body.password
-            } );
-            res.json( { success: true, message: 'Successfully created new user.' } );
-        }
-   */
-        User.findOne( {
-            email: req.body.email 
-        }).then( function( foundUser ){ 
-            if ( foundUser ){
-                return res.json({ success: false, message: 'That email address already exists.'});
-            } else {
-                User.create( {
-                    email: req.body.email,
-                    password: req.body.password
-                } ).then( function( ){ 
-                    res.json( { success: true, message: 'Successfully created new user.' } );
-                } ); 
-                
+              } ).then( function( ){ 
+                res.json( { success: true, message: 'Successfully created new user.' } );
+              } ); 
             }
         })
     }
