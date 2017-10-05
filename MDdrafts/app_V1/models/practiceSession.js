@@ -17,4 +17,4 @@ const sessionSchema = mongoose.Schema( {
 
 const Session = mongoose.model( 'Session', sessionSchema );
 
-module.exports = { Problem, Session };
+module.exports = { Problem, Session }; //don't think we need Problem...

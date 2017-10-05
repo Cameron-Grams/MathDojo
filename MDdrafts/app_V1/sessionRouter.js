@@ -4,7 +4,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
-const { PORT, DATBASE_URL } = require( './.config' );
+const { PORT, DATBASE_URL } = require( './config/mainConfig.js' );
 
 //two data models exported from the practiceSession.js 
 const { Problem, Session } = require( './models/practiceSession' );
@@ -63,6 +63,34 @@ router.post( '/generate-session', jsonParser, ( req, res ) => {
         console.error( err );
         res.status( 500 ).json( { message: 'Internal Server Error' } );
     });
-} )
+} );
+
+
+//route to register a user
+router.post( '/register', function( req, res ) {  
+    if( !req.body.email || !req.body.password ) {
+      res.json( { success: false, message: 'Please enter email and password.' } );
+    } else {
+      var newUser = new User( {
+        email: req.body.email,
+        password: req.body.password
+      } );
+  
+      // Attempt to save the user
+    newUser.save(function(err) {
+      if (err) {
+        return res.json({ success: false, message: 'That email address already exists.'});
+      }
+      res.json({ success: true, message: 'Successfully created new user.' });
+    });
+  }
+});
+
+
+
+
+
+
+
 
 module.exports = router;

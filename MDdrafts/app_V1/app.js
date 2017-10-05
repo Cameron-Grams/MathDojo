@@ -9,12 +9,20 @@ var passport = require('passport');
 var jwt = require('jsonwebtoken'); 
 
 const app = express();
-const { PORT, DATABASE_URL } = require( './.config' );
+const { PORT, DATABASE_URL } = require( './config/mainConfig.js' );
+const User = require( './models/user' ); 
+
 const sessionRouter = require( './sessionRouter' );
  
+app.use( bodyParser.urlencoded( { extended: false } ) ); //from the model, what role? 
+app.use( bodyParser.json() );
 app.use( morgan( 'dev' ) );
 
-app.use( express.static( 'public' ) );
+app.use( passport.initialize() );
+const Strategy = require( './models/passportStrategy' );
+Strategy( passport );
+
+app.use( express.static( 'public' ) ); //is this still needed? 
 
 app.use( '/api', sessionRouter );
 
