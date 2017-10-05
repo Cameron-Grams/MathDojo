@@ -71,9 +71,12 @@ router.post( '/register', function( req, res ) {
     if( !req.body.email || !req.body.password ) {
       res.json( { success: false, message: 'Please enter email and password.' } );
     } else {
-        const alreadyUser = User.findOne( {
-            email: req.body.email
-        });
+
+        /*
+ //       const alreadyUser = User.findOne( {
+ //           email: req.body.email
+        }
+    );
         console.log( alreadyUser );
         if ( alreadyUser ){
             return res.json({ success: false, message: 'That email address already exists.'});
@@ -84,6 +87,22 @@ router.post( '/register', function( req, res ) {
             } );
             res.json( { success: true, message: 'Successfully created new user.' } );
         }
+   */
+        User.findOne( {
+            email: req.body.email 
+        }).then( function( foundUser ){ 
+            if ( foundUser ){
+                return res.json({ success: false, message: 'That email address already exists.'});
+            } else {
+                User.create( {
+                    email: req.body.email,
+                    password: req.body.password
+                } ).then( function( ){ 
+                    res.json( { success: true, message: 'Successfully created new user.' } );
+                } ); 
+                
+            }
+        })
     }
 });
 
