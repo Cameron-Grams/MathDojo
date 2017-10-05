@@ -66,7 +66,6 @@ router.post( '/generate-session', jsonParser, ( req, res ) => {
     });
 } );
 
-// read me:  https://woutr.me/2017/01/01/authenticating-with-json-web-tokens.html
 //route to register a user
 router.post( '/register', function( req, res ) {  
     if( !req.body.email || !req.body.password ) {
