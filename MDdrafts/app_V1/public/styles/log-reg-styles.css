@@ -1,0 +1,26 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: grey;
+    text-align: center;
+}
+
+#registrationBody{
+    background-color: rgba(107, 21, 21, 0.77);
+}
+
+section{
+    border: 1px solid black;
+    margin: 5px;
+    height: 100px;
+}
+
+#demoInstructions{
+    margin: auto;
+    width: 25%;
+
+}
+
+ul {
+    text-align: left;
+}

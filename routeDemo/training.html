@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div id="app">Loading...</div>
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+	<script>
+        function getSessionMockCall(sessionId) {
+            setTimeout(() => {
+                $('#app').html(`<h1>Content of the session goes here</h1>
+                                    <p>Session with ID: ${sessionId} obtained</p>
+                                `);
+            }, 2000);
+        }
+        function getParameterByName(name) {
+            const url = window.location.href;
+            const replacedName = name.replace(/[[\]]/g, '\\$&');
+            const regex = new RegExp(`[?&]${replacedName}(=([^&#]*)|&|#|$)`);
+            const results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+        const sessionId = getParameterByName('sessionId');
+        getSessionMockCall(sessionId);
+
+
+    </script>
+</body>
+</html>

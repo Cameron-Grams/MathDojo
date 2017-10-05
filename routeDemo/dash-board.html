@@ -1,0 +1,40 @@
+// dashboard.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+</head>
+<body>
+    <p>
+        <label>Param 1</label><br />
+        <input type="text">
+    </p>
+    <p>
+        <label>Second</label><br />
+        <input type="text">
+    </p>
+    <p>
+        <label>Asdf</label><br />
+        <input type="text">
+    </p>
+    <p><button>Generate Session</button></p>
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+	<script>
+        function generateSessionMockCall() {
+            setTimeout(() => {
+                location.href="training.html?sessionId=aldkjaslkj23309i4lkwelkjsdf";
+            }, 3000);
+        }
+        $('button').click(function() {
+            $(this).text('Generating').attr('disabled', true);
+            generateSessionMockCall();
+        });
+    </script>
+    
+</body>
+</html>

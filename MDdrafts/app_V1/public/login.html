@@ -3,18 +3,8 @@
 <html>  
 <head>
 <title>Grey Login Page</title>
-<style>
-body{
-    background-color: grey;
-    text-align: center;
-}
+<link rel="stylesheet" href="./styles/log-reg-styles.css" />
 
-section{
-    border: 1px solid black;
-    margin: 5px;
-    height: 100px;
-}
-</style>
 
 </head>
 <body>
@@ -23,17 +13,29 @@ section{
 </section>
 
 <section>
-    <span>Left Image</span>
+<!--    <img id="leftImage" src="/images/jitath.jpg" alt="where is the image?" ><span>Left Image</span> -->
 </section>
 <section>
+<!--    <img id="leftImage" src="/images/seiryokuth.jpg" alt="Not here either?" > -->
     <span>Right Image</span>
 </section>
 
+<section id="registration" >
+    <h4>Enter Name </h4>
+    <input id="enterName" />
+    <h4>Enter Email </h4>
+    <input id="enterEmail" />
+    <h4>Enter Password </h4>
+    <input id="enterPassword" />
+    <a href=" # " id="newRegistration"><p>Or register as a new User</p></a>
 
-
-<section>
-    <h4>Login name input</h4>
-    <h4>Login password input</h4>
+    <section id="demoInstructions" >    
+        <p>For a demonstration enter:</p>
+        <ul>
+            <li>Email: demo@demo.com</li>
+            <li>Password: demo</li>
+        </ul>
+    </section>
 </section>
 
 
