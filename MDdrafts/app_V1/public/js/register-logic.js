@@ -14,14 +14,13 @@
   function manageNewUser( data ){
       console.log( data );
       //send the data to the dashboard page--will produce a blank dashboard page
+      console.log( 'id: ', data[ '_id' ] );
+      location.href = `dashboard.html?_id=${ data[ '_id' ] }`;
   }
-
-  $( '#sendRegistration' ).on( 'click', () => {
-      console.log( 'clicked' );
   
+  $( '#sendRegistration' ).on( 'click', () => {
     let name = $( '#enterName' ).val();
     let email = $( '#enterEmail' ).val();
     let password = $( '#enterPassword' ).val();
-    console.log( 'trying to send: ', name, email, password );
     registerAccount( name, email, password );
   } ); 

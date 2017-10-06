@@ -82,9 +82,14 @@ router.post( '/register', function( req, res ) {
                 email: req.body.email,
                 password: req.body.password
               } ).then( function( ){ 
-                res.json( { success: true, message: 'Successfully created new user.' } );
-              } ); 
-            }
+//                res.json( { success: true, message: 'Successfully created new user.' } );
+                    let newUser = User.findOne( {
+                        email: req.body.email
+                    }).then( returnNewUser => {
+                        res.json( returnNewUser );
+                    } );
+                } )
+            } 
         })
     }
 });

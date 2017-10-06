@@ -1,0 +1,36 @@
+body{
+    background-color: rgba(128, 35, 35, 0.74);
+    text-align: center;
+}
+
+section{
+    border: 1px solid black;
+}
+
+.instructionFormat{
+    display: inline-block;
+    margin: 5px auto;
+}
+
+.record{
+    display: inline-block;
+    width: 100%;
+}
+
+.division{
+    width: 48%;
+    height: 100px;
+}
+
+.correct{
+    border: 1px solid green;
+    color: green;
+}
+
+.incorrect{
+    border: 1px solid red;
+    color: red;
+}
+.accuracy{
+    color: black;
+}
