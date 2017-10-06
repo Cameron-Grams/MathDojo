@@ -1,4 +1,4 @@
- function registerAccount( name, email, password ) ){
+ function registerAccount( name, email, password ){
     $.ajax({
       method: 'POST',
       url: '/api/register',
@@ -10,15 +10,18 @@
       contentType: 'application/json'
     });
   }
-
+  
   function manageNewUser( data ){
       console.log( data );
       //send the data to the dashboard page--will produce a blank dashboard page
   }
 
   $( '#sendRegistration' ).on( 'click', () => {
+      console.log( 'clicked' );
+  
     let name = $( '#enterName' ).val();
     let email = $( '#enterEmail' ).val();
     let password = $( '#enterPassword' ).val();
+    console.log( 'trying to send: ', name, email, password );
     registerAccount( name, email, password );
-  })
+  } ); 
