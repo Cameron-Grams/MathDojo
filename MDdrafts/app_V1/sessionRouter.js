@@ -93,7 +93,7 @@ router.post( '/register', function( req, res ) {
         })
     }
 });
-
+ 
 //Authentication if user exists
 router.post( '/authenticate', function( req, res ) {  
     User.findOne({
