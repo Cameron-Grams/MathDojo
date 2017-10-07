@@ -15,7 +15,8 @@
       console.log( data );
       //send the data to the dashboard page--will produce a blank dashboard page
       console.log( 'id: ', data[ '_id' ] );
-      location.href = `dashboard.html?_id=${ data[ '_id' ] }`;
+//      location.href = `dashboard.html?_id=${ data[ '_id' ] }`;
+      location.href = 'login.html';
   }
   
   $( '#sendRegistration' ).on( 'click', () => {
