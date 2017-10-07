@@ -22,7 +22,7 @@ function manageLogin( data ){
 // at the dashboard route to training with id and generate new session... 
 
 $( '#logIn' ).on( 'click', () => {
-  let email = $( ' ' ).val();
-  let password = $( ' ' ).val();
+  let email = $( '#enterEmail' ).val();
+  let password = $( '#enterPassword' ).val();
   logintoAccount( email, password );
 } );

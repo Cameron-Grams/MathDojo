@@ -96,9 +96,17 @@ router.post( '/register', function( req, res ) {
  
 //Authentication if user exists
 router.post( '/authenticate', function( req, res ) {  
+    console.log( 'at the endpoint' );
+    console.log( 'email: ', req.body.email );
     User.findOne({
-      email: req.body.email
-    }, function( err, user ) {
+      "email" : req.body.email
+    } ).then
+    ( ( user ) => {
+        console.log( user );
+        res.json( user );
+    } );
+ /*   
+    function( err, user ) {
       if ( err ) throw err;
       if ( !user ) {
         res.send( { success: false, message: 'Authentication failed. User not found.' } );
@@ -116,9 +124,12 @@ router.post( '/authenticate', function( req, res ) {
         }
       });
     }
-  });
-});
+  }
+);
+*/
 
+
+});
 //protected route to the dashboard
 router.get('/dashboard', passport.authenticate('jwt', { session: false }), function(req, res) {  
     res.send('It worked! User id is: ' + req.user._id + '.');
