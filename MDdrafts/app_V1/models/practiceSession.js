@@ -12,6 +12,7 @@ const Problem = {
 };
 
 const sessionSchema = mongoose.Schema( {
+    userId: { type: String },
     problems: { type: Array }
 }, { timestamps: true } )
 

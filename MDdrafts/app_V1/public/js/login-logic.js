@@ -9,11 +9,26 @@
       dataType: 'json',
       contentType: 'application/json'
     });
-  }
-  
+  };
+
+function sendForDashboard( data ){
+    $.ajax({
+        method: 'POST',
+        url: '/api/authenticate',
+        data: data,
+        success: function(data) {
+          manageLogin( data );
+        },
+        dataType: 'json',
+        contentType: 'application/json'
+    });
+}
+
 function manageLogin( data ){
     console.log( data );
     // JWT and ...
+    location.href = `dashboard.html?_id=${ data.user[ '_id' ] }`;
+    sendForDashboard( data );
 }
 
 // login returns JWT

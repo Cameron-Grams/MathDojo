@@ -1,11 +1,11 @@
 var questionNumber = 0;
 var sessionProblemsArray = [];
 
-function requestSession( operation, number, min, max ){
+function requestSession( userId, operation, number, min, max ){
     $.ajax({
       method: 'POST',
       url: '/api/generate-session',
-      data: JSON.stringify( { operation, number, min, max } ),
+      data: JSON.stringify( { userId, operation, number, min, max } ),
       success: function(data) {
         manageSessionData( data );
       },
@@ -59,16 +59,46 @@ $( '#js-userResponse' ).keydown( function( e ){
     }
 } )
 
-//handler for initial start of practice session, enters the session values
-$( '#js-startExercise' ).on( 'click', function(){  
-    let operation = $( '#js-operationType' ).val();   
-    let number = $( '#js-practiceType' ).val();
-    let min = $( '#js-minRange' ).val();
-    let max = $( '#js-maxRange' ).val();
-    requestSession( operation, number, min, max );
-} );
+function checkOperation( string ){
+    switch( string ){
+        case 'addition':
+          console.log( string );
+          return '+';
+        case 'subtraction':
+          return '-';
+        case 'multiplication':
+          return '*';
+        case 'division':
+          return '/';
+        default:
+          return string;
+    }
+}
+
+function getQueryVariable( variable )
+{
+       var query = window.location.search.substring( 1 );
+       var vars = query.split( "&" );
+       for ( var i=0;i<vars.length;i++ ) {
+               var pair = vars[ i ].split( "=" );
+               if( pair[ 0 ] == variable ){ return checkOperation(pair[ 1 ] ); }
+       }
+       return( false );
+}
+
+function createSession( ){
+    let userId = getQueryVariable( 'userId' )
+    let operation = getQueryVariable( 'opertion' );
+    console.log( operation );
+    let number = getQueryVariable( 'number' );
+    let min = getQueryVariable( 'min' );
+    let max = getQueryVariable( 'max' );
+    requestSession( userId, operation, number, min, max );
+};
 
 //handler to clear values in input boxes
 $( '.js-inputBox' ).focus( function(){
     $( this ).val( '' );
 } );
+
+$( createSession );

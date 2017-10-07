@@ -6,7 +6,7 @@ const jsonParser = bodyParser.json();
 var passport = require('passport');  
 var jwt = require('jsonwebtoken'); 
 
-const { PORT, DATBASE_URL } = require( './config/mainConfig.js' );
+const { secret, PORT, DATBASE_URL } = require( './config/mainConfig.js' );
 
 //two data models exported models folder
 const { Problem, Session } = require( './models/practiceSession' );
@@ -56,6 +56,7 @@ router.post( '/generate-session', jsonParser, ( req, res ) => {
 // save session into db 
     Session
     .create( {
+        userId: req.body.userId, 
         problems: practiceSession  
     } )
     .then(
@@ -96,39 +97,25 @@ router.post( '/register', function( req, res ) {
  
 //Authentication if user exists
 router.post( '/authenticate', function( req, res ) {  
-    console.log( 'at the endpoint' );
-    console.log( 'email: ', req.body.email );
     User.findOne({
       "email" : req.body.email
     } ).then
     ( ( user ) => {
-        console.log( user );
-        res.json( user );
-    } );
- /*   
-    function( err, user ) {
-      if ( err ) throw err;
-      if ( !user ) {
-        res.send( { success: false, message: 'Authentication failed. User not found.' } );
-      } else {
-        // Check if password matches
-        user.comparePassword( req.body.password, function( err, isMatch ) {
-          if ( isMatch && !err ) {
-            // Create token if the password matched and no error was thrown
-            var token = jwt.sign( user, config.secret, {
-            expiresIn: 10080 // in seconds, one week
-            });
-            res.json( { success: true, token: 'JWT ' + token } );
-          } else {
-            res.send( { success: false, message: 'Authentication failed. Passwords did not match.' } );
+        if ( !user ){
+            res.send( { success: false, message: 'Authentication failed. User not found.' } );
+        } else {
+            user.comparePassword( req.body.password, function( err, isMatch ) {
+                if ( isMatch && !err ){
+                    var token = jwt.sign( user.toObject(), secret, {
+                        expiresIn: 10080
+                    } );
+                    res.json( { success: true, user: user, token: 'JWT ' + token } );
+                } else {
+                    res.send( { success: false, message: 'Authentication failed: passwords do not match' } );
+                }
+            })
         }
-      });
-    }
-  }
-);
-*/
-
-
+    } ).catch( err => res.send( err ) );
 });
 //protected route to the dashboard
 router.get('/dashboard', passport.authenticate('jwt', { session: false }), function(req, res) {  
