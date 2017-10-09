@@ -62,7 +62,6 @@ $( '#js-userResponse' ).keydown( function( e ){
 function checkOperation( string ){
     switch( string ){
         case 'addition':
-          console.log( string );
           return '+';
         case 'subtraction':
           return '-';
@@ -81,15 +80,15 @@ function getQueryVariable( variable )
        var vars = query.split( "&" );
        for ( var i=0;i<vars.length;i++ ) {
                var pair = vars[ i ].split( "=" );
-               if( pair[ 0 ] == variable ){ return checkOperation(pair[ 1 ] ); }
+               if( pair[ 0 ] == variable ){ return pair[ 1 ]; }
        }
        return( false );
 }
-
+ 
 function createSession( ){
     let userId = getQueryVariable( 'userId' )
-    let operation = getQueryVariable( 'opertion' );
-    console.log( operation );
+    let operationType = getQueryVariable( 'operation' );
+    let operation = checkOperation( operationType );
     let number = getQueryVariable( 'number' );
     let min = getQueryVariable( 'min' );
     let max = getQueryVariable( 'max' );

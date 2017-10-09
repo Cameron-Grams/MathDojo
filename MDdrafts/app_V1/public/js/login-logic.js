@@ -36,6 +36,11 @@ function manageLogin( data ){
 // need to query the db for past sessions on the dashboard...
 // at the dashboard route to training with id and generate new session... 
 
+$( '#newRegistration' ).on( 'click', () => {
+  location.href = 'register.html';
+})
+
+
 $( '#logIn' ).on( 'click', () => {
   let email = $( '#enterEmail' ).val();
   let password = $( '#enterPassword' ).val();
