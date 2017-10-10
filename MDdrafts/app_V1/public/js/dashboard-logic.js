@@ -7,7 +7,6 @@ function checkUser( ){
         url: '/api/dashboard',
         headers: {
             Authorization: token,
-
         },
         success: () => { alert( 'all good' ) },
         error: () => { location.href = 'login.html' }

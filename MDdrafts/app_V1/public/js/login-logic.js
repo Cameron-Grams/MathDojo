@@ -19,12 +19,6 @@ function manageLogin( data ){
 
 }
 
-// login returns JWT
-// need to route to the dashboard
-// need to query the db for past sessions on the dashboard...
-// at the dashboard route to training with id and generate new session... 
-
-
 $( '#logIn' ).on( 'click', () => {
   let email = $( '#enterEmail' ).val();
   let password = $( '#enterPassword' ).val();

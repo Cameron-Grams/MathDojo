@@ -106,7 +106,6 @@ router.post( '/authenticate', function( req, res ) {
         } else {
             user.comparePassword( req.body.password, function( err, isMatch ) {
                 if ( isMatch && !err ){
-    
                     var token = jwt.sign( { id: user._id }, secret, {
                         expiresIn: 10080
                     } );
