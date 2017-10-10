@@ -1,3 +1,22 @@
+function checkUser( ){
+    const token = localStorage.getItem( 'token' );
+    if ( !token ){
+        location.href = 'login.html';
+    }
+    $.ajax( {
+        url: '/api/dashboard',
+        headers: {
+            Authorization: token,
+
+        },
+        success: () => { alert( 'all good' ) },
+        error: () => { location.href = 'login.html' }
+    })
+}
+
+
+
+
 
 function sendForSession( userId, operation, number, min, max ){
     location.href = `training.html?userId=${ userId }&operation=${ operation }&number=${ number }&min=${ min }&max=${ max }`;
@@ -29,4 +48,9 @@ $( '#js-startExercise' ).on( 'click', function(){
 //handler to clear values in input boxes
 $( '.js-inputBox' ).focus( function(){
     $( this ).val( '' );
+} );
+
+$( function(){
+    checkUser();
+    
 } );

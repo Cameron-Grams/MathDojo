@@ -102,16 +102,17 @@ router.post( '/authenticate', function( req, res ) {
     } ).then
     ( ( user ) => {
         if ( !user ){
-            res.send( { success: false, message: 'Authentication failed. User not found.' } );
+            res.status( 400 ).send( { success: false, message: 'Authentication failed. User not found.' } );
         } else {
             user.comparePassword( req.body.password, function( err, isMatch ) {
                 if ( isMatch && !err ){
-                    var token = jwt.sign( user.toObject(), secret, {
+    
+                    var token = jwt.sign( { id: user._id }, secret, {
                         expiresIn: 10080
                     } );
-                    res.json( { success: true, user: user, token: 'JWT ' + token } );
+                    res.json( { success: true, token: 'Bearer ' + token } );
                 } else {
-                    res.send( { success: false, message: 'Authentication failed: passwords do not match' } );
+                    res.status( 400 ).send( { success: false, message: 'Authentication failed. User not found.' } );
                 }
             })
         }
