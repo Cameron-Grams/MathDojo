@@ -35,21 +35,20 @@ function generateCorrectResponse( num1, num2, operator ){
       }
   }
 };
-
+ 
 router.post( '/generate-session', passport.authenticate('jwt', { session: false }), jsonParser, ( req, res ) => {
     let problem;
     let practiceSession = [];  
     for ( let i = 0; i < req.body.number; i++ ){
-        problem = Object.assign( {}, Problem );
         let firstTerm = generateTerm( req.body.min, req.body.max );
         let secondTerm = generateTerm( req.body.min, req.body.max );
-        Object.assign( problem, {  //change to just object for pushing to session  
+        const problem = {  //change to just object for pushing to session  
             operator: req.body.operation,
             firstTerm,
             secondTerm,
             problem: `${ firstTerm } ${ req.body.operation } ${ secondTerm }`,
             correctResponse: generateCorrectResponse( firstTerm, secondTerm, req.body.operation )
-        } )
+        }; 
         practiceSession.push( problem );
     }
     

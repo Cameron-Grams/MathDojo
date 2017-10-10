@@ -1,6 +1,6 @@
 var questionNumber = 0;
 var sessionProblemsArray = [];
-
+/*
 function requestSession( userId, operation, number, min, max ){
     $.ajax({
       method: 'POST',
@@ -13,7 +13,7 @@ function requestSession( userId, operation, number, min, max ){
       contentType: 'application/json'
     });
   }
- 
+ */
 //extracts the current session's problems as an array from the session data object
 function manageSessionData( session ){
     sessionProblemsArray = session.problems;
@@ -100,4 +100,4 @@ $( '.js-inputBox' ).focus( function(){
     $( this ).val( '' );
 } );
 
-$( createSession );
+// $( createSession );
