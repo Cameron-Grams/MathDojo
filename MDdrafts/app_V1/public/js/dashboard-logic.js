@@ -9,7 +9,7 @@ function checkUser( ){
             Authorization: token,
         },
         success: () => { 
-            alert( 'all good' );
+            displayUserRecord();
         },
         error: () => { location.href = 'login.html' }
     })
@@ -17,7 +17,9 @@ function checkUser( ){
 
 //loader for time to authenticate and load
 // query into mongo based on userId 
-function displayUserRecord(){};
+function displayUserRecord(){
+    console.log( 'in display user record' );
+};
 
 function requestSession( operation, number, min, max ){
     $.ajax({
@@ -34,12 +36,6 @@ function requestSession( operation, number, min, max ){
       contentType: 'application/json'
     });
  }
-
-
-function sendForSession( userId, operation, number, min, max ){
-//    location.href = `training.html?userId=${ userId }&operation=${ operation }&number=${ number }&min=${ min }&max=${ max }`;
-//    location.href = 'training.html';
-}
 
 function getQueryVariable( variable )
 {
@@ -69,5 +65,4 @@ $( '.js-inputBox' ).focus( function(){
 
 $( function(){
     checkUser();
-    
 } );

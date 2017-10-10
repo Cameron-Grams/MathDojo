@@ -37,12 +37,11 @@ function generateCorrectResponse( num1, num2, operator ){
 };
  
 router.post( '/generate-session', passport.authenticate('jwt', { session: false }), jsonParser, ( req, res ) => {
-    let problem;
     let practiceSession = [];  
     for ( let i = 0; i < req.body.number; i++ ){
         let firstTerm = generateTerm( req.body.min, req.body.max );
         let secondTerm = generateTerm( req.body.min, req.body.max );
-        const problem = {  //change to just object for pushing to session  
+        const problem = {  
             operator: req.body.operation,
             firstTerm,
             secondTerm,
@@ -128,7 +127,15 @@ router.get('/dashboard', passport.authenticate('jwt', { session: false }), funct
     
   }); 
 
-
+router.get( '/sendSession', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
+    console.log( req.sessionId );
+    Session.find()
+//    Session.find( { _id: req.session._id } )
+    .then( ( session ) => {
+        res.json( session );
+    } )
+    .catch( () => res.status( 500 ).send( 'problem sending the session' ) );
+});
 
 
 module.exports = router;
