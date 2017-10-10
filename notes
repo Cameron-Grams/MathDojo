@@ -1,3 +1,18 @@
 read me:  https://woutr.me/2017/01/01/authenticating-with-json-web-tokens.html
 
+9 Oct
+differences after work:
+- changed the name of the properties being searched for in MongoDB
+- bcrypt requiring Object specification?  Forces the inclusion of properties by commision rather than ommission...; jwt.sign( ... ) line 110 sessionRouter.js 
 
+- dashboard 'checkUser()' function;
+    - to dashboard authorization endpoint on router
+    - header contains an Authorization property
+    - success/ error actions
+    - localStorage to hold the JWT; set in the login-logic.js, calls dashboard.html 
+        - dashboard-logic.js checks to make sure the JWT is present for the dashboard page before permitting data to be displayed.
+    - specification of the operation in the call to dashboard...
+    - including the http status on the response object from the server ( Promise function); prevents an incorrect response being sent through by default
+
+--more explanation of the basicStrategy.js  ?? 
+--CORS? 
