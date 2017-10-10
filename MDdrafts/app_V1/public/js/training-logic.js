@@ -1,11 +1,14 @@
 var questionNumber = 0;
 var sessionProblemsArray = [];
 
-function requestSession( userId, operation, number, min, max ){
+function sendSession( sessionId ){
     $.ajax({
-      method: 'POST',
-      url: '/api/generate-session',
-      data: JSON.stringify( { userId, operation, number, min, max } ),
+      method: 'GET',
+      headers: {
+        Authorization: localStorage.getItem( 'token' )
+      },
+      url: '/api/sendSession',
+      data: JSON.stringify( { sessionId } ),
       success: function(data) {
         manageSessionData( data );
       },
@@ -13,9 +16,10 @@ function requestSession( userId, operation, number, min, max ){
       contentType: 'application/json'
     });
   }
- 
+
 //extracts the current session's problems as an array from the session data object
 function manageSessionData( session ){
+    console.log( 'returned with: ', session );
     sessionProblemsArray = session.problems;
     console.log( sessionProblemsArray );
     displayProblem( sessionProblemsArray );
@@ -24,7 +28,6 @@ function manageSessionData( session ){
 
 //manages the display of the currentQuestion based on questionNumber
 function displayProblem( sessionProblemsArray ){
-    console.log( 'number of problems: ', sessionProblemsArray.length )
     let practiceLength = sessionProblemsArray.length;
     if ( questionNumber <= practiceLength ){
         $( '#js-displayQuestion' ).html( `${ sessionProblemsArray[ questionNumber ].problem }` );
@@ -34,14 +37,11 @@ function displayProblem( sessionProblemsArray ){
 //evaluates user answer based on questionNumber in session array, controls advance of the 
 // global questionNumber variable
 function evaluateResponse( userResponse ){
-    console.log( ' in eval ', questionNumber );
     let responseString = `<div>${ sessionProblemsArray[ questionNumber ].problem } = ${ userResponse }</div>`;
     if ( +userResponse === sessionProblemsArray[ questionNumber ].correctResponse ){
-        console.log( 'correct response' );
         $( responseString ).attr( 'class', 'correct' );
         $( '#correctResponses' ).append( responseString );
     } else {
-        console.log( 'incorrect response' );
         $( responseString ).attr( 'class', 'incorrect' ); 
         $( '#incorrectResponses' ).append( responseString );
     }
@@ -84,15 +84,11 @@ function getQueryVariable( variable )
        }
        return( false );
 }
- 
-function createSession( ){
-    let userId = getQueryVariable( 'userId' )
-    let operationType = getQueryVariable( 'operation' );
-    let operation = checkOperation( operationType );
-    let number = getQueryVariable( 'number' );
-    let min = getQueryVariable( 'min' );
-    let max = getQueryVariable( 'max' );
-    requestSession( userId, operation, number, min, max );
+// sessionId 
+
+function beginSession( ){
+    let sessionId = getQueryVariable( 'sessionId' );
+    sendSession( sessionId );
 };
 
 //handler to clear values in input boxes
@@ -100,4 +96,4 @@ $( '.js-inputBox' ).focus( function(){
     $( this ).val( '' );
 } );
 
-$( createSession );
+$( beginSession );

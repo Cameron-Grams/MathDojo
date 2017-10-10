@@ -9,7 +9,7 @@ var jwt = require('jsonwebtoken');
 const { secret, PORT, DATBASE_URL } = require( './config/mainConfig.js' );
 
 //two data models exported models folder
-const { Problem, Session } = require( './models/practiceSession' );
+const { Session } = require( './models/practiceSession' );
 const { User } = require( './models/user' );
 
 function generateTerm( min, max ){
@@ -35,28 +35,26 @@ function generateCorrectResponse( num1, num2, operator ){
       }
   }
 };
-
-router.post( '/generate-session', jsonParser, ( req, res ) => {
-    let problem;
+ 
+router.post( '/generate-session', passport.authenticate('jwt', { session: false }), jsonParser, ( req, res ) => {
     let practiceSession = [];  
     for ( let i = 0; i < req.body.number; i++ ){
-        problem = Object.assign( {}, Problem );
         let firstTerm = generateTerm( req.body.min, req.body.max );
         let secondTerm = generateTerm( req.body.min, req.body.max );
-        Object.assign( problem, {  //change to just object for pushing to session  
+        const problem = {  
             operator: req.body.operation,
             firstTerm,
             secondTerm,
             problem: `${ firstTerm } ${ req.body.operation } ${ secondTerm }`,
             correctResponse: generateCorrectResponse( firstTerm, secondTerm, req.body.operation )
-        } )
+        }; 
         practiceSession.push( problem );
     }
     
 // save session into db 
     Session
     .create( {
-        userId: req.body.userId, 
+        userId: req.user._id, 
         problems: practiceSession  
     } )
     .then(
@@ -106,6 +104,7 @@ router.post( '/authenticate', function( req, res ) {
         } else {
             user.comparePassword( req.body.password, function( err, isMatch ) {
                 if ( isMatch && !err ){
+                    console.log( 'good authentication' );
                     var token = jwt.sign( { id: user._id }, secret, {
                         expiresIn: 10080
                     } );
@@ -117,12 +116,26 @@ router.post( '/authenticate', function( req, res ) {
         }
     } ).catch( err => res.send( err ) );
 });
+//query against user background 
 //protected route to the dashboard
 router.get('/dashboard', passport.authenticate('jwt', { session: false }), function(req, res) {  
-    res.send('It worked! User id is: ' + req.user._id + '.');
-  });
+    Session.find( { userId: req.user._id } )
+    .then( ( sessions ) => { 
+        res.json( sessions ); 
+    } )
+    .catch( () => res.status( 500 ).send( 'something went wrong...' ) );
+    
+  }); 
 
-
+router.get( '/sendSession', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
+    console.log( req.sessionId );
+    Session.find()
+//    Session.find( { _id: req.session._id } )
+    .then( ( session ) => {
+        res.json( session );
+    } )
+    .catch( () => res.status( 500 ).send( 'problem sending the session' ) );
+});
 
 
 module.exports = router;

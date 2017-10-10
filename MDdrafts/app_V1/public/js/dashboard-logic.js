@@ -8,18 +8,34 @@ function checkUser( ){
         headers: {
             Authorization: token,
         },
-        success: () => { alert( 'all good' ) },
+        success: () => { 
+            displayUserRecord();
+        },
         error: () => { location.href = 'login.html' }
     })
 }
 
+//loader for time to authenticate and load
+// query into mongo based on userId 
+function displayUserRecord(){
+    console.log( 'in display user record' );
+};
 
-
-
-
-function sendForSession( userId, operation, number, min, max ){
-    location.href = `training.html?userId=${ userId }&operation=${ operation }&number=${ number }&min=${ min }&max=${ max }`;
-}
+function requestSession( operation, number, min, max ){
+    $.ajax({
+      method: 'POST',
+      headers: {
+          Authorization: localStorage.getItem( 'token' )
+      },
+      url: '/api/generate-session',
+      data: JSON.stringify( { operation, number, min, max } ),
+      success: function(data) {
+        location.href= `training.html?sessionId=${ data._id }`
+      },
+      dataType: 'json',
+      contentType: 'application/json'
+    });
+ }
 
 function getQueryVariable( variable )
 {
@@ -35,13 +51,11 @@ function getQueryVariable( variable )
 
 //handler for initial start of practice session, enters the session values
 $( '#js-startExercise' ).on( 'click', function(){  
-    console.log( location.href );
-    let userId = getQueryVariable( '_id' );
     let operation = $( '#js-operationType' ).val();   
     let number = $( '#js-practiceType' ).val();
     let min = $( '#js-minRange' ).val();
     let max = $( '#js-maxRange' ).val();
-    sendForSession( userId, operation, number, min, max );
+    requestSession( operation, number, min, max );
 } );
 
 //handler to clear values in input boxes
@@ -51,5 +65,4 @@ $( '.js-inputBox' ).focus( function(){
 
 $( function(){
     checkUser();
-    
 } );
