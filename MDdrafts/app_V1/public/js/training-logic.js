@@ -3,13 +3,14 @@ var sessionProblemsArray = [];
 
 function sendSession( sessionId ){
     $.ajax({
-      method: 'GET',
+      method: 'POST',
       headers: {
         Authorization: localStorage.getItem( 'token' )
       },
       url: '/api/sendSession',
       data: JSON.stringify( { sessionId } ),
       success: function(data) {
+        console.log( 'data returned is: ', data );
         manageSessionData( data );
       },
       dataType: 'json',
@@ -19,9 +20,8 @@ function sendSession( sessionId ){
 
 //extracts the current session's problems as an array from the session data object
 function manageSessionData( session ){
-    console.log( 'returned with: ', session );
-    sessionProblemsArray = session.problems;
-    console.log( sessionProblemsArray );
+    sessionProblemsArray = session[ 0 ].problems;
+    console.log( 'problems at: ', session[ 0 ].problems );
     displayProblem( sessionProblemsArray );
     return sessionProblemsArray;
 }
