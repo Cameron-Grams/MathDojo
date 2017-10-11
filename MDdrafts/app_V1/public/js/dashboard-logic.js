@@ -30,8 +30,7 @@ function requestSession( operation, number, min, max ){
       url: '/api/generate-session',
       data: JSON.stringify( { operation, number, min, max } ),
       success: function(data) {
-        location.href= `training.html?sessionId=${ data._id }`
-      },
+        location.href= `training.html?sessionId=${ data._id }` },
       dataType: 'json',
       contentType: 'application/json'
     });
