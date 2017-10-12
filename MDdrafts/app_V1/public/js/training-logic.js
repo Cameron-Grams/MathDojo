@@ -1,5 +1,23 @@
+var sessionId;
 var questionNumber = 0;
 var sessionProblemsArray = [];
+
+function checkUser( ){
+    const token = localStorage.getItem( 'token' );
+    if ( !token ){
+        location.href = 'login.html';
+    }
+    $.ajax( {
+        url: '/api/dashboard',
+        headers: {
+            Authorization: token,
+        },
+        success: ( data ) => { 
+            displayUserRecord( data );
+        },
+        error: () => { location.href = 'login.html' }
+    })
+}
 
 function sendSession( sessionId ){
     $.ajax({
@@ -18,6 +36,24 @@ function sendSession( sessionId ){
     });
   }
 
+  //mechanics of the AJAX call sending the PATCH request to the problem object
+function updateProblem( sessionId, problemIndex, userResponse ){
+    $.ajax({
+      method: 'PATCH',
+      headers: {
+        Authorization: localStorage.getItem( 'token' )
+      },
+      url: `/api//session/${sessionId}/${problemIndex}`,
+      data: JSON.stringify({userResponse }),
+      success: function(data) {
+        console.log( 'problem updated: ', data );
+      },
+      dataType: 'json',
+      contentType: 'application/json'
+    });
+  }
+
+
 //extracts the current session's problems as an array from the session data object
 function manageSessionData( session ){
     sessionProblemsArray = session[ 0 ].problems;
@@ -29,8 +65,15 @@ function manageSessionData( session ){
 //manages the display of the currentQuestion based on questionNumber
 function displayProblem( sessionProblemsArray ){
     let practiceLength = sessionProblemsArray.length;
-    if ( questionNumber <= practiceLength ){
+    if ( questionNumber < practiceLength ){
         $( '#js-displayQuestion' ).html( `${ sessionProblemsArray[ questionNumber ].problem }` );
+    }
+
+    if ( questionNumber === practiceLength ){
+ //       console.log( sessionProblemsArray );
+
+//while working the update don't leave the page
+        location.href = `dashboard.html`;
     }
 }
 
@@ -38,24 +81,27 @@ function displayProblem( sessionProblemsArray ){
 // global questionNumber variable
 function evaluateResponse( userResponse ){
     let responseString = `<div>${ sessionProblemsArray[ questionNumber ].problem } = ${ userResponse }</div>`;
-    if ( +userResponse === sessionProblemsArray[ questionNumber ].correctResponse ){
+    let correct = +userResponse === sessionProblemsArray[ questionNumber ].correctResponse;
+    if ( correct ){
         $( responseString ).attr( 'class', 'correct' );
         $( '#correctResponses' ).append( responseString );
     } else {
         $( responseString ).attr( 'class', 'incorrect' ); 
         $( '#incorrectResponses' ).append( responseString );
     }
+    sessionProblemsArray[ questionNumber ].userResponse = userResponse; 
+    sessionProblemsArray[ questionNumber ].goodResponse = correct ? true: false; 
+//  need to send the user response information to update the individual problem by index in the session
+    updateProblem( sessionId, questionNumber, userResponse );
     questionNumber += 1;
     displayProblem( sessionProblemsArray )
 }
 
-//  *************
-// The Event Handlers
-//handler for user response to questions
 $( '#js-userResponse' ).keydown( function( e ){
     let responseAnswer = $( '#js-userResponse' ).val();
     if ( e.keyCode === 13 ){
         evaluateResponse( responseAnswer );
+        clearInput();
     }
 } )
 
@@ -84,16 +130,16 @@ function getQueryVariable( variable )
        }
        return( false );
 }
-// sessionId 
 
 function beginSession( ){
-    let sessionId = getQueryVariable( 'sessionId' );
+    sessionId = getQueryVariable( 'sessionId' );
     sendSession( sessionId );
 };
 
+function clearInput(){
+    $( '.js-inputBox' ).val( '' );
+}
 //handler to clear values in input boxes
-$( '.js-inputBox' ).focus( function(){
-    $( this ).val( '' );
-} );
+$( '.js-inputBox' ).focus( clearInput );
 
 $( beginSession );
