@@ -127,24 +127,16 @@ router.get('/dashboard', passport.authenticate('jwt', { session: false }), funct
     
   });
 
-<<<<<<< HEAD
 router.get( '/sendSession/:sessionId', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
     console.log( 'body is ', req.params.sessionId );
 //    Session.find()
     Session.find( { _id: req.params.sessionId } )
-=======
-router.post( '/sendSession', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
-    console.log( 'body is ', req.body.sessionId );
-    Session.find( { _id: req.body.sessionId } )
->>>>>>> master
     .then( ( session ) => {
         res.json( session );
     } )
     .catch( () => res.status( 500 ).send( 'problem sending the session' ) );
 });
 
-<<<<<<< HEAD
-=======
 router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
     console.log(req.params.index);
     Session.findOne({_id: req.params.sessionId})
@@ -157,5 +149,4 @@ router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { sess
 
 })
 
->>>>>>> master
 module.exports = router;
