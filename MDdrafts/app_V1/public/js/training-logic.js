@@ -26,8 +26,8 @@ function updateProblem( sessionId, problemIndex, userResponse ){
       headers: {
         Authorization: localStorage.getItem( 'token' )
       },
-      url: `/api/session/problems/${ problemIndex }`,
-      data: JSON.stringify( { sessionId }, { "op": "add", "path": `/session/problems/${ problemIndex }` , "value": { "userResponse": `${ userResponse }` } } ),
+      url: `/api//session/${sessionId}/${problemIndex}`,
+      data: JSON.stringify({userResponse }),
       success: function(data) {
         console.log( 'problem updated: ', data );
       },
@@ -53,10 +53,10 @@ function displayProblem( sessionProblemsArray ){
     }
 
     if ( questionNumber === practiceLength ){
-        console.log( sessionProblemsArray );
+ //       console.log( sessionProblemsArray );
 
 //while working the update don't leave the page
-//        location.href = `dashboard.html`;
+        location.href = `dashboard.html`;
     }
 }
 

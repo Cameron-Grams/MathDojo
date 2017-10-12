@@ -125,7 +125,7 @@ router.get('/dashboard', passport.authenticate('jwt', { session: false }), funct
     } )
     .catch( () => res.status( 500 ).send( 'something went wrong...' ) );
     
-  }); 
+  });
 
 router.post( '/sendSession', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
     console.log( 'body is ', req.body.sessionId );
@@ -136,15 +136,16 @@ router.post( '/sendSession', passport.authenticate( 'jwt', { session: false } ),
     .catch( () => res.status( 500 ).send( 'problem sending the session' ) );
 });
 
-//movement of data from dashboard fields to the database??? 
-router.patch( '/session/problems/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
-    //each index will be the problem obejct of the session array
-    //this object needs to have the userResponse added to the object 
-//    /session/problems/index
-    Session.find( { _id: req.body.sessionId } )
-    .then( session => {
-        session.problems.index = req.params.id; //not the way to specify the problem, not the way to move the update...
-    } )
+router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
+    console.log(req.params.index);
+    Session.findOne({_id: req.params.sessionId})
+    .then( (item)=>{
+        item.problems[req.params.index].userResponse = req.body.userResponse;
+        Session.update({_id: req.params.sessionId}, item).then( (updated)=>{
+          res.json(updated.problems[req.params.index]);
+        }); 
+    })
+
 })
 
 module.exports = router;

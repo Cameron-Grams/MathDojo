@@ -16,3 +16,52 @@ differences after work:
 
 --more explanation of the basicStrategy.js  ?? 
 --CORS? 
+
+------------------------------
+
+12 Oct
+To Do:
+- format login entries
+
+- logout feature
+
+- dashboard display
+  - past performance; graph? 
+
+- dashboard select/ end training
+
+
+
+-------------------
+Stackoverflow question;
+
+There is a problem with the command sent to Mongo DB to capture the changes made to an object as part of the flow of the program.  The data in Mongo DB is held in an array of objects, called 'problems', that is held in an object called 'session':
+{
+	"_id" : ObjectId("59df5ee7adb378237377dbb4"),
+	"updatedAt" : ISODate("2017-10-12T12:24:07.269Z"),
+	"createdAt" : ISODate("2017-10-12T12:24:07.269Z"),
+	"userId" : "59df5edbadb378237377dbb3",
+	"problems" : [
+		{
+			"correctResponse" : 23,
+			"problem" : "20 + 3",
+			"secondTerm" : 3,
+			"firstTerm" : 20
+                } ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
