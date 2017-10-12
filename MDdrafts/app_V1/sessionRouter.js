@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 const express = require('express');
 const router = express.Router();
 
@@ -127,14 +129,14 @@ router.get('/dashboard', passport.authenticate('jwt', { session: false }), funct
     
   });
 
-router.post( '/sendSession', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
-    console.log( 'body is ', req.body.sessionId );
-    Session.find( { _id: req.body.sessionId } )
+router.get( '/sendSession/:sessionId', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
+    Session.find( { _id: req.params.sessionId } )
     .then( ( session ) => {
         res.json( session );
     } )
     .catch( () => res.status( 500 ).send( 'problem sending the session' ) );
 });
+
 
 router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
     console.log(req.params.index);
@@ -143,9 +145,35 @@ router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { sess
         item.problems[req.params.index].userResponse = req.body.userResponse;
         Session.update({_id: req.params.sessionId}, item).then( (updated)=>{
           res.json(updated.problems[req.params.index]);
-        });
+        })
+        .catch( (err) => {
+            console.log( err.message);
+            res.json({status:"inner error", message: err.message});
+        })
     })
+    .catch( (err) => {
+      console.log('error finding item', err.message);
+      res.json({status:"error", message: err.message});
+    })
+});
 
-})
+/*
+router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
+    var index = req.params.index;
+    var newUpdate = `problems.${index}.userResponse`;
+    Session.update({_id: mongoose.Types.ObjectId(req.params.sessionId) }, {$set : { newUpdate: req.body.userResponse }})
+    .then( (updated)=>{
+      console.log(updated);
+      res.json(updated.problems[req.params.index]);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      res.json({status: "error" , message:err.message});
+    });
+}) 
+
+*/
 
 module.exports = router;
+
+

@@ -21,12 +21,12 @@ function checkUser( ){
 
 function sendSession( sessionId ){
     $.ajax({
-      method: 'POST',
+      method: 'GET',
       headers: {
         Authorization: localStorage.getItem( 'token' )
       },
-      url: '/api/sendSession',
-      data: JSON.stringify( { sessionId } ),
+      url: `/api/sendSession/${ sessionId}`,
+//      data: { sessionId }, // JSON.stringify( { sessionId } ),
       success: function(data) {
         console.log( 'data returned is: ', data );
         manageSessionData( data );
