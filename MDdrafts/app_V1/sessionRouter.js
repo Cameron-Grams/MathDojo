@@ -130,8 +130,6 @@ router.get('/dashboard', passport.authenticate('jwt', { session: false }), funct
   });
 
 router.get( '/sendSession/:sessionId', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
-    console.log( 'body is ', req.params.sessionId );
-//    Session.find()
     Session.find( { _id: req.params.sessionId } )
     .then( ( session ) => {
         res.json( session );
@@ -139,7 +137,7 @@ router.get( '/sendSession/:sessionId', passport.authenticate( 'jwt', { session: 
     .catch( () => res.status( 500 ).send( 'problem sending the session' ) );
 });
 
-/*
+
 router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
     console.log(req.params.index);
     Session.findOne({_id: req.params.sessionId})
@@ -147,12 +145,19 @@ router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { sess
         item.problems[req.params.index].userResponse = req.body.userResponse;
         Session.update({_id: req.params.sessionId}, item).then( (updated)=>{
           res.json(updated.problems[req.params.index]);
-        });
+        })
+        .catch( (err) => {
+            console.log( err.message);
+            res.json({status:"inner error", message: err.message});
+        })
     })
+    .catch( (err) => {
+      console.log('error finding item', err.message);
+      res.json({status:"error", message: err.message});
+    })
+});
 
-})
-*/
-
+/*
 router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
     var index = req.params.index;
     var newUpdate = `problems.${index}.userResponse`;
@@ -167,7 +172,7 @@ router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { sess
     });
 }) 
 
-
+*/
 
 module.exports = router;
 
