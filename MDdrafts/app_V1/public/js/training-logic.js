@@ -1,3 +1,4 @@
+var sessionId;
 var questionNumber = 0;
 var sessionProblemsArray = [];
 
@@ -18,6 +19,24 @@ function sendSession( sessionId ){
     });
   }
 
+  //mechanics of the AJAX call sending the PATCH request to the problem object
+function updateProblem( sessionId, problemIndex, userResponse ){
+    $.ajax({
+      method: 'PATCH',
+      headers: {
+        Authorization: localStorage.getItem( 'token' )
+      },
+      url: `/api/session/problems/${ problemIndex }`,
+      data: JSON.stringify( { sessionId }, { "op": "add", "path": `/session/problems/${ problemIndex }` , "value": { "userResponse": `${ userResponse }` } } ),
+      success: function(data) {
+        console.log( 'problem updated: ', data );
+      },
+      dataType: 'json',
+      contentType: 'application/json'
+    });
+  }
+
+
 //extracts the current session's problems as an array from the session data object
 function manageSessionData( session ){
     sessionProblemsArray = session[ 0 ].problems;
@@ -35,10 +54,9 @@ function displayProblem( sessionProblemsArray ){
 
     if ( questionNumber === practiceLength ){
         console.log( sessionProblemsArray );
-//  need to send the completed session object back with the user response information
 
-
-        location.href = `dashboard.html`;
+//while working the update don't leave the page
+//        location.href = `dashboard.html`;
     }
 }
 
@@ -56,6 +74,8 @@ function evaluateResponse( userResponse ){
     }
     sessionProblemsArray[ questionNumber ].userResponse = userResponse; 
     sessionProblemsArray[ questionNumber ].goodResponse = correct ? true: false; 
+//  need to send the user response information to update the individual problem by index in the session
+    updateProblem( sessionId, questionNumber, userResponse );
     questionNumber += 1;
     displayProblem( sessionProblemsArray )
 }
@@ -95,7 +115,7 @@ function getQueryVariable( variable )
 }
 
 function beginSession( ){
-    let sessionId = getQueryVariable( 'sessionId' );
+    sessionId = getQueryVariable( 'sessionId' );
     sendSession( sessionId );
 };
 
