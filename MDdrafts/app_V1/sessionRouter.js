@@ -137,5 +137,11 @@ router.post( '/sendSession', passport.authenticate( 'jwt', { session: false } ),
     .catch( () => res.status( 500 ).send( 'problem sending the session' ) );
 });
 
+router.patch( '/session/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
+    //each index will be the problem obejct of the session array
+    //this object needs to have the userResponse added to the object 
+
+    
+})
 
 module.exports = router;
