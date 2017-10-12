@@ -141,12 +141,9 @@ router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { sess
     Session.findOne({_id: req.params.sessionId})
     .then( (item)=>{
         item.problems[req.params.index].userResponse = req.body.userResponse;
-        res.json(item.problems[req.params.index]);
-
-/*
         Session.update({_id: req.params.sessionId}, item).then( (updated)=>{
           res.json(updated.problems[req.params.index]);
-        }); */
+        });
     })
 
 })

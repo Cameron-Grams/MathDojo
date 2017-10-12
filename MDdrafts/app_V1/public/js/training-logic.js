@@ -2,6 +2,23 @@ var sessionId;
 var questionNumber = 0;
 var sessionProblemsArray = [];
 
+function checkUser( ){
+    const token = localStorage.getItem( 'token' );
+    if ( !token ){
+        location.href = 'login.html';
+    }
+    $.ajax( {
+        url: '/api/dashboard',
+        headers: {
+            Authorization: token,
+        },
+        success: ( data ) => { 
+            displayUserRecord( data );
+        },
+        error: () => { location.href = 'login.html' }
+    })
+}
+
 function sendSession( sessionId ){
     $.ajax({
       method: 'POST',
