@@ -35,7 +35,7 @@ To Do:
 -------------------
 Stackoverflow question;
 
-There is a problem with the command sent to Mongo DB to capture the changes made to an object as part of the flow of the program.  The data in Mongo DB is held in an array of objects, called 'problems', that is held in an object called 'session':
+There is a problem with the command sent to Mongo DB to capture the changes made to an object as part of the flow of the program.  The target data in Mongo DB is held in an array of objects, called 'problems', that is held in an object called 'session':
 {
 	"_id" : ObjectId("59df5ee7adb378237377dbb4"),
 	"updatedAt" : ISODate("2017-10-12T12:24:07.269Z"),
@@ -50,6 +50,32 @@ There is a problem with the command sent to Mongo DB to capture the changes made
                 } ]
 }
 
+The goal is to add a property to the problem objects called 'userResponse' that reflects the input from the user.  
+
+The AJAX call from the client logic is working fine in that endpoint is recieving the sessionId, problemIndex, and userResonse as desired.  The problem is the management of the inputs with relation to the database.  Here is the logic for the enpoint:
+```
+router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
+    console.log(req.params.index);
+    Session.findOne({_id: req.params.sessionId})
+    .then( (item)=>{
+        item.problems[req.params.index].userResponse = req.body.userResponse;
+        Session.update({_id: req.params.sessionId}, item).then( (updated)=>{
+          res.json(updated.problems[req.params.index]);
+        }); 
+    })
+
+}) 
+```
+
+This is the error that is produced on the server:
+
+(node:10955) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 1): TypeError: Cannot read property '0' of undefined
+
+My understanding is that this means the object can not be found in the database.  Property 0 is the correct problemIndex designation within the problems array.  
+
+How should I select the problem object and ensure that it is saved to the database?  This requires drilling down into the problems array as an element of the session object, so any help with the language would be greatly appreciated.  
+
+Thank you for your time.  
 
 
 
