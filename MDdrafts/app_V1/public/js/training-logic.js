@@ -29,8 +29,13 @@ function manageSessionData( session ){
 //manages the display of the currentQuestion based on questionNumber
 function displayProblem( sessionProblemsArray ){
     let practiceLength = sessionProblemsArray.length;
-    if ( questionNumber <= practiceLength ){
+    if ( questionNumber < practiceLength ){
         $( '#js-displayQuestion' ).html( `${ sessionProblemsArray[ questionNumber ].problem }` );
+    }
+
+    if ( questionNumber === practiceLength ){
+        console.log( sessionProblemsArray );
+//        location.href = `dashboard.html`;
     }
 }
 
@@ -38,24 +43,25 @@ function displayProblem( sessionProblemsArray ){
 // global questionNumber variable
 function evaluateResponse( userResponse ){
     let responseString = `<div>${ sessionProblemsArray[ questionNumber ].problem } = ${ userResponse }</div>`;
-    if ( +userResponse === sessionProblemsArray[ questionNumber ].correctResponse ){
+    let correct = +userResponse === sessionProblemsArray[ questionNumber ].correctResponse;
+    if ( correct ){
         $( responseString ).attr( 'class', 'correct' );
         $( '#correctResponses' ).append( responseString );
     } else {
         $( responseString ).attr( 'class', 'incorrect' ); 
         $( '#incorrectResponses' ).append( responseString );
     }
+    sessionProblemsArray[ questionNumber ].userResponse = userResponse; 
+    sessionProblemsArray[ questionNumber ].goodResponse = correct ? true: false; 
     questionNumber += 1;
     displayProblem( sessionProblemsArray )
 }
 
-//  *************
-// The Event Handlers
-//handler for user response to questions
 $( '#js-userResponse' ).keydown( function( e ){
     let responseAnswer = $( '#js-userResponse' ).val();
     if ( e.keyCode === 13 ){
         evaluateResponse( responseAnswer );
+        clearInput();
     }
 } )
 
@@ -84,16 +90,16 @@ function getQueryVariable( variable )
        }
        return( false );
 }
-// sessionId 
 
 function beginSession( ){
     let sessionId = getQueryVariable( 'sessionId' );
     sendSession( sessionId );
 };
 
+function clearInput(){
+    $( '.js-inputBox' ).val( '' );
+}
 //handler to clear values in input boxes
-$( '.js-inputBox' ).focus( function(){
-    $( this ).val( '' );
-} );
+$( '.js-inputBox' ).focus( clearInput );
 
 $( beginSession );
