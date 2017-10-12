@@ -157,23 +157,6 @@ router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { sess
     })
 });
 
-/*
-router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
-    var index = req.params.index;
-    var newUpdate = `problems.${index}.userResponse`;
-    Session.update({_id: mongoose.Types.ObjectId(req.params.sessionId) }, {$set : { newUpdate: req.body.userResponse }})
-    .then( (updated)=>{
-      console.log(updated);
-      res.json(updated.problems[req.params.index]);
-    })
-    .catch((err) => {
-      console.log(err.message);
-      res.json({status: "error" , message:err.message});
-    });
-}) 
-
-*/
-
 module.exports = router;
 
 
