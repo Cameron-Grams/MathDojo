@@ -23,6 +23,8 @@ differences after work:
 To Do:
 - format login entries
 
+- login process; establish new account then dashboard...
+
 - logout feature
 
 - dashboard display
@@ -35,7 +37,9 @@ To Do:
 -------------------
 Stackoverflow question;
 
-There is a problem with the command sent to Mongo DB to capture the changes made to an object as part of the flow of the program.  The target data in Mongo DB is held in an array of objects, called 'problems', that is held in an object called 'session':
+The goal of this program is to add a property to the problem objects called 'userResponse' that reflects the input from the user.  The problem object in Mongo DB is held in an array of objects, called 'problems', that is held in an object called 'session':
+
+```
 {
 	"_id" : ObjectId("59df5ee7adb378237377dbb4"),
 	"updatedAt" : ISODate("2017-10-12T12:24:07.269Z"),
@@ -49,13 +53,12 @@ There is a problem with the command sent to Mongo DB to capture the changes made
 			"firstTerm" : 20
                 } ]
 }
+```
+  
+Here is the logic for the endpoint that I have been using: 
 
-The goal is to add a property to the problem objects called 'userResponse' that reflects the input from the user.  
-
-The AJAX call from the client logic is working fine in that endpoint is recieving the sessionId, problemIndex, and userResonse as desired.  The problem is the management of the inputs with relation to the database.  Here is the logic for the enpoint:
 ```
 router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
-    console.log(req.params.index);
     Session.findOne({_id: req.params.sessionId})
     .then( (item)=>{
         item.problems[req.params.index].userResponse = req.body.userResponse;
@@ -67,13 +70,17 @@ router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { sess
 }) 
 ```
 
-This is the error that is produced on the server:
+I looked at some other examples ( [one](https://stackoverflow.com/questions/4669178/how-to-update-multiple-array-elements-in-mongodb) [two](https://stackoverflow.com/questions/10522347/mongodb-update-objects-in-a-documents-array-nested-updating) ) but they do not seem relavant since this is a patch to single elements of the array as identified by the params.  
+
+This approach works, in that it successfully updates the database with the new properties on the objects, but during the execution the server logs this error:
 
 (node:10955) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 1): TypeError: Cannot read property '0' of undefined
 
-My understanding is that this means the object can not be found in the database.  Property 0 is the correct problemIndex designation within the problems array.  
+My understanding is that this means the object can not be found in the database at some point, but since the database does include the new properties it must be resolved later.  Is that corrrect?   
 
-How should I select the problem object and ensure that it is saved to the database?  This requires drilling down into the problems array as an element of the session object, so any help with the language would be greatly appreciated.  
+Additionally it seems brittle to have two chained promises with no catch statements...
+
+Can anyone offer suggestions on how to improve this process?  This logic does successfully update the database, with errors.  Is there a better way? 
 
 Thank you for your time.  
 
