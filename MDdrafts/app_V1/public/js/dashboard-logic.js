@@ -8,8 +8,8 @@ function checkUser( ){
         headers: {
             Authorization: token,
         },
-        success: () => { 
-            displayUserRecord();
+        success: ( data ) => { 
+            displayUserRecord( data );
         },
         error: () => { location.href = 'login.html' }
     })
@@ -17,10 +17,13 @@ function checkUser( ){
 
 //loader for time to authenticate and load
 // query into mongo based on userId 
-function displayUserRecord(){
-    console.log( 'in display user record' );
-};
 
+//js-pastPractices
+
+function displayUserRecord( data ){
+    console.log( 'in display user record', data );
+};
+ 
 function requestSession( operation, number, min, max ){
     $.ajax({
       method: 'POST',

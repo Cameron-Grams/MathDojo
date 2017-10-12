@@ -35,7 +35,10 @@ function displayProblem( sessionProblemsArray ){
 
     if ( questionNumber === practiceLength ){
         console.log( sessionProblemsArray );
-//        location.href = `dashboard.html`;
+//  need to send the completed session object back with the user response information
+
+
+        location.href = `dashboard.html`;
     }
 }
 
