@@ -90,8 +90,6 @@ function evaluateResponse( userResponse ){
         $( '#incorrectResponses' ).append( responseString );
     }
     sessionProblemsArray[ questionNumber ].userResponse = userResponse; 
-    sessionProblemsArray[ questionNumber ].goodResponse = correct ? true: false; 
-//  need to send the user response information to update the individual problem by index in the session
     updateProblem( sessionId, questionNumber, userResponse );
     questionNumber += 1;
     displayProblem( sessionProblemsArray )

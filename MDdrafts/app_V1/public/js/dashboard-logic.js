@@ -14,14 +14,71 @@ function checkUser( ){
         error: () => { location.href = 'login.html' }
     })
 }
-
 //loader for time to authenticate and load
-// query into mongo based on userId 
 
-//js-pastPractices
+function returnDay(dayNumber){
+    switch(dayNumber){
+        case 0:
+          return "Sunday";
+        case 1:
+          return "Monday";
+        case 2:
+          return "Tuesday";
+        case 3:
+          return "Wednesday";
+        case 4:
+          return "Thursday";
+        case 5:
+          return "Friday";
+        case 6:
+          return "Saturday";
+        default:
+          return "Day Error";  
+    }
+}
+
+function returnMonth(numberMonth){
+    switch(numberMonth){
+        case 0:
+          return "January";
+        case 1:
+          return "February";
+        case 2:
+          return "March";
+        case 3:
+          return "April";
+        case 4:
+          return "May";
+        case 5:
+          return "June";
+        case 6:
+          return "July";
+        case 7:
+          return "August";
+        case 8:
+          return "September";
+        case 9:
+          return "October";
+        case 10:
+          return "November";
+        case 11:
+          return "December";
+        default:
+          return "Month Error";
+    }
+}
 
 function displayUserRecord( data ){
     console.log( 'in display user record', data );
+    const lengthOfTraining = data.length;
+    for (let i = 0; i < lengthOfTraining; i++){
+        const trainingDate = new Date(data[i].updatedAt);
+        const displayYear = trainingDate.getFullYear();
+        const displayMonth = returnMonth(trainingDate.getMonth());
+        const displayDay = returnDay(trainingDate.getDay());
+        const displayDate = trainingDate.getDate();
+        $('#js-pastPractices').prepend(`<div>${displayDay}, ${displayDate} ${displayMonth} ${displayYear}</div>`);
+    }
 };
  
 function requestSession( operation, number, min, max ){
