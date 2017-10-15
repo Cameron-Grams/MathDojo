@@ -6,13 +6,11 @@ body{
 }
 
 #registrationBody{
-    background-color: rgba(189, 192, 11, 0.726);
+    background-color: rgba(48, 155, 6, 0.74);
 }
 
-section{
-    border: 1px solid black;
-    margin: 5px;
-    height: 100px;
+#registration{
+    margin-top: 10%;
 }
 
 #demoInstructions{
