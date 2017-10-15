@@ -126,7 +126,6 @@ router.get('/dashboard', passport.authenticate('jwt', { session: false }), funct
         res.json( sessions ); 
     } )
     .catch( () => res.status( 500 ).send( 'something went wrong...' ) );
-    
   });
 
 router.get( '/sendSession/:sessionId', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
