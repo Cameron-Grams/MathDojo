@@ -157,6 +157,21 @@ router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { sess
     })
 });
 
+
+router.patch( '/session-performance/:sessionId', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
+    console.log('inbound ratio ', req.body.ratioCorrect);
+    Session.findOne({_id: req.params.sessionId})
+    .then( (item)=>{
+        item.set( "ratioCorrect", req.body.ratioCorrect);
+        console.log(item);
+        Session.update({_id: req.params.sessionId}, item).then( update => {
+            res.json({ status: "success", message: "user performance recorded"}) 
+        })
+        .catch(err => res.json({status:"error", message:"first error"})) 
+    })
+    .catch( (err) => res.json({status:"error", message:"error with update"}))
+});
+
 module.exports = router;
 
 

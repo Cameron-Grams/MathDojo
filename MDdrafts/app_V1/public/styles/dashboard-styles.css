@@ -1,5 +1,5 @@
 body{
-    background-color: rgba(214, 211, 32, 0.74);
+    background-color: rgba(48, 155, 6, 0.74);
     text-align: center;
 }
 
@@ -20,6 +20,23 @@ section{
 .division{
     width: 48%;
     height: 100px;
+}
+
+#recordOfTraining{
+    background-color: grey;
+}
+
+
+
+.lowPerformance{
+    color: red;
+}
+
+.middlePerformance{
+    color: yellow;
+}
+.highPerformance{
+    color: green;
 }
 
 .correct{

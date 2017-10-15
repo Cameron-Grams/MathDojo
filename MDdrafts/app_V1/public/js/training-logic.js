@@ -1,7 +1,9 @@
 var sessionId;
 var questionNumber = 0;
+var numberCorrect = 0;
 var sessionProblemsArray = [];
 
+//need to work in the authentication of users on training
 function checkUser( ){
     const token = localStorage.getItem( 'token' );
     if ( !token ){
@@ -26,7 +28,6 @@ function sendSession( sessionId ){
         Authorization: localStorage.getItem( 'token' )
       },
       url: `/api/sendSession/${ sessionId}`,
-//      data: { sessionId }, // JSON.stringify( { sessionId } ),
       success: function(data) {
         console.log( 'data returned is: ', data );
         manageSessionData( data );
@@ -54,6 +55,23 @@ function updateProblem( sessionId, problemIndex, userResponse ){
   }
 
 
+//AJAX call to update the session performance accuracy
+function recordSessionAccuracy(sessionId, ratioCorrect){
+    $.ajax({
+      method: 'PATCH',
+      headers: {
+        Authorization: localStorage.getItem('token')
+      },
+      url: `/api/session-performance/${sessionId}`,
+      data: JSON.stringify({ratioCorrect}),
+      success: returnDashboard(),
+      dataType: 'json',
+      contentType: 'application/json'
+    });
+  }
+
+
+
 //extracts the current session's problems as an array from the session data object
 function manageSessionData( session ){
     sessionProblemsArray = session[ 0 ].problems;
@@ -70,11 +88,13 @@ function displayProblem( sessionProblemsArray ){
     }
 
     if ( questionNumber === practiceLength ){
- //       console.log( sessionProblemsArray );
-
-//while working the update don't leave the page
-        location.href = `dashboard.html`;
+        const ratioCorrect = numberCorrect / practiceLength;
+        recordSessionAccuracy(sessionId, ratioCorrect)       
     }
+}
+
+function returnDashboard(){
+    location.href = `dashboard.html`;
 }
 
 //evaluates user answer based on questionNumber in session array, controls advance of the 
@@ -85,6 +105,7 @@ function evaluateResponse( userResponse ){
     if ( correct ){
         $( responseString ).attr( 'class', 'correct' );
         $( '#correctResponses' ).append( responseString );
+        numberCorrect += 1;
     } else {
         $( responseString ).attr( 'class', 'incorrect' ); 
         $( '#incorrectResponses' ).append( responseString );

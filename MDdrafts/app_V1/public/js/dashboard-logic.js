@@ -68,6 +68,14 @@ function returnMonth(numberMonth){
     }
 }
 
+function renderAccuracy( performanceNumber){
+    if (performanceNumber < 0.5){
+      return "lowPerformance";
+    }
+    const performance = performanceNumber < 0.8 ? "middlePerformance": "highPerformance";
+    return performance; 
+}
+
 function displayUserRecord( data ){
     console.log( 'in display user record', data );
     const lengthOfTraining = data.length;
@@ -77,7 +85,8 @@ function displayUserRecord( data ){
         const displayMonth = returnMonth(trainingDate.getMonth());
         const displayDay = returnDay(trainingDate.getDay());
         const displayDate = trainingDate.getDate();
-        $('#js-pastPractices').prepend(`<div>${displayDay}, ${displayDate} ${displayMonth} ${displayYear}</div>`);
+        const accuracyClass = renderAccuracy(data[i].ratioCorrect);
+        $('#js-pastPractices').prepend(`<div class="js-pastRecord ${accuracyClass}" >${displayDay}, ${displayDate} ${displayMonth} ${displayYear}</div>`);
     }
 };
  

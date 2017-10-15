@@ -3,6 +3,7 @@ const mongoose = require( 'mongoose' );
 
 const sessionSchema = mongoose.Schema( {
     userId: { type: String },
+    ratioCorrect: {type: Number},
     problems: { type: Array }
 }, { timestamps: true } )
 
