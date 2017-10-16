@@ -173,7 +173,6 @@ router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { sess
 
 
 router.patch( '/session-performance/:sessionId', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
-    console.log('inbound ratio ', req.body.ratioCorrect);
     Session.findOne({_id: req.params.sessionId})
     .then( (item)=>{
         item.set( "ratioCorrect", req.body.ratioCorrect);

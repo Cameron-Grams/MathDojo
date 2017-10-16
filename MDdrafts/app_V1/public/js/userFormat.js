@@ -7,7 +7,7 @@ function requestUserInfo(userId){
       url: `/api/getUserInfo/${userId}`,
 //      success: (data) => {data},
       success: (data) =>{
-          Object.setPrototypeOf(userData, data);
+          Object.assign(userData, data[0]);
       },
 
       error: (err) => {err},
