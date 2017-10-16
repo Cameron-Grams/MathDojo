@@ -72,6 +72,10 @@ function dateFormat(data){
             ${displayDay}, ${displayDate} ${displayMonth} ${displayYear}
           </a>  
           </div>`,
-//        pastSession: //string formated for the session display
+        displayTitle: `<div class="#" >
+          <h1>  
+            ${displayDay}, ${displayDate} ${displayMonth} ${displayYear}
+          </h1>  
+          </div>`
     };
 }

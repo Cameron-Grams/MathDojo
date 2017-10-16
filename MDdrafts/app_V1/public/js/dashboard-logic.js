@@ -15,18 +15,22 @@ function checkUser( ){
     })
 }
 //loader for time to authenticate and load
+function identifyUser(){
+    const userId = getQueryVariable('userId');
 
+    requestUserInfo(userId);
+    console.log(userData);
+}
 
 function displayUserRecord( data ){
-    console.log( 'in display user record', data );
     const lengthOfTraining = data.length;
     for (let i = 0; i < lengthOfTraining; i++){
-
-//call the past performance functionn from dateFormat; given data, return string
-//
         const pastPracticeSession = dateFormat(data[i]).pastPractice; 
          $('#js-pastPractices').prepend(pastPracticeSession);
     }
+    const userName = identifyUser();
+    console.log(userName);
+    $('#userName').html(userName);
 };
  
 function requestSession( operation, number, min, max ){

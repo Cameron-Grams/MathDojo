@@ -19,8 +19,6 @@ const userSchema = mongoose.Schema( {
   }
 } );
 
-// re-write this with Promises instead of callbacks 
-//from the model, before export hash the password 
 userSchema.pre( 'save', function ( next ) {  
   var user = this;
   if ( this.isModified( 'password' ) || this.isNew ) {

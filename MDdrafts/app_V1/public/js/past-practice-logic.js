@@ -37,10 +37,34 @@ function getQueryVariable( variable )
        return( false );
 }
 
-function displaySessionProblems(data){
-    console.log(data);
-    $('#js-sessionTitleInformation')
+function formatProblem(data){
+    let responseClass, displayAnswer;
+    if (data.correctResponse === +data.userResponse){
+        responseClass = "correctResponse";
+        displayAnswer = data.correctResponse;
+    } else {
+        responseClass = "standardResponse";
+        displayAnswer = `<span class="incorrectResponse">${data.userResponse}</span> should have been <span class="informCorrect">${data.correctResponse}</span>`;
+    }
+    let problemString = `<h3 class="${responseClass}">${data.problem} = ${displayAnswer}</h3>`;
+    return problemString;  
+}
 
+function displaySessionProblems(data){
+    const sessionTitle = dateFormat(data[0]).displayTitle;
+    $('#js-sessionTitleInformation').html(sessionTitle);
+
+    const sessionPerformance = (data[0].ratioCorrect * 100).toFixed(2);
+    const performanceString = `<h3>Performance this session was ${sessionPerformance}&#37; accuracy</h3>`;
+
+
+    $('#js-sessionPerformance').html(performanceString);
+
+    const problemSeriesLength = data[0].problems.length;
+    for ( let i = 0; i < problemSeriesLength; i++){
+        let displayNextProblem = formatProblem(data[0].problems[i]);
+        $('#js-displayProblems').prepend(displayNextProblem);
+    }
 
 }
 

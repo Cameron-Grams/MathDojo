@@ -83,7 +83,6 @@ router.post( '/register', function( req, res ) {
                 email: req.body.email,
                 password: req.body.password
               } ).then( function( ){ 
-//                res.json( { success: true, message: 'Successfully created new user.' } );
                     let newUser = User.findOne( {
                         email: req.body.email
                     }).then( returnNewUser => {
@@ -110,7 +109,7 @@ router.post( '/authenticate', function( req, res ) {
                     var token = jwt.sign( { id: user._id }, secret, {
                         expiresIn: 10080
                     } );
-                    res.json( { success: true, token: 'Bearer ' + token } );
+                    res.json( { success: true, token: 'Bearer ' + token, _id: user._id } );
                 } else {
                     res.status( 400 ).send( { success: false, message: 'Authentication failed. User not found.' } );
                 }
@@ -118,8 +117,24 @@ router.post( '/authenticate', function( req, res ) {
         }
     } ).catch( err => res.send( err ) );
 });
-//query against user background 
-//protected route to the dashboard
+
+
+
+
+
+
+router.get('/getUserInfo/:userId', passport.authenticate('jwt', { session: false }), function(req, res) {  
+    User.find( { _id: req.params.userId } )
+    .then( user =>  {res.json(user)})
+    .catch( () => res.status( 500 ).send( 'issue with producing the user' ) );
+  });
+
+
+
+
+
+
+
 router.get('/dashboard', passport.authenticate('jwt', { session: false }), function(req, res) {  
     Session.find( { userId: req.user._id } )
     .then( ( sessions ) => { 

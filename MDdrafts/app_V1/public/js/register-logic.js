@@ -14,7 +14,8 @@
   function manageNewUser( data ){
       console.log( data );
       console.log( 'id: ', data[ '_id' ] );
-      location.href = 'login.html';
+//      location.href = 'login.html';
+      location.href = 'dashboard.html';
   }
    
   $( '#sendRegistration' ).on( 'click', () => {

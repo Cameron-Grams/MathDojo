@@ -1,4 +1,25 @@
 body{
     background-color: rgba(48, 155, 6, 0.74);
     text-align: center;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#js-sessionTitleInformation{
+    margin-top: 5%;
+}
+
+.standardResponse{
+    color: black;
+}
+
+.correctResponse{
+    color: blue;
+}
+
+.incorrectResponse{
+    color: red;
+}
+
+.informCorrect{
+    color: white;
 }

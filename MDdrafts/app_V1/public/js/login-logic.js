@@ -15,7 +15,7 @@ function manageLogin( data ){
     localStorage.removeItem( 'token' );
     localStorage.setItem( 'token', data.token );
    
-    location.href = 'dashboard.html';
+    location.href = `dashboard.html?userId=${data._id}`;
 
 }
 
