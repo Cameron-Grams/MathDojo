@@ -3,9 +3,7 @@
       method: 'POST',
       url: '/api/register',
       data: JSON.stringify( { name, email, password } ),
-      success: function(data) {
-        manageNewUser( data );
-      },
+      success: manageNewUser( data ),
       dataType: 'json',
       contentType: 'application/json'
     });
@@ -14,8 +12,7 @@
   function manageNewUser( data ){
       console.log( data );
       console.log( 'id: ', data[ '_id' ] );
-//      location.href = 'login.html';
-      location.href = 'dashboard.html';
+      location.href = 'login.html';
   }
    
   $( '#sendRegistration' ).on( 'click', () => {

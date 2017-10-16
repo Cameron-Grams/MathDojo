@@ -8,12 +8,21 @@ function checkUser( ){
         headers: {
             Authorization: token,
         },
-        success: ( data ) => { 
-            displayUserRecord( data );
-        },
+        success: displayUserRecord,
         error: () => { location.href = 'login.html' }
     })
 }
+
+function parseJwt (token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+};
+
+
+
+
+
 //loader for time to authenticate and load
 function identifyUser(){
     const userId = getQueryVariable('userId');
@@ -23,14 +32,17 @@ function identifyUser(){
 }
 
 function displayUserRecord( data ){
+    const token = localStorage.getItem('token');
+    const payloadData = parseJwt(token);
     const lengthOfTraining = data.length;
     for (let i = 0; i < lengthOfTraining; i++){
         const pastPracticeSession = dateFormat(data[i]).pastPractice; 
          $('#js-pastPractices').prepend(pastPracticeSession);
     }
-    const userName = identifyUser();
+    const userName = payloadData.userName;
     console.log(userName);
     $('#userName').html(userName);
+    $('#loader-wrapper').fadeOut();
 };
  
 function requestSession( operation, number, min, max ){
@@ -47,6 +59,8 @@ function requestSession( operation, number, min, max ){
       contentType: 'application/json'
     });
  }
+
+ 
 
 function getQueryVariable( variable )
 {

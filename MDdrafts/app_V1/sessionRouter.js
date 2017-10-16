@@ -106,7 +106,7 @@ router.post( '/authenticate', function( req, res ) {
             user.comparePassword( req.body.password, function( err, isMatch ) {
                 if ( isMatch && !err ){
                     console.log( 'good authentication' );
-                    var token = jwt.sign( { id: user._id }, secret, {
+                    var token = jwt.sign( { id: user._id, userName: user.name }, secret, {
                         expiresIn: 10080
                     } );
                     res.json( { success: true, token: 'Bearer ' + token, _id: user._id } );
