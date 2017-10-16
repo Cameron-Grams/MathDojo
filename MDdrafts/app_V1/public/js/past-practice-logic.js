@@ -1,17 +1,7 @@
- function checkUser( ){
-    const token = localStorage.getItem( 'token' );
-    if ( !token ){
-        location.href = 'login.html';
-    }
-    $.ajax( {
-        url: '/api/dashboard',
-        headers: {
-            Authorization: token,
-        },
-        success: beginDisplay(),
-        error: () => { location.href = 'login.html' }
-    })
-}
+const token = localStorage.getItem( 'token' );
+  if ( !token ){
+      location.href = 'login.html';
+  }
 
 function getSession(sessionId){
     $.ajax({
@@ -66,6 +56,7 @@ function displaySessionProblems(data){
         $('#js-displayProblems').prepend(displayNextProblem);
     }
 
+    $('#loader-wrapper').fadeOut();
 }
 
 function beginDisplay(){
@@ -73,4 +64,4 @@ function beginDisplay(){
     getSession(getSessionName);
 }
 
-$(checkUser);
+$(beginDisplay);

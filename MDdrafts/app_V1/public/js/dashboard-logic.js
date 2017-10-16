@@ -19,14 +19,9 @@ function parseJwt (token) {
     return JSON.parse(window.atob(base64));
 };
 
-
-
-
-
 //loader for time to authenticate and load
 function identifyUser(){
     const userId = getQueryVariable('userId');
-
     requestUserInfo(userId);
     console.log(userData);
 }
@@ -40,7 +35,6 @@ function displayUserRecord( data ){
          $('#js-pastPractices').prepend(pastPracticeSession);
     }
     const userName = payloadData.userName;
-    console.log(userName);
     $('#userName').html(userName);
     $('#loader-wrapper').fadeOut();
 };
@@ -60,6 +54,9 @@ function requestSession( operation, number, min, max ){
     });
  }
 
+function logOutSession(){
+    localStorage.removeItem('token');
+}
  
 
 function getQueryVariable( variable )

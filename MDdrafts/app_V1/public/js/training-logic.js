@@ -3,22 +3,15 @@ var questionNumber = 0;
 var numberCorrect = 0;
 var sessionProblemsArray = [];
 
-//need to work in the authentication of users on training
-function checkUser( ){
-    const token = localStorage.getItem( 'token' );
-    if ( !token ){
-        location.href = 'login.html';
-    }
-    $.ajax( {
-        url: '/api/dashboard',
-        headers: {
-            Authorization: token,
-        },
-        success: ( data ) => { 
-            displayUserRecord( data );
-        },
-        error: () => { location.href = 'login.html' }
-    })
+//ensures that a user is logged in to see the training page
+const token = localStorage.getItem( 'token' );
+if ( !token ){
+    location.href = 'login.html';
+}
+
+function logOutSession(){
+    localStorage.removeItem('token');
+    location.href = 'login.html';
 }
 
 function sendSession( sessionId ){
@@ -70,13 +63,20 @@ function recordSessionAccuracy(sessionId, ratioCorrect){
     });
   }
 
-
+function parseJwt (token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+};
 
 //extracts the current session's problems as an array from the session data object
 function manageSessionData( session ){
     sessionProblemsArray = session[ 0 ].problems;
-    console.log( 'problems at: ', session[ 0 ].problems );
+    const payloadData = parseJwt(token);
+    const userName = payloadData.userName;
+    $('#userName').html(userName);
     displayProblem( sessionProblemsArray );
+    $('#loader-wrapper').fadeOut();
     return sessionProblemsArray;
 }
 
