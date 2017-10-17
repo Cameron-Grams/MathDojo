@@ -74,7 +74,7 @@ router.post( '/generate-session', passport.authenticate('jwt', { session: false 
 //route to register a user
 router.post( '/register', function( req, res ) {  
     if( !req.body.name || !req.body.email || !req.body.password ) {
-      return res.status(400).json( { success: false, message: 'Please enter email and password.' } );
+      return res.status(400).json( { success: false, message: 'Please complete the entire form.' } );
     } else {
       User.findOne( {
           email: req.body.email 

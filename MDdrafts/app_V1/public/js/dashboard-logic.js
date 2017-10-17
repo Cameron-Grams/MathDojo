@@ -1,3 +1,6 @@
+var currentRank, currentLevel;
+
+
 function checkUser( ){
     const token = localStorage.getItem( 'token' );
     if ( !token ){
@@ -27,7 +30,7 @@ function identifyUser(){
 }
 
 function displayUserRecord(data){
-    let currentLevel = 0;
+    currentLevel = 0;
     console.log('in display: ', data);
     const token = localStorage.getItem('token');
     const payloadData = parseJwt(token);
@@ -42,7 +45,7 @@ function displayUserRecord(data){
     const userName = payloadData.userName;
 //    const currentLevel = payloadData.level;
     console.log('current Level: ', currentLevel);
-    const currentRank = assessUserRank(currentLevel).currentRank;
+    currentRank = assessUserRank(currentLevel).currentRank;
     $('#userName').html(userName);
     $('#currentLevel').html(currentRank);
     $('#loader-wrapper').fadeOut();
@@ -57,7 +60,7 @@ function requestSession( operation, number, min, max ){
       url: '/api/generate-session',
       data: JSON.stringify( { operation, number, min, max } ),
       success: function(data) {
-        location.href= `training.html?sessionId=${ data._id }` },
+        location.href= `training.html?sessionId=${ data._id }&currentLevel=${currentLevel}` },
       dataType: 'json',
       contentType: 'application/json'
     });

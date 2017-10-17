@@ -1,7 +1,8 @@
-var sessionId;
+var sessionId, currentLevel;
 var questionNumber = 0;
 var numberCorrect = 0;
 var sessionProblemsArray = [];
+var practiceLength;
 
 //ensures that a user is logged in to see the training page
 const token = localStorage.getItem( 'token' );
@@ -75,6 +76,9 @@ function manageSessionData( session ){
     const payloadData = parseJwt(token);
     const userName = payloadData.userName;
     $('#userName').html(userName);
+    const currentRank =  assessUserRank(currentLevel).currentRank;  
+    console.log(currentRank);
+    $('#currentLevel').html(currentRank);
     displayProblem( sessionProblemsArray );
     $('#loader-wrapper').fadeOut();
     return sessionProblemsArray;
@@ -82,17 +86,12 @@ function manageSessionData( session ){
 
 //manages the display of the currentQuestion based on questionNumber
 function displayProblem( sessionProblemsArray ){
-    let practiceLength = sessionProblemsArray.length;
+    practiceLength = sessionProblemsArray.length;
     if ( questionNumber < practiceLength ){
         $( '#js-displayQuestion' ).html( `${ sessionProblemsArray[ questionNumber ].problem }` );
     }
 
-    if ( questionNumber === practiceLength ){
-        const ratioCorrect = numberCorrect / practiceLength;
-        const pointsAwarded = ratioCorrect * practiceLength;
-        console.log(pointsAwarded);
-//        recordSessionAccuracy(sessionId, ratioCorrect, pointsAwarded);       
-    }
+
 }
 
 function returnDashboard(){
@@ -113,9 +112,18 @@ function evaluateResponse( userResponse ){
         $( '#incorrectResponses' ).append( responseString );
     }
     sessionProblemsArray[ questionNumber ].userResponse = userResponse; 
+
     updateProblem( sessionId, questionNumber, userResponse );
     questionNumber += 1;
-    displayProblem( sessionProblemsArray )
+     
+    if ( questionNumber === practiceLength ){
+        const ratioCorrect = numberCorrect / practiceLength;
+        const pointsAwarded = ratioCorrect * practiceLength;
+        console.log(pointsAwarded);
+        recordSessionAccuracy(sessionId, ratioCorrect, pointsAwarded);       
+    } else {
+        displayProblem( sessionProblemsArray );
+    }
 }
 
 $( '#js-userResponse' ).keydown( function( e ){
@@ -153,8 +161,9 @@ function getQueryVariable( variable )
 }
 
 function beginSession( ){
-    sessionId = getQueryVariable( 'sessionId' );
-    sendSession( sessionId );
+    sessionId = getQueryVariable('sessionId');
+    currentLevel = getQueryVariable('currentLevel');
+    sendSession(sessionId);
 };
 
 function clearInput(){
