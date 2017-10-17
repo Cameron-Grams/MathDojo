@@ -15,7 +15,7 @@ const { Session } = require( './models/practiceSession' );
 const { User } = require( './models/user' );
 
 function generateTerm( min, max ){
-  return Math.floor( Math.random() * ( max - min ) + min );
+  return Math.floor( (Math.random() * ( max - min )) + min );
 }
 
 function generateCorrectResponse( num1, num2, operator ){

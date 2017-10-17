@@ -37,14 +37,14 @@ function displayUserRecord(data){
 
 //need to extract the points for the session towards the next level...
         currentLevel += dateFormat(data[i]).sessionPoints;
-        console.log(dateFormat(data[i]).sessionPoints);
          $('#js-pastPractices').prepend(pastPracticeSession);
     }
     const userName = payloadData.userName;
 //    const currentLevel = payloadData.level;
-    console.log(currentLevel);
+    console.log('current Level: ', currentLevel);
+    const currentRank = assessUserRank(currentLevel).currentRank;
     $('#userName').html(userName);
-    $('#currentLevel').html(currentLevel);
+    $('#currentLevel').html(currentRank);
     $('#loader-wrapper').fadeOut();
 };
  

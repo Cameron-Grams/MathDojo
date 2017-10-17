@@ -90,6 +90,7 @@ function displayProblem( sessionProblemsArray ){
     if ( questionNumber === practiceLength ){
         const ratioCorrect = numberCorrect / practiceLength;
         const pointsAwarded = ratioCorrect * practiceLength;
+        console.log(pointsAwarded);
         recordSessionAccuracy(sessionId, ratioCorrect, pointsAwarded);       
     }
 }
