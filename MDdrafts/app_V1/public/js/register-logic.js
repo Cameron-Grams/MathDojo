@@ -3,7 +3,7 @@
       method: 'POST',
       url: '/api/register',
       data: JSON.stringify( { name, email, password } ),
-      success: manageNewUser( data ),
+      success: manageNewUser,
       dataType: 'json',
       contentType: 'application/json'
     });
@@ -19,3 +19,5 @@
     let password = $( '#enterPassword' ).val();
     registerAccount( name, email, password );
   } ); 
+
+$('#loader-wrapper').fadeOut();

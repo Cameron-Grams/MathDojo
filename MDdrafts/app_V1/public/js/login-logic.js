@@ -1,9 +1,10 @@
 const token = localStorage.getItem('token');
 
+/*
 if (token){
   location.href = 'dashboard.html';
 }
-
+*/
 function readyLogIn(){
   $('#loader-wrapper').fadeOut();
 }
@@ -37,4 +38,4 @@ $('#logIn').on('click', () => {
   logintoAccount(email, password);
 } );
 
-$(readyLogIn);
+$(readyLogIn());

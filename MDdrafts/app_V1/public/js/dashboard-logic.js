@@ -8,9 +8,9 @@ function checkUser( ){
         headers: {
             Authorization: token,
         },
-        success: displayUserRecord,
+        success: (data) => {displayUserRecord(data)},
         error: () => { location.href = 'login.html' }
-    })
+    });
 }
 
 function parseJwt (token) {
@@ -26,7 +26,8 @@ function identifyUser(){
     console.log(userData);
 }
 
-function displayUserRecord( data ){
+function displayUserRecord(data){
+    console.log('in display: ', data);
     const token = localStorage.getItem('token');
     const payloadData = parseJwt(token);
     const lengthOfTraining = data.length;
@@ -56,9 +57,9 @@ function requestSession( operation, number, min, max ){
 
 function logOutSession(){
     localStorage.removeItem('token');
+    location.href = 'login.html';
 }
  
-
 function getQueryVariable( variable )
 {
        var query = window.location.search.substring( 1 );
