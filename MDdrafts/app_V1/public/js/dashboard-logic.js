@@ -71,6 +71,11 @@ function getQueryVariable( variable )
        return( false );
 }
 
+function reselectRange(){
+    const instructions = '<h2>You must select number with a separation of more than 5.</h2>';
+
+    $('#js-typeInstructions').prepend(instructions);
+}
 
 //handler for initial start of practice session, enters the session values
 $( '#js-startExercise' ).on( 'click', function(){  
@@ -78,7 +83,7 @@ $( '#js-startExercise' ).on( 'click', function(){
     let number = $( '#js-practiceType' ).val();
     let min = $( '#js-minRange' ).val();
     let max = $( '#js-maxRange' ).val();
-    requestSession( operation, number, min, max );
+    return (+max - +min < 5) ? reselectRange(): requestSession( operation, number, min, max );
 } );
 
 //handler to clear values in input boxes
