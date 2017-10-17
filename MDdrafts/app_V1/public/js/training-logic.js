@@ -49,14 +49,14 @@ function updateProblem( sessionId, problemIndex, userResponse ){
 
 
 //AJAX call to update the session performance accuracy
-function recordSessionAccuracy(sessionId, ratioCorrect){
+function recordSessionAccuracy(sessionId, ratioCorrect, pointsAwarded){
     $.ajax({
       method: 'PATCH',
       headers: {
         Authorization: localStorage.getItem('token')
       },
       url: `/api/session-performance/${sessionId}`,
-      data: JSON.stringify({ratioCorrect}),
+      data: JSON.stringify({ratioCorrect, pointsAwarded}),
       success: returnDashboard(),
       dataType: 'json',
       contentType: 'application/json'
@@ -89,7 +89,8 @@ function displayProblem( sessionProblemsArray ){
 
     if ( questionNumber === practiceLength ){
         const ratioCorrect = numberCorrect / practiceLength;
-        recordSessionAccuracy(sessionId, ratioCorrect)       
+        const pointsAwarded = ratioCorrect * practiceLength;
+        recordSessionAccuracy(sessionId, ratioCorrect, pointsAwarded);       
     }
 }
 

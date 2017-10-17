@@ -81,7 +81,8 @@ router.post( '/register', function( req, res ) {
               User.create( {
                 name: req.body.name,   
                 email: req.body.email,
-                password: req.body.password
+                password: req.body.password,
+                level: 0
               } ).then( function( ){ 
                     let newUser = User.findOne( {
                         email: req.body.email
@@ -106,7 +107,7 @@ router.post( '/authenticate', function( req, res ) {
             user.comparePassword( req.body.password, function( err, isMatch ) {
                 if ( isMatch && !err ){
                     console.log( 'good authentication' );
-                    var token = jwt.sign( { id: user._id, userName: user.name }, secret, {
+                    var token = jwt.sign( { id: user._id, userName: user.name, level: user.level }, secret, {
                         expiresIn: 10080
                     } );
                     res.json( { success: true, token: 'Bearer ' + token, _id: user._id } );
@@ -176,6 +177,7 @@ router.patch( '/session-performance/:sessionId', passport.authenticate( 'jwt', {
     Session.findOne({_id: req.params.sessionId})
     .then( (item)=>{
         item.set( "ratioCorrect", req.body.ratioCorrect);
+        item.set( "pointsAwarded", req.body.pointsAwarded);
         console.log(item);
         Session.update({_id: req.params.sessionId}, item).then( update => {
             res.json({ status: "success", message: "user performance recorded"}) 

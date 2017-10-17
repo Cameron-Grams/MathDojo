@@ -27,16 +27,24 @@ function identifyUser(){
 }
 
 function displayUserRecord(data){
+    let currentLevel = 0;
     console.log('in display: ', data);
     const token = localStorage.getItem('token');
     const payloadData = parseJwt(token);
     const lengthOfTraining = data.length;
     for (let i = 0; i < lengthOfTraining; i++){
         const pastPracticeSession = dateFormat(data[i]).pastPractice; 
+
+//need to extract the points for the session towards the next level...
+        currentLevel += dateFormat(data[i]).sessionPoints;
+        console.log(dateFormat(data[i]).sessionPoints);
          $('#js-pastPractices').prepend(pastPracticeSession);
     }
     const userName = payloadData.userName;
+//    const currentLevel = payloadData.level;
+    console.log(currentLevel);
     $('#userName').html(userName);
+    $('#currentLevel').html(currentLevel);
     $('#loader-wrapper').fadeOut();
 };
  
@@ -73,7 +81,6 @@ function getQueryVariable( variable )
 
 function reselectRange(){
     const instructions = '<h2>You must select number with a separation of more than 5.</h2>';
-
     $('#js-typeInstructions').prepend(instructions);
 }
 

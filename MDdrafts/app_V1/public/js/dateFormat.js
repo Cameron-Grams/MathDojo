@@ -76,6 +76,7 @@ function dateFormat(data){
           <h1>  
             ${displayDay}, ${displayDate} ${displayMonth} ${displayYear}
           </h1>  
-          </div>`
+          </div>`,
+        sessionPoints: data.pointsAwarded
     };
 }

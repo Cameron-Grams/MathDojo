@@ -16,7 +16,8 @@ const userSchema = mongoose.Schema( {
   password: {
     type: String,
     required: true
-  }
+  },
+  level: {type: Number}
 } );
 
 userSchema.pre( 'save', function ( next ) {  
