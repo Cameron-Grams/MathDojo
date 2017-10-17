@@ -1,10 +1,9 @@
 const token = localStorage.getItem('token');
 
-/*
 if (token){
   location.href = 'dashboard.html';
 }
-*/
+
 function readyLogIn(){
   $('#loader-wrapper').fadeOut();
 }
@@ -17,6 +16,7 @@ function readyLogIn(){
       success: manageLogin,
       error: () => { 
         alert( 'bad login' )
+        readyLogIn();
         $('.inputEntries').val('');
       },
       dataType: 'json',
@@ -33,9 +33,8 @@ function manageLogin(data){
 }
 
 $('#logIn').on('click', () => {
+  $('#loader-wrapper').fadeIn();
   let email = $('#enterEmail').val();
   let password = $('#enterPassword').val();
   logintoAccount(email, password);
 } );
-
-$(readyLogIn());

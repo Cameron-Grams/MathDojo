@@ -23,6 +23,10 @@ ul {
     text-align: left;
 }
 
+.invisible{
+    display:none;
+}
+
 #loader-wrapper {
     width: 100%;
     height: 100%;

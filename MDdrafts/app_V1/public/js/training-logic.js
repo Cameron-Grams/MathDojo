@@ -91,7 +91,7 @@ function displayProblem( sessionProblemsArray ){
         const ratioCorrect = numberCorrect / practiceLength;
         const pointsAwarded = ratioCorrect * practiceLength;
         console.log(pointsAwarded);
-        recordSessionAccuracy(sessionId, ratioCorrect, pointsAwarded);       
+//        recordSessionAccuracy(sessionId, ratioCorrect, pointsAwarded);       
     }
 }
 

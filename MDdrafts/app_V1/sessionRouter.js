@@ -15,7 +15,10 @@ const { Session } = require( './models/practiceSession' );
 const { User } = require( './models/user' );
 
 function generateTerm( min, max ){
-  return Math.floor( (Math.random() * ( max - min )) + min );
+    console.log( typeof min, typeof max);
+    const minNum = Number(min);
+    const maxNum = Number(max); 
+  return Math.floor( (Math.random() * ( maxNum - minNum + 1)) + minNum );
 }
 
 function generateCorrectResponse( num1, num2, operator ){
@@ -43,6 +46,7 @@ router.post( '/generate-session', passport.authenticate('jwt', { session: false 
     for ( let i = 0; i < req.body.number; i++ ){
         let firstTerm = generateTerm( req.body.min, req.body.max );
         let secondTerm = generateTerm( req.body.min, req.body.max );
+        console.log( 'first', firstTerm, ' second ', secondTerm);
         const problem = {  
             operator: req.body.operation,
             firstTerm,
@@ -70,13 +74,13 @@ router.post( '/generate-session', passport.authenticate('jwt', { session: false 
 //route to register a user
 router.post( '/register', function( req, res ) {  
     if( !req.body.name || !req.body.email || !req.body.password ) {
-      res.json( { success: false, message: 'Please enter email and password.' } );
+      return res.status(400).json( { success: false, message: 'Please enter email and password.' } );
     } else {
       User.findOne( {
           email: req.body.email 
       }).then( function( foundUser ){ 
           if ( foundUser ){
-              return res.json({ success: false, message: 'That email address already exists.'});
+              return res.status(400).json({ success: false, message: 'That email address already exists.'});
           } else {
               User.create( {
                 name: req.body.name,   
@@ -155,8 +159,26 @@ router.get( '/sendSession/:sessionId', passport.authenticate( 'jwt', { session: 
 
 router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
     console.log(req.params.index);
+    
+/*    
+    Session.update({_id: mongoose.Types.ObjectId(req.params.sessionId) }, {$set : {"problems." + index +  ".userResponse" : req.body.userResponse } } )
+    .then( (updated)=>{
+      console.log(updated);
+      res.json(updated.problems[req.params.index]);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      res.json({status: "error" , message:err.message});
+    });  
+*/   
+   
     Session.findOne({_id: req.params.sessionId})
     .then( (item)=>{
+        console.log( 'xxxxxxxxxxxxxxxxxxxxx');
+        console.log(item.problems);
+        console.log('blah');
+        console.log( item.problems[req.params.index]);
+        console.log('.......................');
         item.problems[req.params.index].userResponse = req.body.userResponse;
         Session.update({_id: req.params.sessionId}, item).then( (updated)=>{
           res.json(updated.problems[req.params.index]);
@@ -170,6 +192,8 @@ router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { sess
       console.log('error finding item', err.message);
       res.json({status:"error", message: err.message});
     })
+
+
 });
 
 
