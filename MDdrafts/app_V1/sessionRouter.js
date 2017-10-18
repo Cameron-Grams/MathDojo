@@ -46,7 +46,6 @@ router.post( '/generate-session', passport.authenticate('jwt', { session: false 
     for ( let i = 0; i < req.body.number; i++ ){
         let firstTerm = generateTerm( req.body.min, req.body.max );
         let secondTerm = generateTerm( req.body.min, req.body.max );
-        console.log( 'first', firstTerm, ' second ', secondTerm);
         const problem = {  
             operator: req.body.operation,
             firstTerm,
@@ -158,7 +157,6 @@ router.get( '/sendSession/:sessionId', passport.authenticate( 'jwt', { session: 
 
 
 router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
-    console.log(req.params.index);
     
 /*    
     Session.update({_id: mongoose.Types.ObjectId(req.params.sessionId) }, {$set : {"problems." + index +  ".userResponse" : req.body.userResponse } } )
@@ -169,9 +167,41 @@ router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { sess
     .catch((err) => {
       console.log(err.message);
       res.json({status: "error" , message:err.message});
-    });  
+    }); 
 */   
+    let updateIndex = req.params.index;  
+    const updateString = `"problems.${ updateIndex }"`;
+    const updateResponse = `${updateString}.userResponse`;
+    Session.update( {_id:req.params.sessionId}, {$set: {"userResponse": req.body.userResponse } } )
+    .then( updated => {
+        console.log( updated) 
+        })
+    .catch( err => {
+        console.log( 'update problem' )}
+    );
    
+    Session.findOne({_id: req.params.sessionId})
+    .then( item =>  {
+        console.log( 'the item is: ', item); 
+        res.json( item );
+    } )
+    .catch( err => {
+        res.json({ message:"first error"})
+    })
+} )
+
+/*
+    Session.findOne({_id: req.params.sessionId})
+    .then( item => {
+        console.log( dbItem);
+        console.log(updateString);
+        res.json( item );
+    })
+    .catch( err =>{
+        res.json( {status: "failed to find item", message: "still screwed"});
+    })
+    */
+/*
     Session.findOne({_id: req.params.sessionId})
     .then( (item)=>{
         console.log( 'xxxxxxxxxxxxxxxxxxxxx');
@@ -180,22 +210,30 @@ router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { sess
         console.log( item.problems[req.params.index]);
         console.log('.......................');
         item.problems[req.params.index].userResponse = req.body.userResponse;
-        Session.update({_id: req.params.sessionId}, item).then( (updated)=>{
-          console.log( updated );
-          res.json(updated.problems[req.params.index]);
+        const updateString = 'item.problems[req.params.index].userResponse';
+        Session.update({_id: req.params.sessionId}, {$set:{ updateString: req.body.userResponse }  })
+// { n: 1, nModified: 1, ok: 1 }        
+        .then( Session.findOne({_id:req.params.sessionId}))
+        .then( (updated)=>{
+//            console.log( updated );
+            res.json(updated.problems[req.params.index]);     
         })
         .catch( (err) => {
+            res.json({status:"inner error with finding updated element", message: err.message})
+        }) 
+       
+        .catch( (err) => {
             console.log( err.message);
-            res.json({status:"inner error", message: err.message});
+            res.json({status:"error at level of update command", message: err.message});
         })
     })
     .catch( (err) => {
       console.log('error finding item', err.message);
       res.json({status:"error", message: err.message});
     })
+*/
 
 
-});
 
 
 router.patch( '/session-performance/:sessionId', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
