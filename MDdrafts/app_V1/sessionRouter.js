@@ -181,6 +181,7 @@ router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { sess
         console.log('.......................');
         item.problems[req.params.index].userResponse = req.body.userResponse;
         Session.update({_id: req.params.sessionId}, item).then( (updated)=>{
+          console.log( updated );
           res.json(updated.problems[req.params.index]);
         })
         .catch( (err) => {
