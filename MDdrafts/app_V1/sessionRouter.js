@@ -158,7 +158,7 @@ router.get( '/sendSession/:sessionId', passport.authenticate( 'jwt', { session: 
 
 router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
     
-/*    
+/*    from Stack Overflow
     Session.update({_id: mongoose.Types.ObjectId(req.params.sessionId) }, {$set : {"problems." + index +  ".userResponse" : req.body.userResponse } } )
     .then( (updated)=>{
       console.log(updated);
@@ -168,40 +168,38 @@ router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { sess
       console.log(err.message);
       res.json({status: "error" , message:err.message});
     }); 
-*/   
-    let updateIndex = req.params.index;  
-    const updateString = `"problems.${ updateIndex }"`;
-    const updateResponse = `${updateString}.userResponse`;
-    Session.update( {_id:req.params.sessionId}, {$set: {"userResponse": req.body.userResponse } } )
+*/   /*trying to set a new value to the session just to demonstrate setting... 
+ /*   Session.update( {_id:req.params.sessionId}, {$set: {"userResponse": req.body.userResponse } } )
     .then( updated => {
         console.log( updated) 
         })
     .catch( err => {
         console.log( 'update problem' )}
     );
-   
+ */  
+
+ //this method is inconsistent, sometimes (no clear pattern) the last item in the problem array does not record 
+ //the userResponse value...
     Session.findOne({_id: req.params.sessionId})
     .then( item =>  {
-        console.log( 'the item is: ', item); 
-        res.json( item );
+//        res.json( item );
+        item.problems[ req.params.index ].userResponse = req.body.userResponse;
+        //would have been cool to get into the array exactly..
+//        Session.update( {_id: req.params.sessionId, problems: targetRecord}, {$set:{ "problems.$": { userResponse: req.body.userResponse} } })
+        Session.update({_id: req.params.sessionId}, item)
+        .then( update => {
+            console.log( update );
+//            res.json( update );
+        })
+        .catch( err => {message: "first error"});
+        Session.sessions.save();
     } )
     .catch( err => {
-        res.json({ message:"first error"})
+        res.json({ message:"second error"})
     })
 } )
 
-/*
-    Session.findOne({_id: req.params.sessionId})
-    .then( item => {
-        console.log( dbItem);
-        console.log(updateString);
-        res.json( item );
-    })
-    .catch( err =>{
-        res.json( {status: "failed to find item", message: "still screwed"});
-    })
-    */
-/*
+/*  trouble shooting from Tuesday
     Session.findOne({_id: req.params.sessionId})
     .then( (item)=>{
         console.log( 'xxxxxxxxxxxxxxxxxxxxx');
@@ -231,8 +229,8 @@ router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { sess
       console.log('error finding item', err.message);
       res.json({status:"error", message: err.message});
     })
-*/
 
+*/
 
 
 
@@ -241,7 +239,6 @@ router.patch( '/session-performance/:sessionId', passport.authenticate( 'jwt', {
     .then( (item)=>{
         item.set( "ratioCorrect", req.body.ratioCorrect);
         item.set( "pointsAwarded", req.body.pointsAwarded);
-        console.log(item);
         Session.update({_id: req.params.sessionId}, item).then( update => {
             res.json({ status: "success", message: "user performance recorded"}) 
         })

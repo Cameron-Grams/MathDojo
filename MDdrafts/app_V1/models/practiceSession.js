@@ -10,4 +10,4 @@ const sessionSchema = mongoose.Schema( {
 
 const Session = mongoose.model( 'Session', sessionSchema );
  
-module.exports = { Session }; //don't think we need Problem...
+module.exports = { Session }; 
