@@ -156,7 +156,7 @@ router.get( '/sendSession/:sessionId', passport.authenticate( 'jwt', { session: 
 });
 
 
-router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
+// router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
     
 /*    from Stack Overflow
     Session.update({_id: mongoose.Types.ObjectId(req.params.sessionId) }, {$set : {"problems." + index +  ".userResponse" : req.body.userResponse } } )
@@ -180,25 +180,15 @@ router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { sess
 
  //this method is inconsistent, sometimes (no clear pattern) the last item in the problem array does not record 
  //the userResponse value...
-    Session.findOne({_id: req.params.sessionId})
-    .then( item =>  {
-//        res.json( item );
-        item.problems[ req.params.index ].userResponse = req.body.userResponse;
-        //would have been cool to get into the array exactly..
-//        Session.update( {_id: req.params.sessionId, problems: targetRecord}, {$set:{ "problems.$": { userResponse: req.body.userResponse} } })
-        Session.update({_id: req.params.sessionId}, item)
-        .then( update => {
-            console.log( update );
-//            res.json( update );
-        })
-        .catch( err => {message: "first error"});
-        Session.sessions.save();
-    } )
-    .catch( err => {
-        res.json({ message:"second error"})
+ router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
+    Session.findByIdAndUpdate(mongoose.Types.ObjectId(req.params.sessionId), {$set : {[`problems.${req.params.index}.userResponse`]: req.body.userResponse } }, { new: true } )
+    .then((updated)=>{
+      res.json(updated.problems[req.params.index]);
     })
-} )
-
+    .catch((err) => {
+      res.json({status: "error" , message:err.message});
+    });
+});
 /*  trouble shooting from Tuesday
     Session.findOne({_id: req.params.sessionId})
     .then( (item)=>{
