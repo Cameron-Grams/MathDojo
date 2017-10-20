@@ -102,6 +102,15 @@ function returnDashboard(){
     location.href = `dashboard.html`;
 }
 
+$( '#js-userResponse' ).keydown( function( e ){
+    let responseAnswer = $( '#js-userResponse' ).val();
+    if ( e.keyCode === 13 ){
+        evaluateResponse( responseAnswer );
+        clearInput();
+    }
+} )
+
+
 
 // Render question if can
 // check if was not last question
@@ -129,29 +138,6 @@ function evaluateResponse( userResponse ){
     updateProblem( sessionId, questionNumber, userResponse );
     questionNumber += 1;
     displayProblem( sessionProblemsArray );
-}
-
-$( '#js-userResponse' ).keydown( function( e ){
-    let responseAnswer = $( '#js-userResponse' ).val();
-    if ( e.keyCode === 13 ){
-        evaluateResponse( responseAnswer );
-        clearInput();
-    }
-} )
-
-function checkOperation( string ){
-    switch( string ){
-        case 'addition':
-          return '+';
-        case 'subtraction':
-          return '-';
-        case 'multiplication':
-          return '*';
-        case 'division':
-          return '/';
-        default:
-          return string;
-    }
 }
 
 function getQueryVariable( variable )

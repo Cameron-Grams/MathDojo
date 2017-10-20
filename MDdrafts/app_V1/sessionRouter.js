@@ -155,31 +155,7 @@ router.get( '/sendSession/:sessionId', passport.authenticate( 'jwt', { session: 
     .catch( () => res.status( 500 ).send( 'problem sending the session' ) );
 });
 
-
-// router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
-    
-/*    from Stack Overflow
-    Session.update({_id: mongoose.Types.ObjectId(req.params.sessionId) }, {$set : {"problems." + index +  ".userResponse" : req.body.userResponse } } )
-    .then( (updated)=>{
-      console.log(updated);
-      res.json(updated.problems[req.params.index]);
-    })
-    .catch((err) => {
-      console.log(err.message);
-      res.json({status: "error" , message:err.message});
-    }); 
-*/   /*trying to set a new value to the session just to demonstrate setting... 
- /*   Session.update( {_id:req.params.sessionId}, {$set: {"userResponse": req.body.userResponse } } )
-    .then( updated => {
-        console.log( updated) 
-        })
-    .catch( err => {
-        console.log( 'update problem' )}
-    );
- */  
-
- //this method is inconsistent, sometimes (no clear pattern) the last item in the problem array does not record 
- //the userResponse value...
+//the method to update the users answers in the session
  router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
     Session.findByIdAndUpdate(mongoose.Types.ObjectId(req.params.sessionId), {$set : {[`problems.${req.params.index}.userResponse`]: req.body.userResponse } }, { new: true } )
     .then((updated)=>{
@@ -189,53 +165,26 @@ router.get( '/sendSession/:sessionId', passport.authenticate( 'jwt', { session: 
       res.json({status: "error" , message:err.message});
     });
 });
-/*  trouble shooting from Tuesday
-    Session.findOne({_id: req.params.sessionId})
-    .then( (item)=>{
-        console.log( 'xxxxxxxxxxxxxxxxxxxxx');
-        console.log(item.problems);
-        console.log('blah');
-        console.log( item.problems[req.params.index]);
-        console.log('.......................');
-        item.problems[req.params.index].userResponse = req.body.userResponse;
-        const updateString = 'item.problems[req.params.index].userResponse';
-        Session.update({_id: req.params.sessionId}, {$set:{ updateString: req.body.userResponse }  })
-// { n: 1, nModified: 1, ok: 1 }        
-        .then( Session.findOne({_id:req.params.sessionId}))
-        .then( (updated)=>{
-//            console.log( updated );
-            res.json(updated.problems[req.params.index]);     
-        })
-        .catch( (err) => {
-            res.json({status:"inner error with finding updated element", message: err.message})
-        }) 
-       
-        .catch( (err) => {
-            console.log( err.message);
-            res.json({status:"error at level of update command", message: err.message});
-        })
-    })
-    .catch( (err) => {
-      console.log('error finding item', err.message);
-      res.json({status:"error", message: err.message});
-    })
-
-*/
-
-
 
 router.patch( '/session-performance/:sessionId', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
-    Session.findOne({_id: req.params.sessionId})
-    .then( (item)=>{
-        item.set( "ratioCorrect", req.body.ratioCorrect);
-        item.set( "pointsAwarded", req.body.pointsAwarded);
-        Session.update({_id: req.params.sessionId}, item).then( update => {
-            res.json({ status: "success", message: "user performance recorded"}) 
+    Session.findByIdAndUpdate(mongoose.Types.ObjectId(req.params.sessionId), 
+        {$set: {
+            "ratioCorrect": req.body.ratioCorrect,
+            "pointsAwarded": req.body.pointsAwarded
+        }},
+        {new: true})
+        .then( (updated) => {
+            res.json({status: "successful session update", message:"sweet"})
         })
-        .catch(err => res.json({status:"error", message:"first error"})) 
-    })
-    .catch( (err) => res.json({status:"error", message:"error with update"}))
+        .catch((err) => {
+            res.json({ status:"error with session update", message: err.message})
+        });
 });
+
+
+
+
+
 
 module.exports = router;
 
