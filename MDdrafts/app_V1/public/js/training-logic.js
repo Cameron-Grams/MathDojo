@@ -90,13 +90,27 @@ function displayProblem( sessionProblemsArray ){
     if ( questionNumber < practiceLength ){
         $( '#js-displayQuestion' ).html( `${ sessionProblemsArray[ questionNumber ].problem }` );
     }
-
-
+    if ( questionNumber === practiceLength ){
+        const ratioCorrect = numberCorrect / practiceLength;
+        const pointsAwarded = ratioCorrect * practiceLength;
+        console.log(pointsAwarded);
+        recordSessionAccuracy(sessionId, ratioCorrect, pointsAwarded);       
+    };
 }
 
 function returnDashboard(){
     location.href = `dashboard.html`;
 }
+
+
+// Render question if can
+// check if was not last question
+    // if not call server with users respond
+    // render another question
+// //////////////////////////////////////////
+// // if yes call server with user respond
+// // // after call is done call server to calculate users acuracy
+
 
 //evaluates user answer based on questionNumber in session array, controls advance of the 
 // global questionNumber variable
@@ -112,18 +126,9 @@ function evaluateResponse( userResponse ){
         $( '#incorrectResponses' ).append( responseString );
     }
     sessionProblemsArray[ questionNumber ].userResponse = userResponse; 
-
     updateProblem( sessionId, questionNumber, userResponse );
     questionNumber += 1;
-     
-    if ( questionNumber === practiceLength ){
-        const ratioCorrect = numberCorrect / practiceLength;
-        const pointsAwarded = ratioCorrect * practiceLength;
-        console.log(pointsAwarded);
-        recordSessionAccuracy(sessionId, ratioCorrect, pointsAwarded);       
-    } else {
-        displayProblem( sessionProblemsArray );
-    }
+    displayProblem( sessionProblemsArray );
 }
 
 $( '#js-userResponse' ).keydown( function( e ){
