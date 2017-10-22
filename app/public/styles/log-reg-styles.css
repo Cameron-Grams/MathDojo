@@ -9,6 +9,11 @@ body{
     Font-Family: 'Raleway', Sans-Serif;
 }
 
+.midText{
+    Font-Family: 'Roboto', Sans-Serif;
+    font-size: 1.5em;
+}
+
 .smallText{
     Font-Family: 'Open Sans', Sans-Serif;
     Font-Size: 1em;
@@ -48,13 +53,13 @@ body{
     background-color: white;
     padding: 10px;
     border-radius: 15px;
-    width: 70%;
+    width: 50%;
     margin: auto;
     margin-top: 3%;
     font-size: 2em;
     font-weight: bold;
 }
-
+ 
 h5{
     font-size: 1.5em;
 }
@@ -72,9 +77,19 @@ h5{
     margin: auto;
 
 }
+#sendRegistration{
+    display: inline-block;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+#sendRegistration:hover{
+    background-color: rgb(50, 160, 50);
+}
 
 ul {
     text-align: left;
+    margin-left: 25%;
 }
 
 .invisible{
