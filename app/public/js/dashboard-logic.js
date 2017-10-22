@@ -1,6 +1,5 @@
 var currentRank, currentLevel;
 
-
 function checkUser( ){
     const token = localStorage.getItem( 'token' );
     if ( !token ){
@@ -37,13 +36,10 @@ function displayUserRecord(data){
     const lengthOfTraining = data.length;
     for (let i = 0; i < lengthOfTraining; i++){
         const pastPracticeSession = dateFormat(data[i]).pastPractice; 
-
-//need to extract the points for the session towards the next level...
         currentLevel += dateFormat(data[i]).sessionPoints;
          $('#js-pastPractices').prepend(pastPracticeSession);
     }
     const userName = payloadData.userName;
-//    const currentLevel = payloadData.level;
     console.log('current Level: ', currentLevel);
     currentRank = assessUserRank(currentLevel).currentRank;
     $('#userName').html(userName);
@@ -83,8 +79,8 @@ function getQueryVariable( variable )
 }
 
 function reselectRange(){
-    const instructions = '<h2>You must select number with a separation of more than 5.</h2>';
-    $('#js-typeInstructions').prepend(instructions);
+    const instructions = '<h2 style="color:red">You must select number with a separation of more than 5.</h2>';
+    $('#js-alerts').prepend(instructions);
 }
 
 //handler for initial start of practice session, enters the session values
@@ -93,7 +89,13 @@ $( '#js-startExercise' ).on( 'click', function(){
     let number = $( '#js-practiceType' ).val();
     let min = $( '#js-minRange' ).val();
     let max = $( '#js-maxRange' ).val();
-    return (+max - +min < 5) ? reselectRange(): requestSession( operation, number, min, max );
+    let reNumber = /\d+/;
+    console.log( reNumber.test(min), reNumber.test(max));
+    if ( reNumber.test(min) && reNumber.test(max)){
+        return (+max - +min < 5) ? reselectRange(): requestSession( operation, number, min, max );
+    } else {   
+        reselectRange();
+    }
 } );
 
 //handler to clear values in input boxes

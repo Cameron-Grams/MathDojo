@@ -3,35 +3,45 @@
 <html>  
 <head>
 <title>APP_V1 Dashboard Page</title>
+<link href="https://fonts.googleapis.com/css?family=Droid+Serif|Roboto:300" rel="stylesheet">
 <link rel="stylesheet" href="./styles/dashboard-styles.css" /> 
 </head>
 <body>
 <button id="logOutBtn" onclick="logOutSession()">Log Out of Training Dojo</button>
 
 <section>
-    <h3 id="userName">User Name</h3>
-    <h3>Current Level: <span id="currentLevel"></span></h3>
-   
-    <p id="js-typeInstructions">Select Type of Practice Session</p>
-    <h2>Train Like A</h2>
-    <h3>Mouse  老鼠</h3>
-    <h3>Dolphin 海豚 </h3>
-    <h3>Dog   狗 </h3>
-    <h3>Tigeri 虎 </h3>
-    <h3>Eagle 鷹 </h3>
-    <h3>Bear 熊 </h3>
-    <select id="js-practiceType" >  
-        <option value="5" >Mouse 老鼠</option>
-        <option value="10" >Dolphin  老鼠</option>
-        <option value="15" >Dog 狗 </option>
-        <option value="25" >Tiger 虎 </option>
-        <option value="50" >Eagle 鷹 </option>
-        <option value="100" >Bear 熊 </option>
-    </select>
-    <button id="js-startExercise" >Begin</button>
+    <h1 class="headerInfo" id="userName">User Name</h1>
+    
+    <div id="beltDiv">   
+        <h1 class="headerInfo" >Current Level: <span id="currentLevel"></span></h1>
+    </div>
+ 
+    <div id="trainingTypeFormat"> 
+    <h2 id="js-typeInstructions">Select Type of Practice Session</h2>
+    <section id="mobileOptionsDisplay">
+        <h2>Train like a:</h2>
+        <h3>Mouse  老鼠</h3>
+        <h3>Dolphin 海豚 </h3>
+        <h3>Dog   狗 </h3>
+        <h3>Tigeri 虎 </h3>
+        <h3>Eagle 鷹 </h3>
+        <h3>Bear 熊 </h3>
+    </section>
+    </div>
+    
+    <section >  
+        <select class="spaceSection" id="js-practiceType" >  
+            <option value="5" >Mouse 老鼠</option>
+            <option value="10" >Dolphin  老鼠</option>
+            <option value="15" >Dog 狗 </option>
+            <option value="25" >Tiger 虎 </option>
+            <option value="50" >Eagle 鷹 </option>
+            <option value="100" >Bear 熊 </option>
+        </select>
+    </section>
 </section>
       
-    <section id="operationType">  
+    <section class="spaceSection" id="operationType">  
         <span class="instructionFormat" >Select operation</span>
         <select id="js-operationType" >  
             <option value="+" >Addition ( + )</option>
@@ -40,11 +50,14 @@
             <option value="/" >Division ( / )</option>
         </select>
     </section>
-   <section id="numberRange" >    
+   <section class="spaceSection" id="numberRange" >    
         <span class="instructionFormat">From <input  type="text" class="js-inputBox" id="js-minRange" value="Enter min" /> to
         <input type="text" class="js-inputBox" id="js-maxRange" value="Enter max" /></span>
     </section>
-  
+
+    <button class="spaceSection" id="js-startExercise" >Begin</button>
+
+    <div id="js-alerts"></div>
 
 <section id="recordOfTraining" >
     <div>Past Training</div>
