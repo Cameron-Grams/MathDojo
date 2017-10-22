@@ -181,6 +181,18 @@ router.patch( '/session-performance/:sessionId', passport.authenticate( 'jwt', {
         });
 });
 
+router.delete( '/remove-session/:sessionId', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
+    console.log('in deletion with: ', req.params.sessionId);
+    Session.findByIdAndRemove(mongoose.Types.ObjectId(req.params.sessionId)
+        )
+        .then(
+            res.status(204).json({status: "successfully deleted session", message:"sweet"})
+        )
+        .catch((err) => {
+            res.json({ status:"error with session deletion", message: err.message})
+        });
+});
+
 
 
 

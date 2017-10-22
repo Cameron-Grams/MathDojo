@@ -64,6 +64,27 @@ function recordSessionAccuracy(sessionId, ratioCorrect, pointsAwarded){
     });
   }
 
+
+function abandonSession(){
+     $.ajax({
+      method: 'DELETE',
+      headers: {
+        Authorization: localStorage.getItem('token')
+      },
+      url: `/api/remove-session/${sessionId}`,
+//      data: JSON.stringify({ratioCorrect, pointsAwarded}),
+      success: returnDashboard(),
+      dataType: 'json',
+      contentType: 'application/json'
+    });
+}
+
+   
+
+
+
+  
+
 function parseJwt (token) {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace('-', '+').replace('_', '/');
@@ -109,8 +130,7 @@ $( '#js-userResponse' ).keydown( function( e ){
         clearInput();
     }
 } )
-
-
+ 
 
 // Render question if can
 // check if was not last question
