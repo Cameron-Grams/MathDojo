@@ -3,22 +3,23 @@
 <html>  
 <head>
 <title>V1 Login Page</title>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway:300,400" rel="stylesheet">
+
+
 <link rel="stylesheet" href="./styles/log-reg-styles.css" />
 
 
 </head>
 <body>
-<section>
-    <span>Instructions</span>
-</section>
+
 
   <section id="images">
     <section> 
-        <img id="leftImage" src="/images/jitath.jpg" alt="where is the image?" ><span>Left Image</span>
+        <img id="leftImage" src="/images/jitath.jpg" alt="where is the image?" ><span></span>
     </section>
   <section>
         <img id="rightImage" src="/images/seiryokuth.jpg" alt="Not here either?" > 
-    <span>Right Image</span>
+    <span></span>
   </section>
   </section>
 
@@ -26,21 +27,25 @@
 
     <section id="registration" >
 
-        <h4>Enter Email </h4>
-        <input class="inputEntries" id="enterEmail" />
-        <h4>Enter Password </h4>
-        <input class="inputEntries" id="enterPassword" type="password"/>
+    <header class="largeText" id="header"><h4><b>Welcome to the Math Dojo</b></h4></header>
 
-        <button id="logIn" >Submit Login</button>
+        <section id="innerText"> 
+            <h5 class="largeText">Enter Email </h5>
+            <input class="inputEntries" id="enterEmail" />
+            <h5  class="largeText">Enter Password </h5>
+            <input class="inputEntries" id="enterPassword" type="password"/>
 
-        <a href="/register.html" id="newRegistration" ><p>Or register as a new User</p></a>
+            <button id="logIn" >Submit Login</button>
 
-        <section id="demoInstructions" >    
-            <p>For a demonstration enter:</p>
-            <ul>
-                <li>Email: demo@demo.com</li>
-                <li>Password: demo</li>
-            </ul>
+            <a class="smallText" href="/register.html" id="newRegistration" ><p>Or register as a new User</p></a>
+
+            <section class="smallText"id="demoInstructions" >    
+                <p>For a demonstration enter:</p>
+                <ul>
+                    <li>Email: demo@demo.com</li>
+                    <li>Password: demo</li>
+                </ul>
+            </section>
         </section>
     </section>
 

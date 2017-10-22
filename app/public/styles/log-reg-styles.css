@@ -5,17 +5,71 @@ body{
     text-align: center;
 }
 
+.largeText{
+    Font-Family: 'Raleway', Sans-Serif;
+}
+
+.smallText{
+    Font-Family: 'Open Sans', Sans-Serif;
+    Font-Size: 1em;
+}
+
+#logIn:hover{
+    background-color: yellow;
+}
+
+#images{
+    width: 100%;
+}
+
+#leftImage{
+    width: 50%;
+    float: left; 
+}
+
+#rightImage{
+    width: 50%;
+    float: right;
+}
+
 #registrationBody{
     background-color: rgba(224, 223, 127, 0.87);
 }
 
 #registration{
-    margin-top: 10%;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 2000px;
+    background-color: rgba(217, 217, 223, 0.418); 
+}
+
+#header{
+    background-color: white;
+    padding: 10px;
+    border-radius: 15px;
+    width: 70%;
+    margin: auto;
+    margin-top: 3%;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+h5{
+    font-size: 1.5em;
+}
+
+#innerText{
+    margin: auto;
+    margin-top: 5%;
+    padding: 20px;
+    width: 85%;
+    border-radius: 25px;
+    background-color: white;
 }
 
 #demoInstructions{
     margin: auto;
-    width: 25%;
 
 }
 
@@ -55,3 +109,8 @@ ul {
     100% { transform: rotate(360deg); }
 }
 
+@media only screen and ( min-width: 760px ) {
+    #innerText{
+        width: 35%;
+    }
+}
