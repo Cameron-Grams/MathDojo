@@ -89,11 +89,16 @@ body{
     width: 85%;
     margin: 20px auto 20px;
 }
-
+/*
 .linksToPastSessions{
     text-decoration: none;
     color: inherit;
+}
+*/
 
+a{
+    text-decoration: none;
+    color: inherit;
 }
 
 .js-pastRecord{

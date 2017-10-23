@@ -72,7 +72,6 @@ function abandonSession(){
         Authorization: localStorage.getItem('token')
       },
       url: `/api/remove-session/${sessionId}`,
-//      data: JSON.stringify({ratioCorrect, pointsAwarded}),
       success: returnDashboard(),
       dataType: 'json',
       contentType: 'application/json'
@@ -117,7 +116,7 @@ function displayProblem( sessionProblemsArray ){
 }
 
 function returnDashboard(){
-    location.href = `dashboard.html`;
+    location.href = `index.html`;
 }
 
 $( '#js-userResponse' ).keydown( function( e ){

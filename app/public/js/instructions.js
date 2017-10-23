@@ -1,3 +1,8 @@
 function returnToIndex(){
-    console.log('in instructions');
+    console.log('in return');
+    location.href = 'index.html';
 };
+
+
+$(console.log('in instructions'));
+

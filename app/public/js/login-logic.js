@@ -1,7 +1,7 @@
 const token = localStorage.getItem('token');
 
 if (token){
-  location.href = 'dashboard.html';
+  location.href = 'index.html';
 }
 
 function readyLogIn(){
@@ -28,7 +28,7 @@ function manageLogin(data){
     console.log(data);
     localStorage.removeItem('token');
     localStorage.setItem('token', data.token);
-    location.href = `dashboard.html`;
+    location.href = `index.html`;
 
 }
 
