@@ -78,13 +78,7 @@ function abandonSession(){
       contentType: 'application/json'
     });
 }
-
-   
-
-
-
-  
-
+ 
 function parseJwt (token) {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace('-', '+').replace('_', '/');
@@ -97,9 +91,12 @@ function manageSessionData( session ){
     const payloadData = parseJwt(token);
     const userName = payloadData.userName;
     $('#userName').html(userName);
-    const currentRank =  assessUserRank(currentLevel).currentRank;  
+    const rankObject =  assessUserRank(currentLevel);  
+    const currentRank = rankObject.currentRank;
+    const rankColorStyle = rankObject.colorDiv;
     console.log(currentRank);
     $('#currentLevel').html(currentRank);
+    $('#beltDiv').css('background-color', rankColorStyle);
     displayProblem( sessionProblemsArray );
     $('#loader-wrapper').fadeOut();
     return sessionProblemsArray;

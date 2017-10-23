@@ -15,8 +15,19 @@
     <div id="beltDiv">   
         <h1 class="headerInfo" >Current Level: <span id="currentLevel"></span></h1>
     </div>
+
+    <div id="outerDeskShell">  
+        <div id="deskTrainingTypeFormat">
+            <img class="deskImage" id="mouse" src="./images/mouse.jpg">
+            <img class="deskImage" id="dolphin" src="./images/dolphin.jpg">
+            <img class="deskImage" id="dog" src="./images/dog.jpg">
+            <img class="deskImage" id="tiger" src="./images/tiger.jpg">
+            <img class="deskImage" id="eagle" src="./images/eagle.jpg">
+            <img class="deskImage" id="bear" src="./images/bear.jpg">
+        </div>
+    </div>
  
-    <div id="trainingTypeFormat"> 
+    <div id="mobileTrainingTypeFormat"> 
     <h2 id="js-typeInstructions">Select Type of Practice Session</h2>
     <section id="mobileOptionsDisplay">
         <h2>Train like a:</h2>
@@ -50,6 +61,9 @@
             <option value="/" >Division ( / )</option>
         </select>
     </section>
+
+   <div id="js-alerts"></div>
+
    <section class="spaceSection" id="numberRange" >    
         <span class="instructionFormat">From <input  type="text" class="js-inputBox" id="js-minRange" value="Enter min" /> to
         <input type="text" class="js-inputBox" id="js-maxRange" value="Enter max" /></span>
@@ -57,12 +71,23 @@
 
     <button class="spaceSection" id="js-startExercise" >Begin</button>
 
-    <div id="js-alerts"></div>
+
 
 <section id="recordOfTraining" >
     <div>Past Training</div>
     <div id="js-pastPractices"></div>
+
+    <div id="js-deskTopPastPractices">
+        <div id="js-lowPerformance"></div>
+        <div id="js-midPerformance"></div>
+        <div id="js-highPerformance"></div>
+    </div>
+
+
 </section>
+
+
+
 
 <div id="loader-wrapper">
     <div id="loader"></div>

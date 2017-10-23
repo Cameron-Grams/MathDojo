@@ -1,10 +1,19 @@
 body{
-    background-color: rgba(48, 155, 6, 0.74);
+    background-color: rgba(224, 223, 127, 0.87);
+    Font-Family: 'Roboto', Sans-Serif;
     text-align: center;
 }
 
-section{
-    border: 1px solid black;
+#beltDiv {
+    background-color: white;
+    width: 100%;
+    padding: 10px;
+}
+
+.headerInfo{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2em;
+    font-weight: bold;
 }
 
 .instructionFormat{
@@ -23,14 +32,13 @@ section{
 }
 
 .correct{
-    border: 1px solid green;
     color: green;
 }
 
 .incorrect{
-    border: 1px solid red;
     color: red;
 }
+
 .accuracy{
     color: black;
 }
@@ -63,3 +71,7 @@ section{
     100% { transform: rotate(360deg); }
 }
 
+/*desk-top features */
+@media only screen and (min-width: 760 ) {
+    
+}

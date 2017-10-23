@@ -41,9 +41,10 @@ function displayUserRecord(data){
     }
     const userName = payloadData.userName;
     console.log('current Level: ', currentLevel);
-    currentRank = assessUserRank(currentLevel).currentRank;
+    const rankObject = assessUserRank(currentLevel);
     $('#userName').html(userName);
-    $('#currentLevel').html(currentRank);
+    $('#beltDiv').css( 'background-color', rankObject.colorDiv);
+    $('#currentLevel').html(rankObject.currentRank);
     $('#loader-wrapper').fadeOut();
 };
  
@@ -89,9 +90,8 @@ $( '#js-startExercise' ).on( 'click', function(){
     let number = $( '#js-practiceType' ).val();
     let min = $( '#js-minRange' ).val();
     let max = $( '#js-maxRange' ).val();
-    let reNumber = /\d+/;
-    console.log( reNumber.test(min), reNumber.test(max));
-    if ( reNumber.test(min) && reNumber.test(max)){
+    let reNumber = /[a-zA-Z]+/; //include test for other characters
+    if ( !reNumber.test(min) && !reNumber.test(max)){
         return (+max - +min < 5) ? reselectRange(): requestSession( operation, number, min, max );
     } else {   
         reselectRange();

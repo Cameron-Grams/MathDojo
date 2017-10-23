@@ -52,9 +52,10 @@ function returnMonth(numberMonth){
 
 function renderAccuracy( performanceNumber){
     if (performanceNumber < 0.5){
-      return "lowPerformance";
+      return { performanceClass: "lowPerformance", classColor: 'red'};
     }
-    const performance = performanceNumber < 0.8 ? "middlePerformance": "highPerformance";
+    const performance = performanceNumber < 0.8 ? { performanceClass: "middlePerformance", classColor: 'yellow'}
+        : { performanceClass: "highPerformance", classColor: 'green'};
     return performance; 
 }
 
@@ -65,10 +66,10 @@ function dateFormat(data){
     const displayDay = returnDay(trainingDate.getDay());
     const displayDate = trainingDate.getDate();
     const accuracyClass = renderAccuracy(data.ratioCorrect);
-
+    const classColor = accuracyClass.classColor;
     return {
-        pastPractice: `<div class="js-pastRecord ${accuracyClass}" >
-          <a class="linksToPastSessions" href="past-practices.html?sessionId=${data._id}">  
+        pastPractice: `<div class="js-pastRecord ${accuracyClass.performanceClass}" >
+          <a class="linksToPastSessions" href="past-practices.html?sessionId=${data._id}&classColor=${classColor}">  
             ${displayDay}, ${displayDate} ${displayMonth} ${displayYear}
           </a>  
           </div>`,
@@ -77,6 +78,7 @@ function dateFormat(data){
             ${displayDay}, ${displayDate} ${displayMonth} ${displayYear}
           </h1>  
           </div>`,
-        sessionPoints: data.pointsAwarded
+        sessionPoints: data.pointsAwarded,
+        classColor: classColor
     };
 }

@@ -1,3 +1,5 @@
+var backgroundColor;
+
 const token = localStorage.getItem( 'token' );
   if ( !token ){
       location.href = 'login.html';
@@ -41,13 +43,13 @@ function formatProblem(data){
 }
 
 function displaySessionProblems(data){
+    $('#pastBody').css('background-color', backgroundColor );
     const sessionTitle = dateFormat(data[0]).displayTitle;
     $('#js-sessionTitleInformation').html(sessionTitle);
 
     const sessionPerformance = (data[0].ratioCorrect * 100).toFixed(2);
     const performanceString = `<h3>Performance this session was ${sessionPerformance}&#37; accuracy</h3>`;
-
-
+ 
     $('#js-sessionPerformance').html(performanceString);
 
     const problemSeriesLength = data[0].problems.length;
@@ -59,8 +61,25 @@ function displaySessionProblems(data){
     $('#loader-wrapper').fadeOut();
 }
 
+function moderateColors(colorName){
+    switch(colorName){
+        case 'red':
+            return 'rgba(204, 56, 48, 0.5)';
+        case 'green':
+            return 'rgba(20, 160, 17, 0.5)';
+        case 'yellow':
+            return 'rgba(242, 176, 43, 0.7)';
+        default:
+            return 'error';
+    }
+}
+
 function beginDisplay(){
     const getSessionName = getQueryVariable('sessionId');
+    const rawColor = getQueryVariable('classColor');
+    console.log(rawColor);
+    backgroundColor = moderateColors(rawColor);
+    console.log(backgroundColor);
     getSession(getSessionName);
 }
 
