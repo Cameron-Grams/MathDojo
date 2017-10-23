@@ -31,7 +31,8 @@ function manageNewUser( data ){
     location.href = 'login.html';
 }
    
-$( '#sendRegistration' ).on( 'click', () => {
+$( '#registrationForm' ).on( 'submit', (e) => {
+  e.preventDefault(); 
   $('#loader-wrapper').fadeIn()
   let name = $( '#enterName' ).val();
   let email = $( '#enterEmail' ).val();

@@ -20,7 +20,7 @@ function parseJwt (token) {
     const base64 = base64Url.replace('-', '+').replace('_', '/');
     return JSON.parse(window.atob(base64));
 };
-
+ 
 //loader for time to authenticate and load
 function identifyUser(){
     const userId = getQueryVariable('userId');
@@ -100,18 +100,17 @@ $( '#js-startExercise' ).on( 'click', function(){
     let number = $( '#js-practiceType' ).val();
     let min = $( '#js-minRange' ).val();
     let max = $( '#js-maxRange' ).val();
-    let reNumber = /[a-zA-Z]+/; //include test for other characters
-    if ( !reNumber.test(min) && !reNumber.test(max)){
-        return (+max - +min < 5) ? reselectRange(): requestSession( operation, number, min, max );
-    } else {   
+    if ( isNaN(min) || isNaN(max)){
         reselectRange();
+    } else {   
+        return (+max - +min < 5) ? reselectRange(): requestSession( operation, number, min, max );
     }
 } );
 
 //handler to clear values in input boxes
 $( '.js-inputBox' ).focus( function(){
     $( this ).val( '' );
-} );
+} )
 
 $( function(){
     checkUser();

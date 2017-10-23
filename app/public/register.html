@@ -11,13 +11,15 @@
 
 <section id="registration" >
     <section id="innerText">  
+        <form id="registrationForm">   
         <h4  class="midText">Enter Name </h4>
-        <input id="enterName" />
+        <input id="enterName" required/>
         <h4 class="midText" >Enter Email </h4>
-        <input id="enterEmail" />
+        <input type="email" id="enterEmail" required/>
         <h4 class="midText">Enter Password </h4>
-        <input id="enterPassword" type="password"/><br>
-        <button id="sendRegistration">Submit Registration</button>
+        <input id="enterPassword" type="password" required/><br>
+        <button type="submit" id="sendRegistration">Submit Registration</button>
+        </form>
     </section>
 </section>
 
