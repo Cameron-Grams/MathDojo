@@ -1,0 +1,113 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: rgba(224, 223, 127, 0.87);
+    text-align: center;
+}
+
+.largeText{
+    Font-Family: 'Raleway', Sans-Serif;
+}
+
+.midText{
+    Font-Family: 'Roboto', Sans-Serif;
+    font-size: 1.5em;
+}
+
+.smallText{
+    Font-Family: 'Open Sans', Sans-Serif;
+    Font-Size: 1em;
+}
+
+#registrationBody{
+    background-color: rgba(224, 223, 127, 0.87);
+}
+
+#instructions{
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 2000px;
+    background-color: rgba(217, 217, 223, 0.418); 
+}
+
+#header{
+    background-color: white;
+    padding: 10px;
+    border-radius: 15px;
+    width: 50%;
+    margin: auto;
+    margin-top: 3%;
+    font-size: 2em;
+    font-weight: bold;
+}
+ 
+h5{
+    font-size: 1.5em;
+}
+
+#innerText{
+    margin: auto;
+    margin-top: 5%;
+    padding: 20px;
+    width: 85%;
+    border-radius: 25px;
+    background-color: white;
+}
+
+#demoInstructions{
+    margin: auto;
+
+}
+#sendRegistration{
+    display: inline-block;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+#sendRegistration:hover{
+    background-color: rgb(50, 160, 50);
+}
+
+ul {
+    text-align: left;
+    margin-left: 25%;
+}
+
+.invisible{
+    display:none;
+}
+
+#loader-wrapper {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: rgb(116, 150, 108);
+}
+
+#loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    margin-left: -60px;
+    margin-top: -60px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@media only screen and ( min-width: 760px ) {
+    #innerText{
+        width: 35%;
+    }
+}

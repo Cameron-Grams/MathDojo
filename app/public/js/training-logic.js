@@ -127,16 +127,13 @@ $( '#js-userResponse' ).keydown( function( e ){
         clearInput();
     }
 } )
- 
 
-// Render question if can
-// check if was not last question
-    // if not call server with users respond
-    // render another question
-// //////////////////////////////////////////
-// // if yes call server with user respond
-// // // after call is done call server to calculate users acuracy
-
+$('#submitAnswerBtn').on('click', (e) => {
+    let responseAnswer = $('#js-userResponse').val();
+    e.preventDefault();
+    evaluateResponse(responseAnswer);
+    clearInput();
+})
 
 //evaluates user answer based on questionNumber in session array, controls advance of the 
 // global questionNumber variable
