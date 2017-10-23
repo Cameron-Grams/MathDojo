@@ -9,10 +9,11 @@ var passport = require('passport');
 var jwt = require('jsonwebtoken'); 
 
 const app = express();
-const { PORT, DATABASE_URL } = require( './config/mainConfig.js' );
-const { User } = require( './models/user' ); 
+const {PORT, DATABASE_URL} = require('./config/mainConfig.js');
+const {User} = require('./models/user'); 
 
-const sessionRouter = require( './sessionRouter' );
+const sessionRouter = require('./sessionRouter');
+const userRouter = require('./userRouter');
  
 app.use( bodyParser.urlencoded( { extended: false } ) ); //from the model, what role? 
 app.use( bodyParser.json() );
@@ -24,7 +25,8 @@ Strategy( passport );
 
 app.use( express.static( 'public' ) ); //is this still needed? 
 
-app.use( '/api', sessionRouter );
+app.use('/api/session', sessionRouter);
+app.use('/api/user', userRouter);
 
 let server;
  
