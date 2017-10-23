@@ -38,6 +38,16 @@ function displayUserRecord(data){
         const pastPracticeSession = dateFormat(data[i]).pastPractice; 
         currentLevel += dateFormat(data[i]).sessionPoints;
          $('#js-pastPractices').prepend(pastPracticeSession);
+        const sessionClass = dateFormat(data[i]).classColor;
+        if (sessionClass === 'red'){
+            $('#js-lowPerformance').prepend(pastPracticeSession);
+        } 
+        if (sessionClass === 'yellow'){
+            $('#js-midPerformance').prepend(pastPracticeSession);
+        }
+        if (sessionClass === 'green'){
+            $('#js-highPerformance').prepend(pastPracticeSession);
+        }
     }
     const userName = payloadData.userName;
     console.log('current Level: ', currentLevel);

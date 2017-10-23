@@ -137,23 +137,17 @@ body{
 
     #js-lowPerformance{
         display: inline-block;
-        border: 1px solid red; 
         width: 32%;
-        height: 50px;
     }
 
     #js-midPerformance{
         display: inline-block;
-        border: 1px solid yellow;
         width: 32%;
-        height: 50px;
     }
 
     #js-highPerformance{
         display: inline-block;
-        border: 1px solid green;
         width: 32%;
-        height: 50px;
     }
 
     #js-pastPractices{
