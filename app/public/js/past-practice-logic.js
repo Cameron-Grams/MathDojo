@@ -11,7 +11,7 @@ function getSession(sessionId){
       headers: {
           Authorization: localStorage.getItem( 'token' )
       },
-      url: `/api/session/sendSession/${sessionId}`,
+      url: `/api/session/${sessionId}`,
       success: (data) => {displaySessionProblems(data)},
       dataType: 'json',
       contentType: 'application/json'

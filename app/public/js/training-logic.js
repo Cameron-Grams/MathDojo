@@ -21,7 +21,7 @@ function sendSession( sessionId ){
       headers: {
         Authorization: localStorage.getItem('token')
       },
-      url: `/api/session/sendSession/${sessionId}`,
+      url: `/api/session/${sessionId}`,
       success: function(data) {
         console.log( 'data returned is: ', data );
         manageSessionData( data );
@@ -30,7 +30,7 @@ function sendSession( sessionId ){
       contentType: 'application/json'
     });
   }
-
+ 
   //mechanics of the AJAX call sending the PATCH request to the problem object
 function updateProblem( sessionId, problemIndex, userResponse ){
     $.ajax({
@@ -38,8 +38,8 @@ function updateProblem( sessionId, problemIndex, userResponse ){
       headers: {
         Authorization: localStorage.getItem( 'token' )
       },
-      url: `/api/session/${sessionId}/${problemIndex}`,
-      data: JSON.stringify({userResponse }),
+      url: `/api/session/${sessionId}`,
+      data: JSON.stringify({userResponse, action: 'problem', index: problemIndex }),
       success: function(data) {
         console.log( 'problem updated: ', data );
       },
@@ -56,9 +56,9 @@ function recordSessionAccuracy(sessionId, ratioCorrect, pointsAwarded){
       headers: {
         Authorization: localStorage.getItem('token')
       },
-      url: `/api/session/session-performance/${sessionId}`,  //this call is not happening 
-      data: JSON.stringify({ratioCorrect, pointsAwarded}),
-      success: returnDashboard(),
+      url: `/api/session/${sessionId}`,  //this call is not happening 
+      data: JSON.stringify({action: 'accuracy', ratioCorrect, pointsAwarded}),
+      success: () => { console.log('in record session callback')},     //returnDashboard(),
       dataType: 'json',
       contentType: 'application/json'
     });

@@ -14,14 +14,14 @@ function checkUser( ){
         error: () => { location.href = 'login.html' }
     });
 }
-  
+   
 function requestSession( operation, number, min, max ){
     $.ajax({
       method: 'POST',
       headers: {
           Authorization: localStorage.getItem( 'token' )
       },
-      url: '/api/session/generate-session',
+      url: '/api/session',
       data: JSON.stringify( { operation, number, min, max } ),
       success: function(data) {
         location.href= `training.html?sessionId=${ data._id }&currentLevel=${currentLevel}` },
@@ -66,10 +66,10 @@ function displayUserRecord(data){
     }
     const userName = payloadData.userName;
     console.log('current Level: ', currentLevel);
-    const rankObject = assessUserRank(currentLevel); //here is the problem, currentLevel is corrupted....how? 
+//    const rankObject = assessUserRank(currentLevel); //here is the problem, currentLevel is corrupted....how? 
     $('#userName').html(userName);
-    $('#beltDiv').css( 'background-color', rankObject.colorDiv);
-    $('#currentLevel').html(rankObject.currentRank);
+//    $('#beltDiv').css( 'background-color', rankObject.colorDiv);
+//    $('#currentLevel').html(rankObject.currentRank);
     $('#loader-wrapper').fadeOut();
 };
 
