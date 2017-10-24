@@ -56,7 +56,7 @@ function recordSessionAccuracy(sessionId, ratioCorrect, pointsAwarded){
       headers: {
         Authorization: localStorage.getItem('token')
       },
-      url: `/api/session/session/session-performance/${sessionId}`,  //this call is not happening 
+      url: `/api/session/session-performance/${sessionId}`,  //this call is not happening 
       data: JSON.stringify({ratioCorrect, pointsAwarded}),
       success: returnDashboard(),
       dataType: 'json',

@@ -24,7 +24,7 @@ function returnUserBelt(number){
         return { beltName: 'FULL NINJA!', beltColor: 'black'};
     }
 };
-
+ 
 function assessUserRank(number){
     const presentBelt = returnUserBelt(number);
     console.log( presentBelt );
