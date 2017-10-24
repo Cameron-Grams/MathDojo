@@ -72,7 +72,8 @@ router.route("/session")
             res.status( 500 ).json( { message: 'Internal Server Error' } );
         });
     } );
-    router.route( '/session/:sessionId')
+    
+router.route( '/session/:sessionId')
     .get(passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
         Session.find( { _id: req.params.sessionId } )
         .then( ( session ) => {

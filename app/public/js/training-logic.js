@@ -58,7 +58,7 @@ function recordSessionAccuracy(sessionId, ratioCorrect, pointsAwarded){
       },
       url: `/api/session/${sessionId}`,  //this call is not happening 
       data: JSON.stringify({action: 'accuracy', ratioCorrect, pointsAwarded}),
-      success: () => { console.log('in record session callback')},     //returnDashboard(),
+      success: returnDashboard(), 
       dataType: 'json',
       contentType: 'application/json'
     });
@@ -90,12 +90,27 @@ function manageSessionData( session ){
     const payloadData = parseJwt(token);
     const userName = payloadData.userName;
     $('#userName').html(userName);
+
+    const rankObject = assessUserRank(currentLevel);  
+    if ( rankObject.rankName === 'Black Belt'){
+        $('#beltDiv').css('color', 'white');
+    }
+    if (rankObject.rankName === 'FULL NINJA!'){
+        $('#beltDiv').css('color', 'red');
+    }
+    $('#beltDiv').css( 'background-color', rankObject.colorDiv);
+    $('#currentLevel').html(rankObject.currentRank);
+
+/*
     const rankObject =  assessUserRank(currentLevel); //this requires the currentLevel as a number 
     const currentRank = rankObject.currentRank;
     const rankColorStyle = rankObject.colorDiv;
     console.log(currentRank);
     $('#currentLevel').html(currentRank);
     $('#beltDiv').css('background-color', rankColorStyle);
+
+
+*/
     displayProblem( sessionProblemsArray );
     $('#loader-wrapper').fadeOut();
     return sessionProblemsArray;

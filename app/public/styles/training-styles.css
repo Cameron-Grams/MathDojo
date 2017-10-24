@@ -2,12 +2,15 @@ body{
     background-color: rgba(224, 223, 127, 0.87);
     Font-Family: 'Roboto', Sans-Serif;
     text-align: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 #beltDiv {
     background-color: white;
     width: 100%;
-    padding: 10px;
+    padding: 10px 0 10px 0;
 }
 
 #returnDash{

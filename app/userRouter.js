@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 var passport = require('passport');  
 var jwt = require('jsonwebtoken'); 
- 
+  
 const { secret, PORT, DATBASE_URL } = require( './config/mainConfig.js' );
 
 //two data models exported models folder

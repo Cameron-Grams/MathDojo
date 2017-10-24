@@ -51,7 +51,7 @@ function displayUserRecord(data){
     const lengthOfTraining = data.length;
     for (let i = 0; i < lengthOfTraining; i++){
         const pastPracticeSession = dateFormat(data[i]).pastPractice; 
-        currentLevel += dateFormat(data[i]).sessionPoints;  //here is the source of currentLevel, points? 
+        currentLevel += dateFormat(data[i]).sessionPoints;  
          $('#js-pastPractices').prepend(pastPracticeSession);
         const sessionClass = dateFormat(data[i]).classColor;
         if (sessionClass === 'red'){
@@ -65,11 +65,16 @@ function displayUserRecord(data){
         }
     }
     const userName = payloadData.userName;
-    console.log('current Level: ', currentLevel);
-//    const rankObject = assessUserRank(currentLevel); //here is the problem, currentLevel is corrupted....how? 
     $('#userName').html(userName);
-//    $('#beltDiv').css( 'background-color', rankObject.colorDiv);
-//    $('#currentLevel').html(rankObject.currentRank);
+    const rankObject = assessUserRank(currentLevel);  
+    if ( rankObject.colorDiv === 'black'){
+        $('#beltDiv').css('color', 'white');
+    }
+    if (rankObject.currentRank === 'FULL NINJA!'){
+        $('#beltDiv').css('color', 'red');
+    }
+    $('#beltDiv').css( 'background-color', rankObject.colorDiv);
+    $('#currentLevel').html(rankObject.currentRank);
     $('#loader-wrapper').fadeOut();
 };
 
