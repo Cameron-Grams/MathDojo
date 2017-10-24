@@ -14,14 +14,14 @@ function logOutSession(){
     localStorage.removeItem('token');
     location.href = 'login.html';
 }
-
+ 
 function sendSession( sessionId ){
     $.ajax({
       method: 'GET',
       headers: {
-        Authorization: localStorage.getItem( 'token' )
+        Authorization: localStorage.getItem('token')
       },
-      url: `/api/sendSession/${ sessionId}`,
+      url: `/api/session/sendSession/${sessionId}`,
       success: function(data) {
         console.log( 'data returned is: ', data );
         manageSessionData( data );
@@ -38,7 +38,7 @@ function updateProblem( sessionId, problemIndex, userResponse ){
       headers: {
         Authorization: localStorage.getItem( 'token' )
       },
-      url: `/api//session/${sessionId}/${problemIndex}`,
+      url: `/api/session/${sessionId}/${problemIndex}`,
       data: JSON.stringify({userResponse }),
       success: function(data) {
         console.log( 'problem updated: ', data );
@@ -56,7 +56,7 @@ function recordSessionAccuracy(sessionId, ratioCorrect, pointsAwarded){
       headers: {
         Authorization: localStorage.getItem('token')
       },
-      url: `/api/session-performance/${sessionId}`,
+      url: `/api/session/session/session-performance/${sessionId}`,  //this call is not happening 
       data: JSON.stringify({ratioCorrect, pointsAwarded}),
       success: returnDashboard(),
       dataType: 'json',
@@ -71,7 +71,7 @@ function abandonSession(){
       headers: {
         Authorization: localStorage.getItem('token')
       },
-      url: `/api/remove-session/${sessionId}`,
+      url: `/api/session/remove-session/${sessionId}`,
       success: returnDashboard(),
       dataType: 'json',
       contentType: 'application/json'
@@ -90,7 +90,7 @@ function manageSessionData( session ){
     const payloadData = parseJwt(token);
     const userName = payloadData.userName;
     $('#userName').html(userName);
-    const rankObject =  assessUserRank(currentLevel);  
+    const rankObject =  assessUserRank(currentLevel); //this requires the currentLevel as a number 
     const currentRank = rankObject.currentRank;
     const rankColorStyle = rankObject.colorDiv;
     console.log(currentRank);
@@ -115,25 +115,6 @@ function displayProblem( sessionProblemsArray ){
     };
 }
 
-function returnDashboard(){
-    location.href = `index.html`;
-}
-
-$( '#js-userResponse' ).keydown( function( e ){
-    let responseAnswer = $( '#js-userResponse' ).val();
-    if ( e.keyCode === 13 ){
-        evaluateResponse( responseAnswer );
-        clearInput();
-    }
-} )
-
-$('#submitAnswerBtn').on('click', (e) => {
-    let responseAnswer = $('#js-userResponse').val();
-    e.preventDefault();
-    evaluateResponse(responseAnswer);
-    clearInput();
-})
-
 //evaluates user answer based on questionNumber in session array, controls advance of the 
 // global questionNumber variable
 function evaluateResponse( userResponse ){
@@ -153,6 +134,26 @@ function evaluateResponse( userResponse ){
     displayProblem( sessionProblemsArray );
 }
 
+
+function returnDashboard(){
+    location.href = `index.html`;
+}
+
+$( '#js-userResponse' ).keydown( function( e ){
+    let responseAnswer = $( '#js-userResponse' ).val();
+    if ( e.keyCode === 13 ){
+        evaluateResponse( responseAnswer );
+        clearInput();
+    }
+} )
+
+$('#submitAnswerBtn').on('click', (e) => {
+    let responseAnswer = $('#js-userResponse').val();
+    e.preventDefault();
+    evaluateResponse(responseAnswer);
+    clearInput();
+})
+
 function getQueryVariable( variable )
 {
        var query = window.location.search.substring( 1 );
@@ -166,7 +167,7 @@ function getQueryVariable( variable )
 
 function beginSession( ){
     sessionId = getQueryVariable('sessionId');
-    currentLevel = getQueryVariable('currentLevel');
+    currentLevel = getQueryVariable('currentLevel');  //passing this as a string did not matter
     sendSession(sessionId);
 };
 

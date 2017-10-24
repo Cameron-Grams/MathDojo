@@ -14,14 +14,13 @@ const { secret, PORT, DATBASE_URL } = require( './config/mainConfig.js' );
 const { Session } = require( './models/practiceSession' );
 const { User } = require( './models/user' );
 
-//helper function to manage the terms in the equations
 function generateTerm( min, max ){
     console.log( typeof min, typeof max);
     const minNum = Number(min);
     const maxNum = Number(max); 
   return Math.floor( (Math.random() * ( maxNum - minNum + 1)) + minNum );
 }
-//helper function to move from string values of operators to the numeric response values
+
 function generateCorrectResponse( num1, num2, operator ){
   switch( operator ){
       case "+":{
@@ -42,7 +41,6 @@ function generateCorrectResponse( num1, num2, operator ){
   }
 };
  
-//called from the index-logic.js to create a session with the specifications set in the body of the request
 router.post( '/generate-session', passport.authenticate('jwt', { session: false }), jsonParser, ( req, res ) => {
     let practiceSession = [];  
     for ( let i = 0; i < req.body.number; i++ ){
@@ -58,7 +56,7 @@ router.post( '/generate-session', passport.authenticate('jwt', { session: false 
         practiceSession.push( problem );
     }
     
-// save session into db sessions collection for use in the training-logic.js
+// save session into db 
     Session
     .create( {
         userId: req.user._id, 
@@ -72,8 +70,83 @@ router.post( '/generate-session', passport.authenticate('jwt', { session: false 
     });
 } );
 
-//first end-point call in training-logic.js; populates the session generated from index in the training logic
-//also called in the past-practice-logic.js flow to populate the display of past performance 
+//route to register a user
+router.post( '/register', function( req, res ) {  
+    if( !req.body.name || !req.body.email || !req.body.password ) {
+      return res.status(400).json( { success: false, message: 'Please complete the entire form.' } );
+    } else {
+      User.findOne( {
+          email: req.body.email 
+      }).then( function( foundUser ){ 
+          if ( foundUser ){
+              return res.status(400).json({ success: false, message: 'That email address already exists.'});
+          } else {
+              User.create( {
+                name: req.body.name,   
+                email: req.body.email,
+                password: req.body.password,
+                level: 0
+              } ).then( function( ){ 
+                    let newUser = User.findOne( {
+                        email: req.body.email
+                    }).then( returnNewUser => {
+                        res.json( returnNewUser );
+                    } );
+                } )
+            } 
+        })
+    }
+});
+  
+//Authentication if user exists
+router.post( '/authenticate', function( req, res ) {  
+    User.findOne({
+      "email" : req.body.email
+    } ).then
+    ( ( user ) => {
+        if ( !user ){
+            res.status( 400 ).send( { success: false, message: 'Authentication failed. User not found.' } );
+        } else {
+            user.comparePassword( req.body.password, function( err, isMatch ) {
+                if ( isMatch && !err ){
+                    console.log( 'good authentication' );
+                    var token = jwt.sign( { id: user._id, userName: user.name, level: user.level }, secret, {
+                        expiresIn: 10080
+                    } );
+                    res.json( { success: true, token: 'Bearer ' + token, _id: user._id } );
+                } else {
+                    res.status( 400 ).send( { success: false, message: 'Authentication failed. User not found.' } );
+                }
+            })
+        }
+    } ).catch( err => res.send( err ) );
+});
+
+
+
+
+
+
+router.get('/getUserInfo/:userId', passport.authenticate('jwt', { session: false }), function(req, res) {  
+    User.find( { _id: req.params.userId } )
+    .then( user =>  {res.json(user)})
+    .catch( () => res.status( 500 ).send( 'issue with producing the user' ) );
+  });
+
+
+
+
+
+
+
+router.get('/dashboard', passport.authenticate('jwt', { session: false }), function(req, res) {  
+    Session.find( { userId: req.user._id } )
+    .then( ( sessions ) => { 
+        res.json( sessions ); 
+    } )
+    .catch( () => res.status( 500 ).send( 'something went wrong...' ) );
+  });
+
 router.get( '/sendSession/:sessionId', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
     Session.find( { _id: req.params.sessionId } )
     .then( ( session ) => {
@@ -82,8 +155,8 @@ router.get( '/sendSession/:sessionId', passport.authenticate( 'jwt', { session: 
     .catch( () => res.status( 500 ).send( 'problem sending the session' ) );
 });
 
-//the method to update the users answers to the problem in the session in the problems array; from the training-logic.js
- router.patch( '/:sessionId/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
+//the method to update the users answers in the session
+ router.patch( '/session/:sessionId/:index', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
     Session.findByIdAndUpdate(mongoose.Types.ObjectId(req.params.sessionId), {$set : {[`problems.${req.params.index}.userResponse`]: req.body.userResponse } }, { new: true } )
     .then((updated)=>{
       res.json(updated.problems[req.params.index]);
@@ -93,9 +166,7 @@ router.get( '/sendSession/:sessionId', passport.authenticate( 'jwt', { session: 
     });
 });
 
-//adds the overall performance metrics to the session; from the recordSessionAccuracy call in training-logic.js
 router.patch( '/session-performance/:sessionId', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
-    console.log( req.body.pointsAwarded);
     Session.findByIdAndUpdate(mongoose.Types.ObjectId(req.params.sessionId), 
         {$set: {
             "ratioCorrect": req.body.ratioCorrect,
@@ -110,13 +181,17 @@ router.patch( '/session-performance/:sessionId', passport.authenticate( 'jwt', {
         });
 });
 
-//deletes the current session if the user abandons training during a training session; from abandonSession() in training-logic.js
 router.delete( '/remove-session/:sessionId', passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
     console.log('in deletion with: ', req.params.sessionId);
     Session.findByIdAndRemove(mongoose.Types.ObjectId(req.params.sessionId))
         .then(() => res.status(204).json({status: "successfully deleted session", message:"sweet"}))
         .catch((err) => res.json({ status:"error with session deletion", message: err.message}));
 });
+
+
+ 
+
+
 
 module.exports = router;
 

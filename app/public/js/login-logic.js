@@ -11,7 +11,7 @@ function readyLogIn(){
  function logintoAccount( email, password ){
     $.ajax({
       method: 'POST',
-      url: '/api/authenticate',
+      url: '/api/user/authenticate',
       data: JSON.stringify( { email, password } ),
       success: manageLogin,
       error: () => { 
@@ -31,6 +31,14 @@ function manageLogin(data){
     location.href = `index.html`;
 
 }
+
+$('#enterPassword').on( 'keypress', (e) => {
+  let email = $('#enterEmail').val();
+  let password = $('#enterPassword').val();
+  if (e.keyCode === 13){
+    logintoAccount(email,password);
+  }
+})
 
 $('#logIn').on('click', () => {
   $('#loader-wrapper').fadeIn();

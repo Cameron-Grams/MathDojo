@@ -5,6 +5,33 @@ body{
     text-align: center;
 }
 
+#loader-wrapper {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: rgb(116, 150, 108);
+}
+
+#loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    margin-left: -60px;
+    margin-top: -60px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 .largeText{
     Font-Family: 'Raleway', Sans-Serif;
 }
@@ -64,13 +91,25 @@ h5{
     font-size: 1.5em;
 }
 
+a{
+    text-decoration: none;
+}
+
+a:hover{
+    color: blue;
+}
+
 #innerText{
     margin: auto;
-    margin-top: 5%;
-    padding: 20px;
+    margin-top: 3%;
+    padding: 10px;
     width: 85%;
     border-radius: 25px;
     background-color: white;
+}
+
+#instructionsBtn:hover{
+    background-color: yellow;
 }
 
 #demoInstructions{
@@ -96,33 +135,6 @@ ul {
     display:none;
 }
 
-#loader-wrapper {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background: rgb(116, 150, 108);
-}
-
-#loader {
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    animation: spin 2s linear infinite;
-    left: 50%;
-    top: 50%;
-    position: absolute;
-    margin-left: -60px;
-    margin-top: -60px;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
 
 @media only screen and ( min-width: 760px ) {
     #innerText{

@@ -6,7 +6,7 @@ function checkUser( ){
         location.href = 'login.html';
     }
     $.ajax( {
-        url: '/api/dashboard',
+        url: '/api/user/dashboard',
         headers: {
             Authorization: token,
         },
@@ -14,6 +14,22 @@ function checkUser( ){
         error: () => { location.href = 'login.html' }
     });
 }
+  
+function requestSession( operation, number, min, max ){
+    $.ajax({
+      method: 'POST',
+      headers: {
+          Authorization: localStorage.getItem( 'token' )
+      },
+      url: '/api/session/generate-session',
+      data: JSON.stringify( { operation, number, min, max } ),
+      success: function(data) {
+        location.href= `training.html?sessionId=${ data._id }&currentLevel=${currentLevel}` },
+      dataType: 'json',
+      contentType: 'application/json'
+    });
+ }
+
  
 function parseJwt (token) {
     const base64Url = token.split('.')[1];
@@ -21,7 +37,6 @@ function parseJwt (token) {
     return JSON.parse(window.atob(base64));
 };
  
-//loader for time to authenticate and load
 function identifyUser(){
     const userId = getQueryVariable('userId');
     requestUserInfo(userId);
@@ -36,7 +51,7 @@ function displayUserRecord(data){
     const lengthOfTraining = data.length;
     for (let i = 0; i < lengthOfTraining; i++){
         const pastPracticeSession = dateFormat(data[i]).pastPractice; 
-        currentLevel += dateFormat(data[i]).sessionPoints;
+        currentLevel += dateFormat(data[i]).sessionPoints;  //here is the source of currentLevel, points? 
          $('#js-pastPractices').prepend(pastPracticeSession);
         const sessionClass = dateFormat(data[i]).classColor;
         if (sessionClass === 'red'){
@@ -51,27 +66,12 @@ function displayUserRecord(data){
     }
     const userName = payloadData.userName;
     console.log('current Level: ', currentLevel);
-    const rankObject = assessUserRank(currentLevel);
+    const rankObject = assessUserRank(currentLevel); //here is the problem, currentLevel is corrupted....how? 
     $('#userName').html(userName);
     $('#beltDiv').css( 'background-color', rankObject.colorDiv);
     $('#currentLevel').html(rankObject.currentRank);
     $('#loader-wrapper').fadeOut();
 };
- 
-function requestSession( operation, number, min, max ){
-    $.ajax({
-      method: 'POST',
-      headers: {
-          Authorization: localStorage.getItem( 'token' )
-      },
-      url: '/api/generate-session',
-      data: JSON.stringify( { operation, number, min, max } ),
-      success: function(data) {
-        location.href= `training.html?sessionId=${ data._id }&currentLevel=${currentLevel}` },
-      dataType: 'json',
-      contentType: 'application/json'
-    });
- }
 
 function logOutSession(){
     localStorage.removeItem('token');
@@ -94,8 +94,17 @@ function reselectRange(){
     $('#js-alerts').prepend(instructions);
 }
 
+
+$('#js-maxRange').on('keypress', (e) => {
+    if (e.keyCode === 13){
+        sendValues();
+    }
+})
+
 //handler for initial start of practice session, enters the session values
-$( '#js-startExercise' ).on( 'click', function(){  
+$( '#js-startExercise' ).on( 'click', sendValues);
+   
+function sendValues(){
     let operation = $( '#js-operationType' ).val();   
     let number = $( '#js-practiceType' ).val();
     let min = $( '#js-minRange' ).val();
@@ -105,7 +114,8 @@ $( '#js-startExercise' ).on( 'click', function(){
     } else {   
         return (+max - +min < 5) ? reselectRange(): requestSession( operation, number, min, max );
     }
-} );
+};
+
 
 //handler to clear values in input boxes
 $( '.js-inputBox' ).focus( function(){

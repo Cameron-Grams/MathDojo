@@ -7,7 +7,7 @@ if (token){
  function registerAccount( name, email, password ){
     $.ajax({
       method: 'POST',
-      url: '/api/register',
+      url: '/api/user/register',
       data: JSON.stringify( { name, email, password } ),
       success: manageNewUser,
       error: (data) => {

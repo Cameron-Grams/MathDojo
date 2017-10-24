@@ -10,6 +10,24 @@ body{
     padding: 10px;
 }
 
+#returnDash{
+    margin: 10px;
+    border-radius: 7px;
+}
+
+#returnDash:hover{
+    background-color: red;
+    color: white;
+}
+
+#submitAnswerBtn{
+    border-radius: 5px;
+}
+
+#submitAnswerBtn:hover{
+    background-color: yellow;
+}
+
 .headerInfo{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 2em;
