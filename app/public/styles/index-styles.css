@@ -13,12 +13,12 @@ body{
     position: fixed;
     left: 0;
     top: 0;
-    background: rgb(116, 150, 108);
+    background: rgb(224, 223, 127);
 }
  
 #loader {
     border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
+    border-top: 16px solid #25a105; /* Blue */
     border-radius: 50%;
     width: 120px;
     height: 120px;
@@ -40,6 +40,14 @@ body{
     font-weight: bold;
 }
 
+#showInstructionsBtn:hover{
+    color:black;
+    background-color: yellow;
+}
+
+#logOutBtn:hover{
+    background-color: yellow;
+}
 #userName{
     font-size: 2.5em;
 }
@@ -91,6 +99,10 @@ body{
     height: 25px;
 }
 
+#js-deskTopPastPractices{
+    display: none;
+}
+
 #recordOfTraining{
     background-color: rgba(56, 54, 54, 0.616);
     border-radius: 5px;
@@ -123,7 +135,7 @@ a:hover{
 .highPerformance{
     color: rgb(3, 245, 3);
 }
-
+ 
 @media only screen and (min-width: 760px){
     #mobileTrainingTypeFormat{
         display: none;

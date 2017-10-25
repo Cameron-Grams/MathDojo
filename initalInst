@@ -1,5 +1,7 @@
 The Math Dojo is a site for children to practice basic math skill.  Each student will build a profile that lets them track their progress over time by observing their overall accuracy during the session.  Sessions are color coded red, yellow and green for low, medium and high accuracy in the session.   
 
+The main two places the student will be after login are The Training Dashboard and The Training Page.
+
 Past sessions can be reviewed to see if there is a trend or area where specific improvement is needed.  
 
 As the student trains they will advance in belt levels indicating progress towards greater proficiency.  
@@ -19,7 +21,9 @@ Training sessions can be selected by how hard the student wishes to train; do yo
 The student will select the number range for the questions to be asked.  The questions will be provided randomly, but the student can select the overall range.  The low and high end must be separated by more than 5 digits.  
 
 Other important points:
--Divison will be correct out to three decimal places of accuracy, for example: 0.123
+-Divison will be correct out to three decimal places of accuracy, for example: 0.123; you will need to calculate the fourth decimal place and then round to three.  
+
+
 
 
 

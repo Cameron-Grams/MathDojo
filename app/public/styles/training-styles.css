@@ -87,12 +87,12 @@ body{
     position: fixed;
     left: 0;
     top: 0;
-    background: rgb(116, 150, 108);
+    background: rgb(224, 223, 127);
 }
 
 #loader {
     border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
+    border-top: 16px solid #25a105; /* Blue */
     border-radius: 50%;
     width: 120px;
     height: 120px;

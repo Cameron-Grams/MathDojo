@@ -34,7 +34,8 @@ function generateCorrectResponse( num1, num2, operator ){
           return Number( num1 ) * Number( num2 );
       }
       case "/":{
-          return Number( num1 ) / Number( num2 );
+          const answer = Number( num1 ) / Number( num2 );
+          return Number(answer.toFixed(3));
       }
       default: { 
           return; 

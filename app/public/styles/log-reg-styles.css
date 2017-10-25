@@ -11,12 +11,12 @@ body{
     position: fixed;
     left: 0;
     top: 0;
-    background: rgb(116, 150, 108);
+    background: rgb(224, 223, 127);
 }
 
 #loader {
     border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
+    border-top: 16px solid #25a105; /* Blue */
     border-radius: 50%;
     width: 120px;
     height: 120px;
@@ -38,7 +38,8 @@ body{
 
 .midText{
     Font-Family: 'Roboto', Sans-Serif;
-    font-size: 1.5em;
+    font-size: 1.25em;
+    margin: 10px;
 }
 
 .smallText{
@@ -78,15 +79,19 @@ body{
 
 #header{
     background-color: white;
-    padding: 10px;
+    padding: 2px;
     border-radius: 15px;
     width: 50%;
     margin: auto;
     margin-top: 3%;
-    font-size: 2em;
+    font-size: 1.75em;
     font-weight: bold;
 }
  
+h4{
+    margin: 10px;
+}
+
 h5{
     font-size: 1.5em;
 }
@@ -138,6 +143,6 @@ ul {
 
 @media only screen and ( min-width: 760px ) {
     #innerText{
-        width: 35%;
+        width: 30%;
     }
 }

@@ -102,6 +102,9 @@ function reselectRange(){
     $('#js-alerts').prepend(instructions);
 }
 
+function showInstructions(){
+    location.href="math-dojo.html";
+}
 
 $('#js-maxRange').on('keypress', (e) => {
     if (e.keyCode === 13){
@@ -120,7 +123,7 @@ function sendValues(){
     if ( isNaN(min) || isNaN(max)){
         reselectRange();
     } else {   
-        return (+max - +min < 5) ? reselectRange(): requestSession( operation, number, min, max );
+        return (Math.abs(+max - +min) < 5) ? reselectRange(): requestSession( operation, number, min, max );
     }
 };
 
