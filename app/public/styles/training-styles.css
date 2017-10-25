@@ -6,7 +6,9 @@ body{
     padding: 0;
     box-sizing: border-box;
 }
-
+#logOutBtn:hover{
+    background-color: yellow;
+}
 #beltDiv {
     background-color: white;
     width: 100%;
