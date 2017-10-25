@@ -1,8 +1,10 @@
 body{
-  /*  box-sizing: border-box; */
+    box-sizing: border-box;
     background-color: rgba(224, 223, 127, 0.87);
     Font-Family: 'Roboto', Sans-Serif;
     text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
 #loader-wrapper {
@@ -45,8 +47,8 @@ body{
 #beltDiv {
     background-color: white;
     width: 100%;
-    margin: 10px;
-    padding: 10px;
+    margin: 10px 0 10px 0;
+    padding: 10px 0 10px 0;
 }
 #outerDeskShell{
     display: none;
@@ -86,14 +88,20 @@ body{
 }
 
 #recordOfTraining{
-    background-color: rgba(128, 128, 128, 0.397);
+    background-color: rgba(56, 54, 54, 0.616);
     width: 85%;
     margin: 20px auto 20px;
+    padding: 10px;
 }
 
 a{
     text-decoration: none;
     color: inherit;
+}
+
+a:hover{
+    color: white;
+    cursor: pointer;
 }
 
 .js-pastRecord{
@@ -108,7 +116,7 @@ a{
     color: yellow;
 }
 .highPerformance{
-    color: green;
+    color: rgb(4, 189, 4);
 }
 
 @media only screen and (min-width: 760px){

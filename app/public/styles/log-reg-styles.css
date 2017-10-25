@@ -118,12 +118,12 @@ a:hover{
 }
 #sendRegistration{
     display: inline-block;
-    border-radius: 10px;
+    border-radius: 3px;
     margin: 10px;
 }
 
 #sendRegistration:hover{
-    background-color: rgb(50, 160, 50);
+    background-color: yellow;
 }
 
 ul {

@@ -10,7 +10,23 @@ body{
 #beltDiv {
     background-color: white;
     width: 100%;
-    padding: 10px 0 10px 0;
+    padding: 5px 0 5px 0;
+}
+
+#outerImageShell{
+    width: 100%;
+    text-align: center;
+}
+
+#innerImageShell{
+    margin: 10px auto 10px auto;
+    width: 25%;
+
+}
+
+#trainingImage{
+    width: 100%;
+    border-radius: 50px;
 }
 
 #returnDash{
@@ -33,7 +49,6 @@ body{
 
 .headerInfo{
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 2em;
     font-weight: bold;
 }
 

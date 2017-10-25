@@ -71,7 +71,7 @@ function abandonSession(){
       headers: {
         Authorization: localStorage.getItem('token')
       },
-      url: `/api/session/remove-session/${sessionId}`,
+      url: `/api/session/${sessionId}`,
       success: returnDashboard(),
       dataType: 'json',
       contentType: 'application/json'
@@ -87,6 +87,9 @@ function parseJwt (token) {
 //extracts the current session's problems as an array from the session data object
 function manageSessionData( session ){
     sessionProblemsArray = session[ 0 ].problems;
+    const sessionType = sessionProblemsArray.length;
+    produceImage(sessionType);
+
     const payloadData = parseJwt(token);
     const userName = payloadData.userName;
     $('#userName').html(userName);
@@ -100,20 +103,36 @@ function manageSessionData( session ){
     }
     $('#beltDiv').css( 'background-color', rankObject.colorDiv);
     $('#currentLevel').html(rankObject.currentRank);
-
-/*
-    const rankObject =  assessUserRank(currentLevel); //this requires the currentLevel as a number 
-    const currentRank = rankObject.currentRank;
-    const rankColorStyle = rankObject.colorDiv;
-    console.log(currentRank);
-    $('#currentLevel').html(currentRank);
-    $('#beltDiv').css('background-color', rankColorStyle);
-
-
-*/
     displayProblem( sessionProblemsArray );
     $('#loader-wrapper').fadeOut();
     return sessionProblemsArray;
+}
+
+function produceImage(number){
+    let image;
+    switch(number){
+        case(5):
+          image = "./images/mouse.jpg";
+          break;
+        case(10):
+          image = "./images/dolphin2.jpg";
+          break;
+        case(15):
+          image = "./images/dog.jpg";
+          break;
+        case(25):
+          image = "./images/tiger.jpg";
+          break;
+        case(50):
+          image = "./images/eagle.jpg";
+          break;
+        case(100):
+          image = "./images/bear.jpg"
+          break;
+        default:
+          console.log( "Problem getting image");
+    }
+    $('#trainingImage').attr('src', image);
 }
 
 //manages the display of the currentQuestion based on questionNumber
