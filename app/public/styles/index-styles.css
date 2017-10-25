@@ -87,8 +87,13 @@ body{
     height: 100px;
 }
 
+#js-practiceType{
+    height: 25px;
+}
+
 #recordOfTraining{
     background-color: rgba(56, 54, 54, 0.616);
+    border-radius: 5px;
     width: 85%;
     margin: 20px auto 20px;
     padding: 10px;
@@ -116,7 +121,7 @@ a:hover{
     color: yellow;
 }
 .highPerformance{
-    color: rgb(4, 189, 4);
+    color: rgb(3, 245, 3);
 }
 
 @media only screen and (min-width: 760px){

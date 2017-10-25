@@ -63,12 +63,12 @@ h5{
 
 #returnDashboard{
     display: inline-block;
-    border-radius: 10px;
+    border-radius: 3px;
     margin: 10px;
 }
 
 #returnDashboard:hover{
-    background-color: rgb(50, 160, 50);
+    background-color: yellow;
 }
 
 .invisible{
