@@ -45,16 +45,21 @@ function identifyUser(){
 
 function displayUserRecord(data){
     currentLevel = 0;
+    let sessionNumber = 1;
     console.log('in display: ', data);
     const token = localStorage.getItem('token');
     const payloadData = parseJwt(token);
     const lengthOfTraining = data.length;
     for (let i = 0; i < lengthOfTraining; i++){
         const pastPracticeSession = dateFormat(data[i]).pastPractice; 
+        let numberSession = sessionNumber + i;
+        $('#sessionNumber').html = 'HERE';
+
         currentLevel += dateFormat(data[i]).sessionPoints;  
          $('#js-pastPractices').prepend(pastPracticeSession);
         const sessionClass = dateFormat(data[i]).classColor;
         if (sessionClass === 'red'){
+
             $('#js-lowPerformance').prepend(pastPracticeSession);
         } 
         if (sessionClass === 'yellow'){
