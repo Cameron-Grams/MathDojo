@@ -51,15 +51,13 @@ function displayUserRecord(data){
     const payloadData = parseJwt(token);
     const lengthOfTraining = data.length;
     for (let i = 0; i < lengthOfTraining; i++){
-        const pastPracticeSession = dateFormat(data[i]).pastPractice; 
+        const sessionDetails = dateFormat(data[i]).pastPractice; 
         let numberSession = sessionNumber + i;
-        $('#sessionNumber').html = 'HERE';
-
+        const sessionClass = dateFormat(data[i]).classColor;
+        const pastPracticeSession = `<div style="color:white">${numberSession}. ${sessionDetails}</div>`;        
         currentLevel += dateFormat(data[i]).sessionPoints;  
          $('#js-pastPractices').prepend(pastPracticeSession);
-        const sessionClass = dateFormat(data[i]).classColor;
         if (sessionClass === 'red'){
-
             $('#js-lowPerformance').prepend(pastPracticeSession);
         } 
         if (sessionClass === 'yellow'){

@@ -67,13 +67,13 @@ function dateFormat(data){
     const displayDate = trainingDate.getDate();
     const accuracyClass = renderAccuracy(data.ratioCorrect);
     const classColor = accuracyClass.classColor;
-    return {
-        pastPractice: `<div class="js-pastRecord ${accuracyClass.performanceClass}" >
+    return { //change to a span to format in the index.js
+        pastPractice: `<span class="js-pastRecord ${accuracyClass.performanceClass}" >
           <span id="sessionNumber"></span>
           <a class="linksToPastSessions" href="past-practices.html?sessionId=${data._id}&classColor=${classColor}">  
             ${displayDay}, ${displayDate} ${displayMonth} ${displayYear}
           </a>  
-          </div>`,
+          </span>`,
         displayTitle: `<div class="#" >
           <h1>  
             ${displayDay}, ${displayDate} ${displayMonth} ${displayYear}

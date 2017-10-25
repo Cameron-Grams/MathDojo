@@ -1,0 +1,30 @@
+The Math Dojo is a site for children to practice basic math skill.  Each student will build a profile that lets them track their progress over time by observing their overall accuracy during the session.  Sessions are color coded red, yellow and green for low, medium and high accuracy in the session.   
+
+Past sessions can be reviewed to see if there is a trend or area where specific improvement is needed.  
+
+As the student trains they will advance in belt levels indicating progress towards greater proficiency.  
+-White Belt
+-Yellow Belt
+-Orange Belt
+-Green Belt
+-Blue Belt
+-Brown Belt
+-Black Belt
+-Ninja
+
+...becoming a Ninja takes hard work and time! Belts are awarded based on points accumulated in training, one point for each correct answer.  
+
+Training sessions can be selected by how hard the student wishes to train; do you feel like training like a Mouse or a Bear?  Bears train for longer, and progress more rapidly since longer sessions have more questions which lead to more points.  If you answer correctly! 
+
+The student will select the number range for the questions to be asked.  The questions will be provided randomly, but the student can select the overall range.  The low and high end must be separated by more than 5 digits.  
+
+Other important points:
+-Divison will be correct out to three decimal places of accuracy, for example: 0.123
+
+
+
+
+
+
+
+
