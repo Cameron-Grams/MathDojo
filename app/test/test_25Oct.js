@@ -8,8 +8,10 @@ const { Session } = require('../models/practiceSession' );
 const {User} = require('../models/user');
 
 const { app, runServer, closeServer } = require('../app');
-const { TEST_DATABASE_URL } = require('../config/mainConfig');
+const { TEST_DATABASE_URL, JWT_SECRET } = require('../config/mainConfig');
+
 const jwt = require('jsonwebtoken');
+
 
 chai.use( chaiHttp );
   
@@ -53,7 +55,7 @@ describe( 'End-point for practice session resources', function() {
       return closeServer();
     })
 
-    describe('POST endpoint to create practice session', function() {
+    describe('Test endpoints to create users and practice session:  ', function() {
         it( 'should create a new User', function() {
           const newUser = generateNewUser();
     
@@ -96,8 +98,6 @@ describe( 'End-point for practice session resources', function() {
             email:'randomBadEmail@random.com',
             password:'password2' 
           };
-
-
           return chai.request(app)
             .post('/api/user/authenticate')
             .send(user)
@@ -112,8 +112,6 @@ describe( 'End-point for practice session resources', function() {
             email:'random@random.com',
             password:'BadPassword2' 
           };
-
-
           return chai.request(app)
             .post('/api/user/authenticate')
             .send(user)
@@ -122,10 +120,48 @@ describe( 'End-point for practice session resources', function() {
             })
         });
 
+//test the session endpoints
+       it( 'should return a session with proper request', function(){
+
+          const randomUser = new User({
+              name: 'random',
+              email: 'random@random.com',
+              password: 'password2'
+            });
 
 
+          randomUser.save( (err) => {
+            if (err){
+              console.log( err.message);
+              }
+          });
 
+          const idTerm = randomUser._id;
 
+          const token = jwt.sign({
+              id: idTerm,
+              }, JWT_SECRET, {
+              expiresIn: 60 * 60
+              });
+
+          console.log( 'token is: ', token );
+          console.log( 'random user is: ', randomUser._id) ;
+          console.log( 'idTerm ', idTerm);
+
+          const practiceRequest = {
+            operation: "+",
+            number: "10",  ///this will possible need to be sent as a number
+            min: "1",
+            max: "200"
+          };
+          return chai.request(app)
+            .post('/api/session')
+            .set('Authorization', 'Bearer ' + token)
+            .send( practiceRequest )
+            .then( (res) => {
+              res.should.have.status(201);
+            })
+          });
 
     });
 } );
@@ -133,7 +169,7 @@ describe( 'End-point for practice session resources', function() {
 
 
 //example language...
-
+/*
 const token = jwt.sign({
   id: someUserThatYouGetFromDB._id,
 }, JWT_SECRET, {
@@ -143,3 +179,4 @@ const token = jwt.sign({
 // Set auth using this aproach
 .post('/api/session')
 .set('Authorization', 'Bearer ' + token)
+*/
