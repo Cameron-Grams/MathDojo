@@ -26,7 +26,7 @@ Strategy( passport );
 app.use( express.static( 'public' ) ); //is this still needed? 
 
 app.use('/api', sessionRouter);
-app.use('/api/user', userRouter);
+app.use('/api', userRouter);
 
 let server;
   

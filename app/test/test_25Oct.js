@@ -9,9 +9,10 @@ const {User} = require('../models/user');
 
 const { app, runServer, closeServer } = require('../app');
 const { TEST_DATABASE_URL } = require('../config/mainConfig');
+const jwt = require('jsonwebtoken');
 
 chai.use( chaiHttp );
- 
+  
 function generateNewUser(){
   const newUser = {
     name: 'testName',
@@ -28,10 +29,6 @@ function addUser(){
     password: 'password2'
   };
   return User.create(randomUser);
-}
-
-function generateUserEmail(){
-  return {'email': 'random@random.com'};
 }
 
 function tearDownDb(){
@@ -61,7 +58,7 @@ describe( 'End-point for practice session resources', function() {
           const newUser = generateNewUser();
     
           return chai.request( app )
-            .post('/api/user/register')
+            .post('/api/user')
             .send(newUser)
             .then(function(res) {
              res.should.have.status(200);
@@ -75,11 +72,14 @@ describe( 'End-point for practice session resources', function() {
 
 
       it( 'should authenticate the user', function(){
-          const userEmail = generateUserEmail();
+          const user = {
+            email:'random@random.com',
+            password:'password2' 
+          };
 
           return chai.request(app)
             .post('/api/user/authenticate')
-            .send(userEmail)
+            .send(user)
             .then( (res) => {
               res.should.have.status(200);
               res.should.be.json;
@@ -88,6 +88,58 @@ describe( 'End-point for practice session resources', function() {
             .then( (user) => {
               user._id.should.equal(user._id);
             });
-        });  
+        });
+         
+
+       it( 'should not authenticate the user if wrong email', function(){
+          const user = {
+            email:'randomBadEmail@random.com',
+            password:'password2' 
+          };
+
+
+          return chai.request(app)
+            .post('/api/user/authenticate')
+            .send(user)
+            .catch( (res) => {
+              res.should.have.status(400);
+            })
+        });
+
+
+       it( 'should not authenticate the user if wrong password good email', function(){
+          const user = {
+            email:'random@random.com',
+            password:'BadPassword2' 
+          };
+
+
+          return chai.request(app)
+            .post('/api/user/authenticate')
+            .send(user)
+            .catch( (res) => {
+              res.should.have.status(400);
+            })
+        });
+
+
+
+
+
+
     });
 } );
+
+
+
+//example language...
+
+const token = jwt.sign({
+  id: someUserThatYouGetFromDB._id,
+}, JWT_SECRET, {
+  expiresIn: 60 * 60
+});
+
+// Set auth using this aproach
+.post('/api/session')
+.set('Authorization', 'Bearer ' + token)

@@ -7,15 +7,18 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 var passport = require('passport');  
 var jwt = require('jsonwebtoken'); 
-  
+   
 const { secret, PORT, DATBASE_URL } = require( './config/mainConfig.js' );
 
 //two data models exported models folder
 const { Session } = require( './models/practiceSession' );
 const { User } = require( './models/user' );
  
+
+//
 //route to register a user and create the initial user db entry; from register-logic.js
-router.post( '/register', function( req, res ) {  
+router.route('/user')
+    .post( function( req, res ) {  
     if( !req.body.name || !req.body.email || !req.body.password ) {
       return res.status(400).json( { success: false, message: 'Please complete the entire form.' } );
     } else {
@@ -43,7 +46,8 @@ router.post( '/register', function( req, res ) {
 });
   
 //Authentication if user exists; endpoint called from login-logic.js
-router.post( '/authenticate', function( req, res ) {  
+router.route('/user/authenticate')
+    .post(function( req, res ) {  
     User.findOne({
       "email" : req.body.email
     } ).then
@@ -66,20 +70,16 @@ router.post( '/authenticate', function( req, res ) {
     } ).catch( err => res.send( err ) );
 });
 
-//previous method, replace with the data from the jwt...
-router.get('/getUserInfo/:userId', passport.authenticate('jwt', { session: false }), function(req, res) {  
-    User.find( { _id: req.params.userId } )
-    .then( user =>  {res.json(user)})
-    .catch( () => res.status( 500 ).send( 'issue with producing the user' ) );
-  });
+
 
 //populates the dashboard with the user performance sessions from the checkUser() in index-logic.js  
-router.get('/dashboard', passport.authenticate('jwt', { session: false }), function(req, res) {  
-    Session.find( { userId: req.user._id } )
-    .then( ( sessions ) => { 
-        res.json( sessions ); 
-    } )
-    .catch( () => res.status( 500 ).send( 'something went wrong...' ) );
+router.route('/user/basic-info')
+    .get(passport.authenticate('jwt', { session: false }), function(req, res) {  
+        Session.find( { userId: req.user._id } )
+        .then( ( sessions ) => { 
+            res.json( sessions ); 
+        } )
+        .catch( () => res.status( 500 ).send( 'something went wrong...' ) );
   });
 
 module.exports = router;

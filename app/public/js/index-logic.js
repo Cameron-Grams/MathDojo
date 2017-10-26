@@ -6,7 +6,7 @@ function checkUser( ){
         location.href = 'login.html';
     }
     $.ajax( {
-        url: '/api/user/dashboard',
+        url: '/api/user/basic-info',
         headers: {
             Authorization: token,
         },
