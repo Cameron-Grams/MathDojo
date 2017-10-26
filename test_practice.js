@@ -29,7 +29,7 @@ function tearDownDb(){
     console.warn( 'Deleting TEST_DATABASE' );
     return mongoose.connection.dropDatabase();
 }
-
+ 
 describe( 'End-point for practice session resources', function() {
     before( function() {
       return runServer( TEST_DATABASE_URL );

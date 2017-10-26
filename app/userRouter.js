@@ -13,7 +13,7 @@ const { secret, PORT, DATBASE_URL } = require( './config/mainConfig.js' );
 //two data models exported models folder
 const { Session } = require( './models/practiceSession' );
 const { User } = require( './models/user' );
-
+ 
 //route to register a user and create the initial user db entry; from register-logic.js
 router.post( '/register', function( req, res ) {  
     if( !req.body.name || !req.body.email || !req.body.password ) {
