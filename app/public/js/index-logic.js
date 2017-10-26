@@ -29,7 +29,7 @@ function requestSession( operation, number, min, max ){
       contentType: 'application/json'
     });
  }
-
+ 
  
 function parseJwt (token) {
     const base64Url = token.split('.')[1];

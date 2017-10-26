@@ -9,6 +9,7 @@ const {User} = require('../models/user');
 
 const { app, runServer, closeServer } = require('../app');
 const { TEST_DATABASE_URL, JWT_SECRET } = require('../config/mainConfig');
+const {secret} = require('../config/mainConfig');
 
 const jwt = require('jsonwebtoken');
 
@@ -139,11 +140,10 @@ describe( 'End-point for practice session resources', function() {
           const idTerm = randomUser._id;
 
           const token = jwt.sign({
-              id: idTerm,
-              }, JWT_SECRET, {
+              userId: idTerm,
+              }, secret, {
               expiresIn: 60 * 60
               });
-
           console.log( 'token is: ', token );
           console.log( 'random user is: ', randomUser._id) ;
           console.log( 'idTerm ', idTerm);
@@ -154,6 +154,7 @@ describe( 'End-point for practice session resources', function() {
             min: "1",
             max: "200"
           };
+
           return chai.request(app)
             .post('/api/session')
             .set('Authorization', 'Bearer ' + token)
