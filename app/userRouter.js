@@ -57,7 +57,7 @@ router.route('/user/authenticate')
         } else {
             user.comparePassword( req.body.password, function( err, isMatch ) {
                 if ( isMatch && !err ){
-                    console.log( 'good authentication' );
+                    console.log( 'good authentication', user );
                     var token = jwt.sign( { id: user._id, userName: user.name, level: user.level }, secret, {
                         expiresIn: 10080
                     } );

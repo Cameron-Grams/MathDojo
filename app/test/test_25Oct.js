@@ -8,7 +8,7 @@ const { Session } = require('../models/practiceSession' );
 const {User} = require('../models/user');
 
 const { app, runServer, closeServer } = require('../app');
-const { TEST_DATABASE_URL, JWT_SECRET } = require('../config/mainConfig');
+const { TEST_DATABASE_URL } = require('../config/mainConfig');
 const {secret} = require('../config/mainConfig');
 
 const jwt = require('jsonwebtoken');
@@ -26,12 +26,15 @@ function generateNewUser(){
 }
 
 function addUser(){
-  const randomUser = {
-    name: 'random',
-    email: 'random@random.com',
-    password: 'password2'
-  };
-  return User.create(randomUser);
+  const name = "random";
+  const email = "random@random.com";
+  const password = "password2";
+
+  return User.create({
+    name,
+    email,
+    password
+  });
 }
 
 function tearDownDb(){
@@ -123,7 +126,7 @@ describe( 'End-point for practice session resources', function() {
 
 //test the session endpoints
        it( 'should return a session with proper request', function(){
-
+/*
           const randomUser = new User({
               name: 'random',
               email: 'random@random.com',
@@ -137,16 +140,19 @@ describe( 'End-point for practice session resources', function() {
               }
           });
 
-          const idTerm = randomUser._id;
+*/
+
+          const user = User.findOne({email:"random@random.com"});
 
           const token = jwt.sign({
-              userId: idTerm,
+              id: user._id,
+              userName: user.name,
+              level: 0
               }, secret, {
               expiresIn: 60 * 60
               });
+           
           console.log( 'token is: ', token );
-          console.log( 'random user is: ', randomUser._id) ;
-          console.log( 'idTerm ', idTerm);
 
           const practiceRequest = {
             operation: "+",

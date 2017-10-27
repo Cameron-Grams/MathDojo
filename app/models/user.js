@@ -39,7 +39,7 @@ userSchema.pre( 'save', function ( next ) {
     return next();
   }
 });
-
+ 
 // Create method to compare password input to password saved in database
 userSchema.methods.comparePassword = function( pw, cb ) {  
   bcrypt.compare(pw, this.password, function( err, isMatch ) {
@@ -50,6 +50,25 @@ userSchema.methods.comparePassword = function( pw, cb ) {
   });
 };
  
+
+userSchema.methods.hashPassword = function(password){
+    bcrypt.genSalt( 10, function ( err, salt ) {
+      if ( err ) {
+        return next( err );
+      }
+      bcrypt.hash( user.password, salt, function( err, hash ) {
+        if ( err ) {
+          return next( err );
+        }
+        password = hash;
+        next();
+      });
+    });
+  };
+
+
+
+
 const User = mongoose.model( 'User', userSchema );  
 
 module.exports = { User };
