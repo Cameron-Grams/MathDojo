@@ -151,6 +151,7 @@ describe( 'End-point for practice session resources', function() {
             expiresIn: 60 * 60
             });
           
+          console.log( "user id: ", user._id);
           console.log( 'token is: ', token );
 
           const practiceRequest = {
