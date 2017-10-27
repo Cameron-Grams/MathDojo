@@ -38,20 +38,6 @@ function addUser(){
 }
 
 
-function getToken(){
-  const user = User.findOne({email:"random@random.com"});
-  const token = jwt.sign({
-    id: user._id,
-    userName: user.name,
-    level: 0
-    }, secret, {
-    expiresIn: 60 * 60
-    });
-  return token;
-}
-
-
-
 
 
 
@@ -67,10 +53,6 @@ describe( 'End-point for practice session resources', function() {
 
     beforeEach( function(){
       return addUser();
-    })
-
-    beforeEach( function(){
-      return getToken();
     })
 
     afterEach( function() {
@@ -148,25 +130,27 @@ describe( 'End-point for practice session resources', function() {
 
 //test the session endpoints
        it( 'should return a session with proper request', function(){
-/*
-          const randomUser = new User({
-              name: 'random',
-              email: 'random@random.com',
-              password: 'password2'
+          const user = new User({
+              name: 'random2',
+              email: 'random2@random.com',
+              password: 'Password2'
             });
 
 
-          randomUser.save( (err) => {
+          user.save( (err) => {
             if (err){
               console.log( err.message);
               }
           });
 
-*/
-
-              
-          const token = getToken();
-           
+          const token = jwt.sign({
+            id: user._id,
+            userName: user.name,
+            level: 0
+            }, secret, {
+            expiresIn: 60 * 60
+            });
+          
           console.log( 'token is: ', token );
 
           const practiceRequest = {
