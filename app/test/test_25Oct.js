@@ -37,6 +37,24 @@ function addUser(){
   });
 }
 
+
+function getToken(){
+  const user = User.findOne({email:"random@random.com"});
+  const token = jwt.sign({
+    id: user._id,
+    userName: user.name,
+    level: 0
+    }, secret, {
+    expiresIn: 60 * 60
+    });
+  return token;
+}
+
+
+
+
+
+
 function tearDownDb(){
     console.warn( 'Deleting TEST_DATABASE' );
     return mongoose.connection.dropDatabase();
@@ -49,6 +67,10 @@ describe( 'End-point for practice session resources', function() {
 
     beforeEach( function(){
       return addUser();
+    })
+
+    beforeEach( function(){
+      return getToken();
     })
 
     afterEach( function() {
@@ -142,15 +164,8 @@ describe( 'End-point for practice session resources', function() {
 
 */
 
-          const user = User.findOne({email:"random@random.com"});
-
-          const token = jwt.sign({
-              id: user._id,
-              userName: user.name,
-              level: 0
-              }, secret, {
-              expiresIn: 60 * 60
-              });
+              
+          const token = getToken();
            
           console.log( 'token is: ', token );
 
