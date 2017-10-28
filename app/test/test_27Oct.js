@@ -37,6 +37,20 @@ function addUser(){
   });
 }
 
+function addSession(){
+  const userId = 'placeHolderId';
+  const ratioCorrect = 1;
+  const pointsAwarded = 15;
+  const problems = [ {session: 'one'}, {session: 'two'}];
+
+  return Session.create({
+    userId,
+    problems
+  });
+}
+
+
+
 function tearDownDb(){
     console.warn( 'Deleting TEST_DATABASE' );
     return mongoose.connection.dropDatabase();
@@ -45,6 +59,7 @@ function tearDownDb(){
 describe( 'End-point for practice session resources', function() {
 
     let testUser;
+    let modelSession; 
 
     before( function() {
       return runServer( TEST_DATABASE_URL );
@@ -56,6 +71,16 @@ describe( 'End-point for practice session resources', function() {
         testUser = user;
         done(); 
       });
+    });
+
+
+    beforeEach( function( done ){   
+      addSession()
+      .then( newSession => {
+        modelSession = newSession;
+        modelSession.userId = testUser._id;
+        done();
+      })
     });
 
     afterEach( function() {
@@ -131,8 +156,24 @@ describe( 'End-point for practice session resources', function() {
             })
         });
 
-//test the session endpoints
-       it( 'should return a session with proper request', function(){
+      
+        it( 'should retrieve past performance for the user (GET)', function(){
+
+          const token = jwt.sign({
+            id: testUser._id
+          }, secret, { expiresIn: 60 * 60 }); 
+
+          return chai.request( app )
+              .get( '/api/user/basic-info' )
+              .set( 'Authorization', `Bearer ${ token }` )
+              .then( res => { 
+                res.should.have.status(200);
+              } )
+        })
+
+
+//test the session endpoints; test return of requested session
+       it( 'should generate a session with the proper request (POST)', function(){
 
           const token = jwt.sign({
             id: testUser._id
@@ -152,7 +193,90 @@ describe( 'End-point for practice session resources', function() {
               } )
             })
           });
-        
+
+        it( 'should return a unique requested session (GET)', function(){
+
+          const token = jwt.sign({
+            id: testUser._id
+          }, secret, { expiresIn: 60 * 60 }); 
+
+          const sessionId = modelSession._id;
+
+          return chai.request( app )
+              .get( `/api/session/${ sessionId }` )
+              .set( 'Authorization', `Bearer ${ token }` )
+              .then( res => { 
+                res.should.have.status(200);
+                res.should.be.json;
+              } )
+        });
+       
+        it( 'should delete a unique requested session (DELETE)', function(){
+
+          const token = jwt.sign({
+            id: testUser._id
+          }, secret, { expiresIn: 60 * 60 }); 
+
+          const sessionId = modelSession._id;
+
+          return chai.request( app )
+              .delete( `/api/session/${ sessionId }` )
+              .set( 'Authorization', `Bearer ${ token }` )
+              .then( res => { 
+                res.should.have.status(204);
+              } )
+        });
+
+        it( 'should update problems with user response in a unique session (PATCH)', function(){
+
+          const token = jwt.sign({
+            id: testUser._id
+          }, secret, { expiresIn: 60 * 60 }); 
+
+          const sessionId = modelSession._id;
+
+          const updateProblemOne = {
+            action: "problem",
+            index: 0,
+            userResponse: '7'
+          }
+
+          return chai.request( app )
+              .patch( `/api/session/${ sessionId }` )
+              .set( 'Authorization', `Bearer ${ token }` )
+              .send( updateProblemOne )
+              .then( res => { 
+                res.should.have.status(200);
+              } )
+        });
+
+        it( 'should update a session with user performance (PATCH)', function(){
+
+          const token = jwt.sign({
+            id: testUser._id
+          }, secret, { expiresIn: 60 * 60 }); 
+
+          const sessionId = modelSession._id;
+
+          const updateProblemOne = {
+            action: "accuracy",
+            ratioCorrect: 1,
+            pointsAwarded: '7'
+          }
+
+          return chai.request( app )
+              .patch( `/api/session/${ sessionId }` )
+              .set( 'Authorization', `Bearer ${ token }` )
+              .send( updateProblemOne )
+              .then( res => { 
+                res.should.have.status(200);
+              } )
+        });
+
+
+
+
+
 } );
 
 
