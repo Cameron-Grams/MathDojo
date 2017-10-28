@@ -136,54 +136,51 @@ describe( 'End-point for practice session resources', function() {
               password: 'Password2'
             });
 
+          user.level = 0;
 
           user.save( (err) => {
             if (err){
               console.log( err.message);
               }
           });
-
-          const token = jwt.sign({
-            id: user._id,
-            userName: user.name,
-            level: 0
-            }, secret, {
-            expiresIn: 60 * 60
-            });
           
-          console.log( "user id: ", user._id);
-          console.log( 'token is: ', token );
+         console.log( "user id: ", user._id);
+          
 
-          const practiceRequest = {
-            operation: "+",
-            number: "10",  ///this will possible need to be sent as a number
-            min: "1",
-            max: "200"
-          };
+         const authenticateLogin = {
+           email: 'random2@random.com',
+           password: 'Password2'
+         };
 
-          return chai.request(app)
-            .post('/api/session')
-            .set('Authorization', 'Bearer ' + token)
+         const practiceRequest = {
+           operation: "+",
+           number: "10",  ///this will possible need to be sent as a number
+           min: "1",
+           max: "200"
+         };
+
+        return chai.request(app)
+          .post('http://localhost:8080/api/user/authenticate')
+          .send( authenticateLogin )
+          .end( (err, data) => {
+            chai.request(app)
+            .post('http://localhost:8080/api/session')
+            .set('Authorization', `Bearer ${data.token}`)
             .send( practiceRequest )
             .then( (res) => {
               res.should.have.status(201);
             })
-          });
-
-    });
-} );
-
-
-
-//example language...
-/*
-const token = jwt.sign({
-  id: someUserThatYouGetFromDB._id,
-}, JWT_SECRET, {
-  expiresIn: 60 * 60
+            .catch( (err) => {
+              console.log( 'ending error with data', err.message); 
+            })
+          })
+          .catch((err) => {
+            console.log( 'error', err.message); 
+          })
+        });
+    } );
 });
 
-// Set auth using this aproach
-.post('/api/session')
-.set('Authorization', 'Bearer ' + token)
-*/
+
+
+
