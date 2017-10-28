@@ -37,10 +37,6 @@ function addUser(){
   });
 }
 
-
-
-
-
 function tearDownDb(){
     console.warn( 'Deleting TEST_DATABASE' );
     return mongoose.connection.dropDatabase();
@@ -130,52 +126,43 @@ describe( 'End-point for practice session resources', function() {
 
 //test the session endpoints
        it( 'should return a session with proper request', function(){
-          const user = new User({
-              name: 'random2',
-              email: 'random2@random.com',
-              password: 'Password2'
-            });
 
-          user.level = 0;
-
-          user.save( (err) => {
-            if (err){
-              console.log( err.message);
-              }
-          });
-          
-         console.log( "user id: ", user._id);
-          
-
-         const authenticateLogin = {
-           email: 'random2@random.com',
-           password: 'Password2'
-         };
-
-         const practiceRequest = {
-           operation: "+",
-           number: "10",  ///this will possible need to be sent as a number
-           min: "1",
-           max: "200"
-         };
+        let token; 
 
         return chai.request(app)
-          .post('http://localhost:8080/api/user/authenticate')
-          .send( authenticateLogin )
-          .end( (err, data) => {
-            chai.request(app)
-            .post('http://localhost:8080/api/session')
-            .set('Authorization', `Bearer ${data.token}`)
-            .send( practiceRequest )
-            .then( (res) => {
-              res.should.have.status(201);
-            })
-            .catch( (err) => {
-              console.log( 'ending error with data', err.message); 
-            })
+          .post('/api/user/authenticate')
+          .send( {
+           email: 'random@random.com',
+           password: 'password2'
+           } )
+          .then( (res) => {
+            res.should.have.status(200);
+            res.should.be.json;
+            console.log( res.body );
+            token = res.body.token; 
+            return token; 
           })
-          .catch((err) => {
-            console.log( 'error', err.message); 
+          .catch( (err) => {
+            console.log( 'failed at user authentication' );
+          })
+          .then( ( err, data ) => {
+            console.log( 'token value is ', token );
+            chai.request( app )
+            .post( '/api/session' )
+            .set( 'Authorization', `${ token }` )
+            .send( {
+                operation: "+",
+                number: "10",  
+                min: "1",
+                max: "200"
+             })
+            .then( res => { 
+              console.log( 'second response is ', res );
+              res.should.have.status(201);
+             } )
+            .catch( err => {
+              console.log( 'second promise ', err.message );
+            })
           })
         });
     } );
