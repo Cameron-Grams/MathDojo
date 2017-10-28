@@ -43,13 +43,20 @@ function tearDownDb(){
 }
 
 describe( 'End-point for practice session resources', function() {
+
+    let testUser;
+
     before( function() {
       return runServer( TEST_DATABASE_URL );
     });
 
-    beforeEach( function(){
-      return addUser();
-    })
+    beforeEach( function(done){
+      addUser()
+      .then( user => {
+        testUser = user;
+        done(); 
+      });
+    });
 
     afterEach( function() {
       return tearDownDb();
@@ -127,46 +134,26 @@ describe( 'End-point for practice session resources', function() {
 //test the session endpoints
        it( 'should return a session with proper request', function(){
 
-        let token; 
+          const token = jwt.sign({
+            id: testUser._id
+          }, secret, { expiresIn: 60 * 60 }); 
 
-        return chai.request(app)
-          .post('/api/user/authenticate')
-          .send( {
-           email: 'random@random.com',
-           password: 'password2'
-           } )
-          .then( (res) => {
-            res.should.have.status(200);
-            res.should.be.json;
-            console.log( res.body );
-            token = res.body.token; 
-            return token; 
-          })
-          .catch( (err) => {
-            console.log( 'failed at user authentication' );
-          })
-          .then( ( err, data ) => {
-            console.log( 'token value is ', token );
-            chai.request( app )
-            .post( '/api/session' )
-            .set( 'Authorization', `${ token }` )
-            .send( {
-                operation: "+",
-                number: "10",  
-                min: "1",
-                max: "200"
-             })
-            .then( res => { 
-              console.log( 'second response is ', res );
-              res.should.have.status(201);
-             } )
-            .catch( err => {
-              console.log( 'second promise ', err.message );
+          return chai.request( app )
+              .post( '/api/session' )
+              .set( 'Authorization', `Bearer ${ token }` )
+              .send( {
+                  operation: "+",
+                  number: "10",  
+                  min: "1",
+                  max: "200"
+              })
+              .then( res => { 
+                res.should.have.status(201);
+              } )
             })
-          })
-        });
-    } );
-});
+          });
+        
+} );
 
 
 
