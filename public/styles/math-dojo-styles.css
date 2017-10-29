@@ -48,19 +48,22 @@ body{
     Font-Size: 1em;
 }
 
-h5{
+h4{
     font-size: 1.5em;
 }
 
 #innerText{
     margin: auto;
-    margin-top: 5%;
+    margin-top: 2%;
     padding: 20px;
     width: 85%;
     border-radius: 25px;
     background-color: white;
 }
-
+#beltList{
+    text-align: left;
+    margin-left: 42%;
+}
 #returnDashboard{
     display: inline-block;
     border-radius: 3px;

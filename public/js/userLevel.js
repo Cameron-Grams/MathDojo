@@ -5,23 +5,23 @@ function returnUserBelt(number){
     if (number >= 50 && number < 200){ 
         return { beltName: 'Yellow Belt', beltColor: 'yellow' };
     }
-    if (number >= 200 && number < 400){
+    if (number >= 200 && number < 700){
         return { beltName: 'Orange Belt', beltColor: 'orange'};
     }
-    if (number >= 400 && number < 600){ 
+    if (number >= 700 && number < 1200){ 
         return { beltName: 'Green Belt', beltColor: 'green'};
     }
-    if (number >= 600 && number < 800){ 
+    if (number >= 1200 && number < 2800){ 
         return { beltName: 'Blue Belt', beltColor: 'blue'};
     }
-    if (number >= 800 && number < 900){
+    if (number >= 2800 && number < 3900){
         return { beltName: 'Brown Belt', beltColor: 'brown'};
     }
-    if (number >= 900 && number < 1000){ 
+    if (number >= 3900 && number < 10000){ 
         return { beltName: 'Black Belt', beltColor: 'black'};
     }
-    if (number >= 1000){ 
-        return { beltName: 'FULL NINJA!', beltColor: 'black'};
+    if (number >= 10000){ 
+        return { beltName: 'FULL NINJA', beltColor: 'black'};
     }
 };
   
