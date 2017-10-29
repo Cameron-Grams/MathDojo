@@ -272,11 +272,6 @@ describe( 'End-point for practice session resources', function() {
                 res.should.have.status(200);
               } )
         });
-
-
-
-
-
 } );
 
 
