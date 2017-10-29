@@ -44,7 +44,7 @@ router.route('/user')
         })
     }
 });
-  
+   
 //Authentication if user exists; endpoint called from login-logic.js
 router.route('/user/authenticate')
     .post(function( req, res ) {  

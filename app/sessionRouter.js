@@ -45,7 +45,7 @@ function generateCorrectResponse( num1, num2, operator ){
 
 router.route("/session")
     .post(passport.authenticate('jwt', { session: false }), jsonParser, ( req, res ) => {
-        console.log( req );
+        console.log( req.user );
         let practiceSession = [];  
         for ( let i = 0; i < req.body.number; i++ ){
             let firstTerm = generateTerm( req.body.min, req.body.max );

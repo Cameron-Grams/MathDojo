@@ -10,8 +10,9 @@ const basicStrategy = function(passport) {
   opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
   opts.secretOrKey = config.secret;
   passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
-    User.findOne({ _id: jwt_payload.id}, function(err, user) {
+    User.findOne({ _id: jwt_payload.id}, function(err, user) {   //is the user id being correctly encoded to use in search? 
       if (err) {
+        console.log('error in the strategy');
         return done(err, false);
       }
       if (user) {
