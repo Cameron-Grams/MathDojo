@@ -16,7 +16,6 @@ const { User } = require( './models/user' );
 
 //helper function to manage the terms in the equations
 function generateTerm( min, max ){
-    console.log( typeof min, typeof max);
     const minNum = Number(min);
     const maxNum = Number(max); 
   return Math.floor( (Math.random() * ( maxNum - minNum + 1)) + minNum );

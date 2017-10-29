@@ -144,7 +144,7 @@ describe( 'End-point for practice session resources', function() {
           });
 
           const token = jwt.sign({
-            id: user._id,
+            id: user._id,  //the issue is that this is being encoded incorrectly....
             userName: user.name,
             level: 0
             }, secret, {
@@ -163,7 +163,7 @@ describe( 'End-point for practice session resources', function() {
 
           return chai.request(app)
             .post('/api/session')
-            .set('Authorization', 'Bearer ' + token)
+            .set('Authorization', `Bearer ${token}`)
             .send( practiceRequest )
             .then( (res) => {
               res.should.have.status(201);

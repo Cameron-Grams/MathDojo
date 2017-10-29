@@ -1,0 +1,114 @@
+I am having trouble getting an endpoint recognized as authorized when running integration tests using Chai.  The endpoint is 
+protected by token authentication using the passport and jsonwebtoken libraries.  Here are the other files imported to the tests;
+
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const mongoose = require('mongoose');
+const should = chai.should();
+const { Session } = require('../models/practiceSession' );
+const {User} = require('../models/user');
+const { app, runServer, closeServer } = require('../app');
+const { TEST_DATABASE_URL } = require('../config/mainConfig');
+const {secret} = require('../config/mainConfig');
+const jwt = require('jsonwebtoken');
+chai.use( chaiHttp );
+  
+
+Here is the test for the endpoint; 
+
+
+//test the session endpoints
+       it( 'should return a session with proper request', function(){
+          const user = new User({
+              name: 'random2',
+              email: 'random2@random.com',
+              password: 'Password2'
+            });
+
+
+          user.save( (err) => {
+            if (err){
+              console.log( err.message);
+              }
+          });
+
+          const token = jwt.sign({
+            id: user._id,
+            userName: user.name,
+            level: 0
+            }, secret, {
+            expiresIn: 60 * 60
+            });
+          
+          console.log( "user id: ", user._id);
+          console.log( 'token is: ', token );
+
+          const practiceRequest = {
+            operation: "+",
+            number: "10",  ///this will possible need to be sent as a number
+            min: "1",
+            max: "200"
+          };
+
+          return chai.request(app)
+            .post('/api/session')
+            .set('Authorization', 'Bearer ' + token)
+            .send( practiceRequest )
+            .then( (res) => {
+              res.should.have.status(201);
+            })
+          });
+
+    });
+
+
+The two console.log statements confirm that the user is being created and has an _id property, and that a valid token is being 
+created (this was confirmed on jwt.io).
+
+This is the code for the endpoint;
+
+router.route("/session")
+    .post(passport.authenticate('jwt', { session: false }), jsonParser, ( req, res ) => {
+        console.log( req );
+        let practiceSession = [];  
+        for ( let i = 0; i < req.body.number; i++ ){
+            let firstTerm = generateTerm( req.body.min, req.body.max );
+            let secondTerm = generateTerm( req.body.min, req.body.max );
+            const problem = {  
+                operator: req.body.operation,
+                firstTerm,
+                secondTerm,
+                problem: `${ firstTerm } ${ req.body.operation } ${ secondTerm }`,
+                correctResponse: generateCorrectResponse( firstTerm, secondTerm, req.body.operation )
+            }; 
+            practiceSession.push( problem );
+        }
+        
+    // save session into db sessions collection for use in the training-logic.js
+        Session
+        .create( {
+            userId: req.user._id, 
+            problems: practiceSession  
+        } )
+        .then(
+            session => res.status( 201 ).json( session) )
+        .catch( err => {
+            console.error( err );
+            res.status( 500 ).json( { message: 'Internal Server Error' } );
+        });
+    } );
+ 
+
+The test of this endpoint fails with a 401 response and a simple  ```Error: Unauthorized``` That is not a lot of information 
+and I don't know where to continue trouble shooting. My understanding is that this means the initial ```passport.authenticate```
+at the endpoint is not recognizing the token as valid, even though it has been confirmed as valid on the jwt.io site.  Is there 
+additional information I should be including when generating the token?  If so how?  
+
+I have looked at several other examples using passport; [one]( https://stackoverflow.com/questions/29111571/passports-req-isauthenticated-always-returning-false-even-when-i-hardcode-done),
+ [two](https://stackoverflow.com/questions/39612176/testing-authenticated-routes-with-jwt-fails-using-mocha-supertest-passport), 
+ [three](https://stackoverflow.com/questions/16894338/cannot-post-in-an-express-passport-app-authentication-test) but I did 
+ not see how to apply any of these insights to my implementation.  
+
+Any help with this would be greatly appreciated.  Thank you for your time.  
+
+
