@@ -1,2 +1,5 @@
-initalInst
-oldWork
+./oldWork
+
+node_modules/
+
+./.vscode

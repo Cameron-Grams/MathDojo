@@ -1,2 +1,0 @@
-the 'done()' function at the end of Promises; passing it as an argument in the tests
-

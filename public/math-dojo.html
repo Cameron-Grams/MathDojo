@@ -1,0 +1,63 @@
+<! DOCTYPE html >
+<meta charset="utf-8">
+<html>  
+<head>
+<title>Instructions Page</title>
+<link rel="stylesheet" href="./styles/math-dojo-styles.css" />
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway:300,400" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Droid+Serif|Roboto:300" rel="stylesheet">
+</head>
+<body id="instruction">  
+
+<section id="insetText" >
+    <section id="innerText">  
+        <form id="registrationForm">   
+        <header class="largeText" id="header"><h4><b>Welcome to the Math Dojo</b></h4></header>
+        <p class="smallText">The Math Dojo is a site for children to practice basic math skills. Each session is chosen for difficulty  
+            based on the intensity of the animal representing that session name.</p>  
+        <p  class="smallText"> Students log in, go to their account dashboard and <span style="color: red"><b> select the session</b></span> for that day; based on animal intensity, type of math operation
+            and the range of numbers the student wants to work with. 
+            The profile lets the student track their progress over time by observing their overall accuracy during the session.  
+            <span style="color:green"><b>Sessions are color coded</b></span> red, yellow and green for low, medium and high accuracy in the session.   
+            Past sessions can be reviewed to see if there is a trend or area where specific improvement is needed.</p>
+
+<img src="../images/dash.jpg" style="width:75%" >
+
+    <p class="smallText">As the student trains they will <span style="color:blue"><b>advance in belt levels</b></span> indicating progress towards mastery of basic mathematics.</p>
+    <ul class="smallText" id="beltList">   
+        <li>White Belt</li>
+        <li>Yellow Belt</li>
+        <li>Orange Belt</li>
+        <li>Green Belt </li>
+        <li>Blue Belt</li>
+        <li>Brown Belt</li>
+        <li>Black Belt</li>
+        <li>Ninja</li>
+    </ul>  
+    <p class="smallText" >...becoming a Ninja takes hard work and time! Belts are awarded based on points accumulated in training, one point for each correct answer.</p>  
+
+    <p class="smallText" >The student must select how hard they wish to train; do you feel like training like a Mouse or a Bear?  
+    Bears train for longer, and progress more rapidly since longer sessions have more questions which lead to more points.  If you answer correctly! </p> 
+
+    <p class="smallText"> The student will select the number range for the questions to be asked.  The questions will be provided randomly, but the student can select the overall range.  
+    The low and high end must be separated by more than 5 digits. Divison will be correct out to three decimal places of accuracy, for example: 0.123; you will need to calculate the fourth decimal place and then round to three.  
+    </p>
+        <button type="button" id="returnDashboard" onclick="returnToIndex()">Begin Training!</button>
+        </form>
+    </section>
+</section>
+ 
+<div class="invisible" id="loader-wrapper">
+    <div id="loader"></div>
+</div>
+
+
+  
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="./js/instructions.js" ></script>
+</body>
+</html>

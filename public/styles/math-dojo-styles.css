@@ -1,0 +1,84 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: rgba(224, 223, 127, 0.87);
+    text-align: center;
+}
+
+#loader-wrapper {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: rgb(224, 223, 127);
+}
+
+#loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #25a105; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    margin-left: -60px;
+    margin-top: -60px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+.largeText{
+    Font-Family: 'Raleway', Sans-Serif;
+}
+
+.midText{
+    Font-Family: 'Roboto', Sans-Serif;
+    font-size: 1.5em;
+}
+
+.smallText{
+    Font-Family: 'Open Sans', Sans-Serif;
+    Font-Size: 1em;
+}
+
+h4{
+    font-size: 1.5em;
+}
+
+#innerText{
+    margin: auto;
+    margin-top: 2%;
+    padding: 20px;
+    width: 85%;
+    border-radius: 25px;
+    background-color: white;
+}
+#beltList{
+    text-align: left;
+    margin-left: 42%;
+}
+#returnDashboard{
+    display: inline-block;
+    border-radius: 3px;
+    margin: 10px;
+}
+
+#returnDashboard:hover{
+    background-color: yellow;
+}
+
+.invisible{
+    display:none;
+}
+@media only screen and ( min-width: 760px ) {
+    #innerText{
+        width: 75%;
+    }
+}
