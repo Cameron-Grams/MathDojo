@@ -57,11 +57,13 @@ body{
 
 #leftImage{
     width: 50%;
+    height: 100%;
     float: left; 
 }
 
 #rightImage{
     width: 50%;
+    height: 100%;
     float: right;
 }
 
@@ -73,7 +75,7 @@ body{
     position: absolute;
     top: 0px;
     width: 100%;
-    height: 2000px;
+    height: 100%;
     background-color: rgba(217, 217, 223, 0.418); 
 }
 

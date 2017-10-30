@@ -85,6 +85,10 @@ body{
     margin: 5px auto;
 }
 
+.js-inputBox{
+    font-size: 1.25em;
+}
+
 .record{
     display: inline-block;
     width: 100%;
