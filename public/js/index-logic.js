@@ -11,7 +11,7 @@ function checkUser( ){
             Authorization: token,
         },
         success: (data) => {displayUserRecord(data)},
-        error: () => { location.href = 'login.html' }
+        error: () => { location.href = 'math-dojo.html' }
     });
 }
    
