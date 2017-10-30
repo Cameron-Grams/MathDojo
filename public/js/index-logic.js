@@ -1,5 +1,6 @@
 var currentRank, currentLevel;
 
+//if the user is not authenticated with a token he is routed to the explanation page, where he can select to train and login
 function checkUser( ){
     const token = localStorage.getItem( 'token' );
     if ( !token ){
@@ -15,6 +16,7 @@ function checkUser( ){
     });
 }
    
+//this is the call to generate the session from the session endpoint, it redirects to the training html page with json session data
 function requestSession( operation, number, min, max ){
     $.ajax({
       method: 'POST',
@@ -30,19 +32,19 @@ function requestSession( operation, number, min, max ){
     });
  }
  
- 
+//the token is built at user authentication in the userRouter  
 function parseJwt (token) {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace('-', '+').replace('_', '/');
     return JSON.parse(window.atob(base64));
 };
  
+/*
 function identifyUser(){
     const userId = getQueryVariable('userId');
     requestUserInfo(userId);
-    console.log(userData);
 }
-
+*/
 function displayUserRecord(data){
     currentLevel = 0;
     let sessionNumber = 1;

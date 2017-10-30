@@ -1,6 +1,7 @@
 const mongoose = require( 'mongoose' );
 const bcrypt = require( 'bcrypt' );
 
+//required components of the user in db, level is developed from sessions after points are awarded at each session
 const userSchema = mongoose.Schema( {
   name:{
     type: String,

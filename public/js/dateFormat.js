@@ -1,3 +1,5 @@
+//this module is mainly used by the index and past sessions files to represent the session information in context 
+
 function returnDay(dayNumber){
     switch(dayNumber){
         case 0:
