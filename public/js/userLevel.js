@@ -30,7 +30,6 @@ function returnUserBelt(number){
 //returns an object with the values formated 
 function assessUserRank(number){
     const presentBelt = returnUserBelt(number);
-    console.log( presentBelt );
     return {
         rankName: presentBelt.beltName,
         currentRank: `You are currently a ${presentBelt.beltName}.`,

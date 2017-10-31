@@ -58,6 +58,11 @@ body{
     margin: 10px 0 10px 0;
     padding: 10px 0 10px 0;
 }
+
+#beltText{
+    width: 85%;
+}
+
 #outerDeskShell{
     display: none;
 }
@@ -144,7 +149,12 @@ a:hover{
     #mobileTrainingTypeFormat{
         display: none;
     }
-    
+        
+    #beltText{
+        width: 100%;
+    }
+
+
     #outerDeskShell{
         position: relative;
         display: block;
