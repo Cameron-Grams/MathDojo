@@ -1,4 +1,4 @@
-exports.secret = 'thisunbelievablycomplexstring'; 
+exports.secret = process.env.SECRET || 'thisunbelievablycomplexstring'; 
     
 exports.DATABASE_URL = process.env.DATABASE_URL ||
     global.DATABASE_URL ||
