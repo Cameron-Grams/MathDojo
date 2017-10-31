@@ -9,7 +9,7 @@ const {User} = require('../models/user');
 
 const { app, runServer, closeServer } = require('../app');
 const { TEST_DATABASE_URL } = require('../config/mainConfig');
-const {secret} = require('../config/mainConfig');
+const {SECRET} = require('../config/mainConfig');
 
 const jwt = require('jsonwebtoken');
 
@@ -72,7 +72,7 @@ describe( 'End-point for practice session resources', function() {
         done(); 
       });
     });
-
+ 
 
     beforeEach( function( done ){   
       addSession()
@@ -161,7 +161,7 @@ describe( 'End-point for practice session resources', function() {
 
           const token = jwt.sign({
             id: testUser._id
-          }, secret, { expiresIn: 60 * 60 }); 
+          }, SECRET, { expiresIn: 60 * 60 }); 
 
           return chai.request( app )
               .get( '/api/user/basic-info' )
@@ -177,7 +177,7 @@ describe( 'End-point for practice session resources', function() {
 
           const token = jwt.sign({
             id: testUser._id
-          }, secret, { expiresIn: 60 * 60 }); 
+          }, SECRET, { expiresIn: 60 * 60 }); 
 
           return chai.request( app )
               .post( '/api/session' )
@@ -198,7 +198,7 @@ describe( 'End-point for practice session resources', function() {
 
           const token = jwt.sign({
             id: testUser._id
-          }, secret, { expiresIn: 60 * 60 }); 
+          }, SECRET, { expiresIn: 60 * 60 }); 
 
           const sessionId = modelSession._id;
 
@@ -215,7 +215,7 @@ describe( 'End-point for practice session resources', function() {
 
           const token = jwt.sign({
             id: testUser._id
-          }, secret, { expiresIn: 60 * 60 }); 
+          }, SECRET, { expiresIn: 60 * 60 }); 
 
           const sessionId = modelSession._id;
 
@@ -231,7 +231,7 @@ describe( 'End-point for practice session resources', function() {
 
           const token = jwt.sign({
             id: testUser._id
-          }, secret, { expiresIn: 60 * 60 }); 
+          }, SECRET, { expiresIn: 60 * 60 }); 
 
           const sessionId = modelSession._id;
 
@@ -254,7 +254,7 @@ describe( 'End-point for practice session resources', function() {
 
           const token = jwt.sign({
             id: testUser._id
-          }, secret, { expiresIn: 60 * 60 }); 
+          }, SECRET, { expiresIn: 60 * 60 }); 
 
           const sessionId = modelSession._id;
 
