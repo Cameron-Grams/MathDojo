@@ -1,6 +1,6 @@
 <! DOCTYPE html >
 <meta charset="utf-8">
-<html>  
+<html lang="en">  
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
 <title>APP_V1 Dashboard Page</title>
@@ -20,12 +20,12 @@
  
     <div id="outerDeskShell">  
         <div id="deskTrainingTypeFormat">
-            <img class="deskImage" id="mouse" src="./images/mouse.jpg">
-            <img class="deskImage" id="dolphin" src="./images/dolphin2.jpg">
-            <img class="deskImage" id="dog" src="./images/dog.jpg">
-            <img class="deskImage" id="tiger" src="./images/tiger.jpg">
-            <img class="deskImage" id="eagle" src="./images/eagle.jpg">
-            <img class="deskImage" id="bear" src="./images/bear.jpg">
+            <img class="deskImage" id="mouse" src="./images/mouse.jpg" alt="mouse image">
+            <img class="deskImage" id="dolphin" src="./images/dolphin2.jpg" alt="dolphin image">
+            <img class="deskImage" id="dog" src="./images/dog.jpg" alt="dog image">
+            <img class="deskImage" id="tiger" src="./images/tiger.jpg" alt="tiger image">
+            <img class="deskImage" id="eagle" src="./images/eagle.jpg" alt="eagle image">
+            <img class="deskImage" id="bear" src="./images/bear.jpg" alt="bear image">
         </div>
     </div>
  
@@ -42,38 +42,45 @@
     </div>
      
     <section >  
-        <h2>Train like a:</h2>
-        <select class="spaceSection" id="js-practiceType" >  
-            <option value="5" >Mouse 老鼠</option>
-            <option value="10" >Dolphin  老鼠</option>
-            <option value="15" >Dog 狗 </option>
-            <option value="25" >Tiger 虎 </option>
-            <option value="50" >Eagle 鷹 </option>
-            <option value="100" >Bear 熊 </option>
-        </select>
+          
+            <h2>Train like a:</h2>
+            <label role="select">
+                <select class="spaceSection" id="js-practiceType" >  
+                    <option value="5" >Mouse 老鼠</option>
+                    <option value="10" >Dolphin  老鼠</option>
+                    <option value="15" >Dog 狗 </option>
+                    <option value="25" >Tiger 虎 </option>
+                    <option value="50" >Eagle 鷹 </option>
+                    <option value="100" >Bear 熊 </option>
+            </select>
+            </label>
     </section>
 </section>
       
-    <section class="spaceSection" id="operationType">  
-        <span class="instructionFormat" >Select operation</span>
-        <select id="js-operationType" >  
-            <option value="+" >Addition ( + )</option>
-            <option value="-" >Subtraction ( - )</option>
-            <option value="*" >Multiplication ( X )</option>
-            <option value="/" >Division ( / )</option>
-        </select>
-    </section>
- 
-   <div id="js-alerts"></div>
+    <label role="select"> 
+        <section class="spaceSection" id="operationType">  
+            <span class="instructionFormat" >Select operation</span>
+            <select id="js-operationType" >  
+                <option value="+" >Addition ( + )</option>
+                <option value="-" >Subtraction ( - )</option>
+                <option value="*" >Multiplication ( X )</option>
+                <option value="/" >Division ( / )</option>
+            </select>
+        </section>
+    </label>
 
-   <section class="spaceSection" id="numberRange" >    
+    <div id="js-alerts"></div>
+
+    <label role="text">  
+    <section class="spaceSection" id="numberRange" >    
         <span class="instructionFormat">From <input  type="text" class="js-inputBox" id="js-minRange" value="Enter min" /> to </span>
         <span class="instructionFormat"><input type="text" class="js-inputBox" id="js-maxRange" value="Enter max" /></span>
     </section>
+    </label>
 
-    <button class="spaceSection" id="js-startExercise" >Begin</button>
-
-
+    <label role="button">  
+      <button class="spaceSection" id="js-startExercise" >Begin</button>
+    </label>
 
 <section id="recordOfTraining" >
     <div>Past Training</div>
@@ -84,8 +91,6 @@
         <div id="js-midPerformance"></div>
         <div id="js-highPerformance"></div>
     </div>
-
-
 </section>
 
 

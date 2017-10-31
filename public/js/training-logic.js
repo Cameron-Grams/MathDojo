@@ -139,6 +139,7 @@ function produceImage(number){
           console.log( "Problem getting image");
     }
     $('#trainingImage').attr('src', image);
+    $('#trainingImage').attr('alt', 'animal image');
 }
 
 //manages the display of the currentQuestion based on questionNumber

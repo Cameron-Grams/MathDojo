@@ -1,6 +1,6 @@
 <! DOCTYPE html >
 <meta charset="utf-8">
-<html>  
+<html lang="en">  
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
 <title>V1 Login Page</title>
@@ -27,13 +27,17 @@
     <header class="largeText" id="header"><h4><b>Welcome to the Math Dojo</b></h4></header>
 
         <section id="innerText"> 
-            <p class="midText">Enter Email </p>
-            <input class="inputEntries" id="enterEmail" />
-            <p  class="midText">Enter Password </p>
-            <input class="inputEntries" id="enterPassword" type="password"/>
-
-            <button id="logIn" >Submit Login</button>
-
+            <label role="form">  
+                <p class="midText">Enter Email </p>
+                <label  role="textbox" >  
+                  <input  class="inputEntries" id="enterEmail" />
+                </label>
+                <p  class="midText">Enter Password </p>
+                <label role="textbox">  
+                  <input  class="inputEntries" id="enterPassword" type="password"/>
+                </label>
+                <button id="logIn" >Submit Login</button>
+            </label>
             <a class="smallText" href="/register.html" id="newRegistration" ><p>Or register as a new User</p></a>
 
             <section class="smallText"id="demoInstructions" >    
