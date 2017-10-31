@@ -15,7 +15,7 @@ const {User} = require('./models/user');
 const sessionRouter = require('./sessionRouter');
 const userRouter = require('./userRouter');
  
-app.use( bodyParser.urlencoded( { extended: false } ) ); //from the model, what role? 
+app.use( bodyParser.urlencoded( { extended: false } ) ); 
 app.use( bodyParser.json() );
 app.use( morgan( 'dev' ) );
 
@@ -23,7 +23,7 @@ app.use( passport.initialize() );
 const { basicStrategy: Strategy } = require( './config/passportStrategy' );
 Strategy( passport );
 
-app.use( express.static( 'public' ) ); //is this still needed? 
+app.use( express.static( 'public' ) );  
 
 app.use('/api', sessionRouter);
 app.use('/api', userRouter);

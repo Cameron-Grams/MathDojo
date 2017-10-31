@@ -2,10 +2,9 @@ const mongoose = require( 'mongoose' );
 const bcrypt = require( 'bcrypt' );
 
 //required components of the user in db, level is developed from sessions after points are awarded at each session
-const userSchema = mongoose.Schema( {
+const UserSchema = mongoose.Schema( {
   name:{
     type: String,
-    lowercase: true,
     required: true
   },
   email: {
@@ -18,10 +17,12 @@ const userSchema = mongoose.Schema( {
     type: String,
     required: true
   },
-  level: {type: Number}
+  level: {
+    type: Number
+  }
 } );
 
-userSchema.pre( 'save', function ( next ) {  
+UserSchema.pre( 'save', function ( next ) {  
   var user = this;
   if ( this.isModified( 'password' ) || this.isNew ) {
     bcrypt.genSalt( 10, function ( err, salt ) {
@@ -42,7 +43,7 @@ userSchema.pre( 'save', function ( next ) {
 });
  
 // Create method to compare password input to password saved in database
-userSchema.methods.comparePassword = function( pw, cb ) {  
+UserSchema.methods.comparePassword = function( pw, cb ) {  
   bcrypt.compare(pw, this.password, function( err, isMatch ) {
     if ( err ) {
       return cb( err );
@@ -51,7 +52,6 @@ userSchema.methods.comparePassword = function( pw, cb ) {
   });
 };
 
-
-const User = mongoose.model( 'User', userSchema );  
+const User = mongoose.model( 'User', UserSchema );  
 
 module.exports = { User };
