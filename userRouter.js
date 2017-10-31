@@ -22,7 +22,7 @@ router.route('/user')
         } else {
         User.findOne( {
             email: req.body.email 
-        }).then( ( foundUser ) => { 
+        }).then( foundUser => { 
             if ( foundUser ){
                 return res.status(400).json({ success: false, message: 'That email address already exists.'});
             } else {
@@ -45,12 +45,12 @@ router.route('/user/authenticate')
     User.findOne({
       "email" : req.body.email
     } ).then
-    ( ( user ) => {
+    ( user => {
         if ( !user ){
             res.status( 400 ).send( { success: false, message: 'Authentication failed. User not found.' } );
         } else {
             user.comparePassword( req.body.password, ( err, isMatch ) => {
-                let expiration = ( req.body.email === 'demo@demo.com') ? 1000: 10080; 
+                let expiration = ( req.body.email === 'demo@demo.com') ? 60: 10080; 
                 if ( isMatch && !err ){
                     var token = jwt.sign( 
                         { id: user._id, userName: user.name, level: user.level }, 
@@ -70,7 +70,7 @@ router.route('/user/authenticate')
 router.route('/user/basic-info')
     .get(passport.authenticate('jwt', { session: false }), (req, res) => {  
         Session.find( { userId: req.user._id } )
-        .then( ( sessions ) => { 
+        .then( sessions => { 
             res.json( sessions ); 
         } )
         .catch( () => res.status( 500 ).send( 'something went wrong...' ) );
