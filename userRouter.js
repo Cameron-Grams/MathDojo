@@ -50,7 +50,7 @@ router.route('/user/authenticate')
             res.status( 400 ).send( { success: false, message: 'Authentication failed. User not found.' } );
         } else {
             user.comparePassword( req.body.password, ( err, isMatch ) => {
-                let expiration = ( req.body.email === 'demo@demo.com') ? 1000: 10080; 
+                let expiration = ( req.body.email === 'demo@demo.com') ? 60: 10080; 
                 if ( isMatch && !err ){
                     var token = jwt.sign( 
                         { id: user._id, userName: user.name, level: user.level }, 

@@ -12,7 +12,9 @@ function checkUser( ){
             Authorization: token,
         },
         success: (data) => {displayUserRecord(data)},
-        error: () => { location.href = 'math-dojo.html' }
+        error: () => { 
+            localStorage.removeItem( 'token' );
+            location.href = 'math-dojo.html' }
     });
 }
    
