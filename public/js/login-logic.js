@@ -10,7 +10,7 @@ if (token){
 function readyLogIn(){
   $('#loader-wrapper').fadeOut();
 }
-
+ 
 //the AJAX call to authenticate the user and derive a user token 
  function logintoAccount( email, password ){
     $.ajax({
