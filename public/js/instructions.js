@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-
-=======
 const token = localStorage.getItem( 'token' );
->>>>>>> remediation
 
 //event handler to redirect to the login page
 function returnToIndex(){
