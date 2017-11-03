@@ -125,10 +125,13 @@ function sendValues(){
     let number = $( '#js-practiceType' ).val();
     let min = $( '#js-minRange' ).val();
     let max = $( '#js-maxRange' ).val();
-    if ( isNaN(min) || isNaN(max)){
+    let mobileMin = $( '#js-mobileMinRange' ).val(); 
+    let mobileMax = $( '#js-mobileMaxRange' ).val();
+    if ( ( isNaN(min) || isNaN(max) ) && ( isNaN( mobileMax ) || isNaN( mobileMin ) ) ){
         reselectRange();
-    } else {   
-        return (Math.abs(+max - +min) < 5) ? reselectRange(): requestSession( operation, number, min, max );
+    } else { 
+        let validNumber = ( Math.abs(+max - +min) < 5) || ( Math.abs( +mobileMax - +mobileMin ) < 5 ); 
+        return (validNumber) ? reselectRange(): requestSession( operation, number, min, max );
     }
 };
 
