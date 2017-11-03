@@ -85,3 +85,4 @@ function dateFormat(data){
         classColor: classColor
     };
 }
+ 

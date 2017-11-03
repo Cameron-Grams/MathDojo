@@ -17,7 +17,7 @@ function checkUser( ){
             location.href = 'math-dojo.html' }
     });
 }
-   
+    
 //this is the call to generate the session from the session endpoint, it redirects to the training html page with json session data
 function requestSession( operation, number, min, max ){
     $.ajax({
@@ -50,21 +50,23 @@ function displayUserRecord(data){
     const payloadData = parseJwt(token);
     const lengthOfTraining = data.length;
     for (let i = 0; i < lengthOfTraining; i++){
-        const sessionDetails = dateFormat(data[i]).pastPractice; 
-        let numberSession = sessionNumber + i;
-        const sessionClass = dateFormat(data[i]).classColor;
-        const pastPracticeSession = `<div style="color:white">${numberSession}. ${sessionDetails}</div>`;        
-        currentLevel += dateFormat(data[i]).sessionPoints;  
-         $('#js-pastPractices').prepend(pastPracticeSession);
-        if (sessionClass === 'red'){
-            $('#js-lowPerformance').prepend(pastPracticeSession);
-        } 
-        if (sessionClass === 'yellow'){
-            $('#js-midPerformance').prepend(pastPracticeSession);
-        }
-        if (sessionClass === 'green'){
-            $('#js-highPerformance').prepend(pastPracticeSession);
-        }
+        if ( data[i].pointsAwarded ){  
+            const sessionDetails = dateFormat(data[i]).pastPractice; 
+            let numberSession = sessionNumber + i;
+            const sessionClass = dateFormat(data[i]).classColor;
+            const pastPracticeSession = `<div style="color:white">${numberSession}. ${sessionDetails}</div>`;        
+            currentLevel += dateFormat(data[i]).sessionPoints;  
+             $('#js-pastPractices').prepend(pastPracticeSession);
+            if (sessionClass === 'red'){
+                $('#js-lowPerformance').prepend(pastPracticeSession);
+            } 
+            if (sessionClass === 'yellow'){
+                $('#js-midPerformance').prepend(pastPracticeSession);
+            }
+            if (sessionClass === 'green'){
+                $('#js-highPerformance').prepend(pastPracticeSession);
+            }
+        }  
     }
     const userName = payloadData.userName;
     $('#userName').html(userName);
