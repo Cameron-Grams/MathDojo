@@ -1,5 +1,5 @@
 //ensures that valid tokens immediately go to the index 
-const token = localStorage.getItem('token');
+const token = sessionStorage.getItem('token');
 
 if (token){
   location.href = 'dashboard.html';

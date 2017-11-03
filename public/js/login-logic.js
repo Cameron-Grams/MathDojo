@@ -1,5 +1,5 @@
-//user token information is generated in the user authentication step and stored on local storage
-const token = localStorage.getItem('token');
+//user token information is generated in the user authentication step and stored on session storage
+const token = sessionStorage.getItem('token');
 
 //if the user has a valid token they are redirected to the index page, the user dashboard for their profile 
 if (token){
@@ -30,8 +30,8 @@ function readyLogIn(){
 
 //previous tokens are removed and the current newly issued token is stored in local storage, the user is then redirected to train at the index  
 function manageLogin(data){
-    localStorage.removeItem('token');
-    localStorage.setItem('token', data.token);
+    sessionStorage.removeItem('token');
+    sessionStorage.setItem('token', data.token);
     location.href = `index.html`;
 }
 

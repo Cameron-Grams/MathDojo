@@ -80,7 +80,19 @@ body{
     background-color: rgba(217, 217, 223, 0.418); 
 }
 
+#mobileHeader{
+    display: block;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 2px;
+    border-radius: 15px;
+    width: 50%;
+    margin: auto;
+    margin-top: 3%;
+    font-size: 1.75em;
+    font-weight: bold;
+}
 #header{
+    display: none;
     background-color: white;
     padding: 2px;
     border-radius: 15px;
@@ -139,7 +151,7 @@ a:hover{
 
 ul {
     text-align: left;
-    margin-left: 25%;
+    margin-left: 13%;
 }
 
 .invisible{
@@ -150,5 +162,16 @@ ul {
 @media only screen and ( min-width: 760px ) {
     #innerText{
         width: 30%;
+    }
+    #mobileHeader{
+        display: none;
+    }
+
+    #header{
+        display: block;
+    }
+
+    ul{
+        margin-left: 25%;
     }
 }

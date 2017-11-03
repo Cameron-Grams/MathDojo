@@ -6,14 +6,14 @@ var sessionProblemsArray = [];
 var practiceLength;
 
 //ensures that a user is logged in to see the training page
-const token = localStorage.getItem( 'token' );
+const token = sessionStorage.getItem( 'token' );
 if ( !token ){
     location.href = 'login.html';
 }
 
 //handler to remove token and redirect to login page on log out
 function logOutSession(){
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     location.href = 'login.html';
 }
 
@@ -22,7 +22,7 @@ function sendSession( sessionId ){
     $.ajax({
       method: 'GET',
       headers: {
-        Authorization: localStorage.getItem('token')
+        Authorization: sessionStorage.getItem('token')
       },
       url: `/api/session/${sessionId}`,
       success: function(data) {
@@ -39,7 +39,7 @@ function updateProblem( sessionId, problemIndex, userResponse ){
     $.ajax({
       method: 'PATCH',
       headers: {
-        Authorization: localStorage.getItem( 'token' )
+        Authorization: sessionStorage.getItem( 'token' )
       },
       url: `/api/session/${sessionId}`,
       data: JSON.stringify({userResponse, action: 'problem', index: problemIndex }),
@@ -56,7 +56,7 @@ function recordSessionAccuracy(sessionId, ratioCorrect, pointsAwarded){
     $.ajax({
       method: 'PATCH',
       headers: {
-        Authorization: localStorage.getItem('token')
+        Authorization: sessionStorage.getItem('token')
       },
       url: `/api/session/${sessionId}`, 
       data: JSON.stringify({action: 'accuracy', ratioCorrect, pointsAwarded}),
@@ -71,7 +71,7 @@ function abandonSession(){
      $.ajax({
       method: 'DELETE',
       headers: {
-        Authorization: localStorage.getItem('token')
+        Authorization: sessionStorage.getItem('token')
       },
       url: `/api/session/${sessionId}`,
       success: returnDashboard(),

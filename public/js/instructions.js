@@ -1,4 +1,4 @@
-const token = localStorage.getItem( 'token' );
+const token = sessionStorage.getItem( 'token' );
 
 //event handler to redirect to the login page
 function returnToIndex(){

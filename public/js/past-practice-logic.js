@@ -2,7 +2,7 @@
 var backgroundColor;
 
 //ensures that no token will lead back to the login page
-const token = localStorage.getItem( 'token' );
+const token = sessionStorage.getItem( 'token' );
   if ( !token ){
       location.href = 'login.html';
   }
@@ -12,7 +12,7 @@ function getSession(sessionId){
     $.ajax({
       method: 'GET',
       headers: {
-          Authorization: localStorage.getItem( 'token' )
+          Authorization: sessionStorage.getItem( 'token' )
       },
       url: `/api/session/${sessionId}`,
       success: (data) => {displaySessionProblems(data)},

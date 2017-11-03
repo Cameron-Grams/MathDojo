@@ -2,7 +2,7 @@ var currentRank, currentLevel;
 
 //if the user is not authenticated with a token he is routed to the explanation page, where he can select to train and login
 function checkUser( ){
-    const token = localStorage.getItem( 'token' );
+    const token = sessionStorage.getItem( 'token' );
     if ( !token ){
         location.href = 'login.html';
     }
@@ -13,7 +13,7 @@ function checkUser( ){
         },
         success: (data) => {displayUserRecord(data)},
         error: () => { 
-            localStorage.removeItem( 'token' );
+            sessionStorage.removeItem( 'token' );
             location.href = 'math-dojo.html' }
     });
 }
@@ -23,7 +23,7 @@ function requestSession( operation, number, min, max ){
     $.ajax({
       method: 'POST',
       headers: {
-          Authorization: localStorage.getItem( 'token' )
+          Authorization: sessionStorage.getItem( 'token' )
       },
       url: '/api/session',
       data: JSON.stringify( { operation, number, min, max } ),
@@ -46,7 +46,7 @@ function parseJwt (token) {
 function displayUserRecord(data){
     currentLevel = 0;
     let sessionNumber = 1;
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const payloadData = parseJwt(token);
     const lengthOfTraining = data.length;
     for (let i = 0; i < lengthOfTraining; i++){
@@ -82,7 +82,7 @@ function displayUserRecord(data){
 
 //the event handler for a call to log out; removes the token from local storage
 function logOutSession(){
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     location.href = 'login.html';
 }
  
@@ -100,7 +100,7 @@ function getQueryVariable( variable )
 
 //the function to format an incorrect range selection alert
 function reselectRange(){
-    const instructions = '<h2 style="color:red">You must select number with a separation of more than 5.</h2>';
+    const instructions = '<h2 style="color:red">You must select numbers with a separation of more than 5.</h2>';
     $('#js-alerts').prepend(instructions);
 }
 
