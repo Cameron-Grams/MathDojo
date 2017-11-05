@@ -54,7 +54,7 @@ router.route('/user/authenticate')
                     var token = jwt.sign( 
                         { id: user._id, userName: user.name, level: user.level }, 
                         SECRET, {
-                        expiresIn: 600000
+                        expiresIn: 6000000
                     } );
                     res.json( { success: true, token: 'Bearer ' + token, _id: user._id } );
                 } else {
