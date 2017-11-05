@@ -40,6 +40,19 @@ body{
     font-weight: bold;
 }
 
+#buttonBackground{
+    position: absolute;
+    top: 0px;
+    margin: 0;
+    background-color: black;
+    width: 100%;
+    padding: 10px;
+}
+#showInstructionsBtn, #logOutBtn{
+    background-color: white;
+    margin: auto; 
+}
+
 #showInstructionsBtn:hover{
     color:black;
     background-color: yellow;
@@ -52,6 +65,7 @@ body{
 }
 #userName{
     font-size: 2.5em;
+    margin-top: 75px;
 }
 
 #beltDiv {
