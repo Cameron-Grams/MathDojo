@@ -53,6 +53,11 @@ body{
     margin: auto; 
 }
 
+#spacer{
+    display: inline-block;
+    width: 5%;
+}
+
 #showInstructionsBtn:hover{
     color:black;
     background-color: yellow;
