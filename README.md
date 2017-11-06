@@ -6,8 +6,9 @@ This site was developed for the young children in my extended family; several of
 
 The project itself was built in Node using the Express Router and the Passport JSON Web Token library for authentication.  It uses a Mongo Database at [mLab](https://mlab.com/welcome/) and the [Heroku](heroku.com) platform as a service.  
 
-
-
+#
+#
+#
 
 <p align="center">
 <img src="./public/images/demo_screen.png">
