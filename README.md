@@ -8,7 +8,6 @@ The project itself was built in Node using the Express Router and the Passport J
 
 #
 #
-#
 
 <p align="center">
 <img src="./public/images/demo_screen.png">
