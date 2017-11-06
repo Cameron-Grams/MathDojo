@@ -54,7 +54,7 @@ router.route('/user/authenticate')
                     var token = jwt.sign( 
                         { id: user._id, userName: user.name, level: user.level }, 
                         SECRET, {
-                        expiresIn: 6000000
+                        expiresIn: 10
                     } );
                     res.json( { success: true, token: 'Bearer ' + token, _id: user._id } );
                 } else {
@@ -68,14 +68,16 @@ router.route('/user/authenticate')
 
 //this is the route to re-issue a token after the user token approaches expiration; called from the index.html, XXXXX function 
 router.route( '/user/renew-token' )
-    .post( passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
-        console.log( 'IN RE-ISSUE TOKEN **************' );
-        const newToken = jwt.sign( 
-            req.body.oldPayload, 
-            SECRET, 
-            {expiresIn: 6000000 } 
-        );
-        res.json( { success: true, token: 'Bearer ' + newToken });
+    .get( passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
+        User.findById( req.user._id )
+        .then( user => {
+            var token = jwt.sign( 
+                { id: user._id, userName: user.name, level: user.level }, 
+                SECRET, {
+                expiresIn: 10
+            } );
+            res.json( { success: true, token: 'Bearer ' + token, _id: user._id } );
+        })
     } )
 
 
