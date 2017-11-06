@@ -62,33 +62,39 @@
     </section>
 </section>
       
-    <label role="select"> 
+     
         <section class="spaceSection" id="operationType">  
             <span class="instructionFormat" >Select operation</span>
+            <label role="select">
             <select id="js-operationType" >  
                 <option value="+" >Addition ( + )</option>
                 <option value="-" >Subtraction ( - )</option>
                 <option value="*" >Multiplication ( X )</option>
                 <option value="/" >Division ( / )</option>
             </select>
+            </label>
         </section>
-    </label>
+    
 
     <div id="js-alerts"></div>
 
-    <label role="text">  
     <section class="spaceSection" id="numberRange" >    
+    <label role="min text">  
         <span class="instructionFormat">From <input  type="text" class="js-inputBox" id="js-minRange" value="Enter min" /> to </span>
-        <span class="instructionFormat"><input type="text" class="js-inputBox" id="js-maxRange" value="Enter max" /></span>
-    </section>
-
-    <section class="spaceSection" id="mobileNumberRange" >    
-        <span class="instructionFormat">From: <input  type="text" class="js-inputBox" id="js-mobileMinRange" value="Min?" /></span>
-        <span class="instructionFormat">To: <input type="text" class="js-inputBox" id="js-mobileMaxRange" value="Max?" /></span>
-    </section>
-
-
     </label>
+    <label role="max text" > 
+        <span class="instructionFormat"><input type="text" class="js-inputBox" id="js-maxRange" value="Enter max" /></span>
+    </label>
+    </section>
+    
+    <section class="spaceSection" id="mobileNumberRange" >    
+    <label role="mobile min text">  
+        <span class="instructionFormat">From: <input  type="text" class="js-inputBox" id="js-mobileMinRange" value="Min?" /></span>
+    </label>
+    <label role="mobile max text">  
+        <span class="instructionFormat">To: <input type="text" class="js-inputBox" id="js-mobileMaxRange" value="Max?" /></span>
+    </label>
+    </section>
 
     <label role="button">  
       <button class="spaceSection" id="js-startExercise" >Begin</button>
