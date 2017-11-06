@@ -6,6 +6,11 @@ function checkUser( ){
     if ( !token ){
         location.href = 'login.html';
     }
+
+// asynch call to re-issue token made to the /api/user/renew-token endpoint 
+    renewToken( token );
+
+    //same as before, call to populate the basic user information 
     $.ajax( {
         url: '/api/user/basic-info',
         headers: {
@@ -17,7 +22,39 @@ function checkUser( ){
             location.href = 'math-dojo.html' }
     });
 }
+
+// make the call to the /api/user/renew-token endopoint
+function renewToken( token ){
+     $.ajax({
+    	method: 'get',
+        url: '/user/renew-token',  //this endpoint must be build to send a new token and the expiration separately
+        hedears: {
+        	Authorization: token,
+        },
+        success: function() {  // 1-return the new token, 2- handle the expiration date separately 
+        	handleTokenRenewCalculation( token.exp );
+        }
+    })
+}
    
+// this is the function that sets up the asynchronous call to the renew endpoint based on an internally defined renew time--separate from expiration
+function handleTokenRenewCalculation( tokenTime ){
+    const expiresIn = new Date(tokenTime * 1000); // converts the time 20 sec in the future to ms 
+    const now = new Date();   // present time in ms 
+    const diff = (expiresIn - now) - 2000;  // this should be 18000, 18 seconds
+    setTimeout(function() {
+        renewToken();  // in 18 seconds a call to renewToken() is made to re-obtain a valid token 
+    }, diff);
+}
+
+
+
+
+
+
+
+
+
 //this is the call to generate the session from the session endpoint, it redirects to the training html page with json session data
 function requestSession( operation, number, min, max ){
     $.ajax({

@@ -65,6 +65,21 @@ router.route('/user/authenticate')
     } ).catch( err => res.send( err ) );
 });
 
+
+//this is the route to re-issue a token after the user token approaches expiration; called from the index.html, XXXXX function 
+router.route( '/user/renew-token' )
+    .get( passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
+
+
+//is this a complete duplication of the authentication endpoint? 
+
+
+    } );
+
+
+
+
+
 //populates the dashboard with the user performance sessions from the checkUser() in index-logic.js  
 router.route('/user/basic-info')
     .get(passport.authenticate('jwt', { session: false }), (req, res) => {  

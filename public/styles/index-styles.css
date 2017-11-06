@@ -40,27 +40,45 @@ body{
     font-weight: bold;
 }
 
+#buttonBackground{
+    position: absolute;
+    top: 0px;
+    margin: 0;
+    background-color: black;
+    width: 100%;
+    padding: 10px;
+}
+#showInstructionsBtn, #logOutBtn{
+    background-color: white;
+    margin: auto; 
+}
+
 #showInstructionsBtn:hover{
     color:black;
     background-color: yellow;
+    cursor: pointer;
 }
 
 #logOutBtn:hover{
     background-color: yellow;
+    cursor: pointer;
 }
 #userName{
     font-size: 2.5em;
+    margin-top: 75px;
 }
 
 #beltDiv {
     background-color: white;
     width: 100%;
-    margin: 10px 0 10px 0;
+    margin: 10px auto 10px auto;
     padding: 10px 0 10px 0;
+    text-align: center;
 }
 
 #beltText{
     width: 85%;
+    margin: auto;
 }
 
 #outerDeskShell{
@@ -79,6 +97,7 @@ body{
 
 #js-startExercise:hover{
     background-color: yellow;
+    cursor: pointer;
 }
 
 .spaceSection{
@@ -106,10 +125,46 @@ body{
 
 #js-practiceType{
     height: 25px;
+    
+}
+#js-practiceType:hover{
+    background-color: yellow;
+    cursor: pointer;
 }
 
 #js-deskTopPastPractices{
     display: none;
+}
+
+#js-operationType:hover{
+    background-color: yellow;
+    cursor: pointer;
+}
+
+#js-maxRange:hover, #js-minRange:hover{
+    background-color:  rgba(255, 102, 0, 0.63); 
+}
+
+#js-mobileMinRange:hover, #js-mobileMaxRange:hover{
+    background-color: rgba(255, 102, 0, 0.63);
+}
+
+#numberRange{
+    display: none;
+}
+
+#mobileNumberRange{
+    display: block;
+}
+
+#js-mobileMinRange{
+    width: 30%;
+    text-align: center;
+}
+
+#js-mobileMaxRange{
+    width: 30%;
+    text-align: center;
 }
 
 #recordOfTraining{
@@ -146,6 +201,13 @@ a:hover{
 }
  
 @media only screen and (min-width: 760px){
+    #mobileNumberRange{
+        display: none;
+    }
+    #numberRange{
+        display: block;
+    }
+   
     #mobileTrainingTypeFormat{
         display: none;
     }
