@@ -1,8 +1,8 @@
-var currentRank, currentLevel;
+var currentRank, currentLevel, token;
 
 //if the user is not authenticated with a token he is routed to the explanation page, where he can select to train and login
 function checkUser( ){
-    const token = localStorage.getItem( 'token' );
+    token = localStorage.getItem( 'token' );
     if ( !token ){
         location.href = 'login.html';
     }
@@ -24,31 +24,40 @@ function checkUser( ){
 }
 
 // make the call to the /api/user/renew-token endopoint
-function renewToken( token ){
+function renewToken( token, oldPayload ){
      $.ajax({
-    	method: 'get',
-        url: '/user/renew-token',  //this endpoint must be build to send a new token and the expiration separately
+    	method: 'POST',
+        url: '/api/user/renew-token',  //this endpoint must be build to send a new token and the expiration separately
         hedears: {
         	Authorization: token,
         },
+        data: JSON.stringify( oldPayload ),
         success: function() {  // 1-return the new token, 2- handle the expiration date separately 
-        	handleTokenRenewCalculation( token.exp );
+            manageNewToken;
+        	handleTokenRenewCalculation( token.exp ); //this time is also WRONG!!! 
         }
     })
 }
    
 // this is the function that sets up the asynchronous call to the renew endpoint based on an internally defined renew time--separate from expiration
 function handleTokenRenewCalculation( tokenTime ){
+    const oldPayload = parseJwt(token) // token now assigned and managed as a global variable 
+
+    // from the example 
     const expiresIn = new Date(tokenTime * 1000); // converts the time 20 sec in the future to ms 
     const now = new Date();   // present time in ms 
     const diff = (expiresIn - now) - 2000;  // this should be 18000, 18 seconds
     setTimeout(function() {
-        renewToken();  // in 18 seconds a call to renewToken() is made to re-obtain a valid token 
+        renewToken( token, oldPayload );  // in 18 seconds a call to renewToken() is made to re-obtain a valid token 
     }, diff);
 }
 
-
-
+// this function anchors the new token in the local storage and sets the global token variable to token 
+function manageNewToken( data ){
+    token = data.token; 
+    localStorage.removeItem('token');
+    localStorage.setItem('token', data.token);
+}
 
 
 

@@ -68,13 +68,16 @@ router.route('/user/authenticate')
 
 //this is the route to re-issue a token after the user token approaches expiration; called from the index.html, XXXXX function 
 router.route( '/user/renew-token' )
-    .get( passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
+    .post( passport.authenticate( 'jwt', { session: false } ), ( req, res ) => {
+        console.log( 'IN RE-ISSUE TOKEN **************' );
+        const newToken = jwt.sign( 
+            req.body.oldPayload, 
+            SECRET, 
+            {expiresIn: 6000000 } 
+        );
+        res.json( { success: true, token: 'Bearer ' + newToken });
+    } )
 
-
-//is this a complete duplication of the authentication endpoint? 
-
-
-    } );
 
 
 
