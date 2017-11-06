@@ -50,6 +50,10 @@ function handleTokenRenewCalculation( ){
     // from the example 
     const expiresIn = new Date( oldPayload.exp * 1000); // converts the time 20 sec in the future to ms 
     const now = new Date();   // present time in ms 
+    if ( now > expiresIn ){
+        localStorage.removeItem( 'token' );
+        location.href = login.html; 
+    }
     const diff = (expiresIn - now) - 5000;  // this should be 18000, 18 seconds
     console.log( 'diff is ', diff ); 
     console.log( 'expires in ', expiresIn ); 
