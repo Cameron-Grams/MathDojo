@@ -40,7 +40,7 @@ function parseJwt (token) {
     const base64 = base64Url.replace('-', '+').replace('_', '/');
     return JSON.parse(window.atob(base64));
 };
- 
+  
 //this function displays the data returned by the call to basic-info (the past sessions) and the data contained in the token
 //from authentication (user name, level and id)
 function displayUserRecord(data){
@@ -50,20 +50,22 @@ function displayUserRecord(data){
     const payloadData = parseJwt(token);
     const lengthOfTraining = data.length;
     for (let i = 0; i < lengthOfTraining; i++){
-        const sessionDetails = dateFormat(data[i]).pastPractice; 
-        let numberSession = sessionNumber + i;
-        const sessionClass = dateFormat(data[i]).classColor;
-        const pastPracticeSession = `<div style="color:white">${numberSession}. ${sessionDetails}</div>`;        
-        currentLevel += dateFormat(data[i]).sessionPoints;  
-         $('#js-pastPractices').prepend(pastPracticeSession);
-        if (sessionClass === 'red'){
-            $('#js-lowPerformance').prepend(pastPracticeSession);
-        } 
-        if (sessionClass === 'yellow'){
-            $('#js-midPerformance').prepend(pastPracticeSession);
-        }
-        if (sessionClass === 'green'){
-            $('#js-highPerformance').prepend(pastPracticeSession);
+        if ( data[ i ].pointsAwarded ){
+            const sessionDetails = dateFormat(data[i]).pastPractice; 
+            let numberSession = sessionNumber + i;
+            const sessionClass = dateFormat(data[i]).classColor;
+            const pastPracticeSession = `<div style="color:white">${numberSession}. ${sessionDetails}</div>`;        
+            currentLevel += dateFormat(data[i]).sessionPoints;  
+            $('#js-pastPractices').prepend(pastPracticeSession);
+            if (sessionClass === 'red'){
+                $('#js-lowPerformance').prepend(pastPracticeSession);
+            } 
+            if (sessionClass === 'yellow'){
+                $('#js-midPerformance').prepend(pastPracticeSession);
+            }
+            if (sessionClass === 'green'){
+                $('#js-highPerformance').prepend(pastPracticeSession);
+            }
         }
     }
     const userName = payloadData.userName;
