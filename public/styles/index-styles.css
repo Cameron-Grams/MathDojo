@@ -1,12 +1,15 @@
 body{
     box-sizing: border-box;
-    background-color: rgba(224, 223, 127, 0.87);
+    background: url( '../images/large_dojo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     Font-Family: 'Roboto', Sans-Serif;
     text-align: center;
     margin: 0;
     padding: 0;
 }
-
+ 
 #loader-wrapper {
     width: 100%;
     height: 100%;
@@ -34,6 +37,8 @@ body{
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+
 
 .headerInfo{
     font-family: Arial, Helvetica, sans-serif;
@@ -68,9 +73,20 @@ body{
     background-color: yellow;
     cursor: pointer;
 }
+
+#userHolder{
+    width: 100%;
+}
+
 #userName{
+    background-color: rgba(255, 255, 255, 0.63);
+    width: 50%;
+    padding: 7px;
     font-size: 2.5em;
+    border-radius: 9px;
+    margin: auto;
     margin-top: 75px;
+    margin-bottom: 25px;
 }
 
 #beltDiv {
@@ -227,6 +243,31 @@ a:hover{
         display: block;
         width: 100%;
     }
+
+    #outerTrainingWrapper{
+        width: 100%;
+    }
+    #trainingTypeWrapper{
+        background-color: rgba(255, 255, 255, 0.63);
+        width: 15%;
+        padding: 15px;
+        border-radius: 9px;
+        margin: 15px auto 15px auto;
+
+    }
+
+    #outerDetailsWrapper{
+        width: 100%;
+    }
+    #detailsWrapper{
+        background-color: rgba(255, 255, 255, 0.63);
+        width: 45%;
+        padding: 15px;
+        border-radius: 9px;
+        margin: 15px auto 15px auto;
+    }
+
+
 
     #deskTrainingTypeFormat{
         display: inline-block;

@@ -1,5 +1,8 @@
 body{
-    background-color: rgba(224, 223, 127, 0.87);
+    background: url( '../images/large_dojo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     Font-Family: 'Roboto', Sans-Serif;
     text-align: center;
     margin: 0;
@@ -62,9 +65,15 @@ body{
     margin: 5px auto;
 }
 
+#recordWrapper{
+    width: 100%;
+}
+
 .record{
     display: inline-block;
-    width: 100%;
+    background-color: rgba(255, 255, 255, 0.63);
+    width: 80%;
+    margin: auto;
 }
 
 .division{

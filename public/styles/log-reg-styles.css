@@ -56,17 +56,10 @@ body{
     width: 100%;
 }
 
-#leftImage{
-    width: 50%;
-    height: 100%;
-    float: left; 
+#loginImage{
+    width: 100%;
 }
 
-#rightImage{
-    width: 50%;
-    height: 100%;
-    float: right;
-}
 
 #registrationBody{
     background-color: rgba(224, 223, 127, 0.87);
