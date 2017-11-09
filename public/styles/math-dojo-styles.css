@@ -1,7 +1,7 @@
 body{
     margin: 0;
     padding: 0;
-    background-color: rgba(224, 223, 127, 0.87);
+    background-color: #0CCC50;
     text-align: center;
 }
 
@@ -58,22 +58,30 @@ h4{
     padding: 20px;
     width: 85%;
     border-radius: 25px;
-    background-color: white;
+    background-color: #55996D;
 }
 
-#beltList{
-    text-align: left;
-    margin-left: 25%;
+#lowerImage{
+    width: 100%;
 }
+#bottomImage{
+    width: 100%;
+}
+
+
 
 #returnDashboard{
     display: inline-block;
+    height: 30px;
+    background-color: rgb(172, 6, 6);
+    color: white;
     border-radius: 3px;
     margin: 10px;
 }
 
 #returnDashboard:hover{
     background-color: yellow;
+    color: black;
     cursor: pointer;
 }
 
