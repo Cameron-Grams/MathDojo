@@ -18,7 +18,7 @@
         </div>
 
         <div id="beltDiv">   
-            <h4 class="headerInfo" >Current Level: <span id="currentLevel"></span></h4>
+            <h4 class="headerInfo" >Level: <span id="currentLevel"></span></h4>
         </div>
     </section>
 
@@ -29,11 +29,20 @@
     </div>
      
     <section>
-        <h3 id="js-displayQuestion" >Current Question</h3>
-        <lable for="js-userResponse" role="textbox"> 
-          <input class="js-inputBox" id="js-userResponse" type="text" value="Enter Answer" />
-        </lable>
-        <button type="submit" id="submitAnswerBtn">Check Answer</button>
+        <div id="wrapperCurrentQuestion">  
+          <div id="currentQuestion"> 
+             <h3 id="js-displayQuestion" >Current Question</h3>
+          </div>
+        </div>
+
+        <div id="wrapperUserResponse"> 
+          <div id="cssUserResponse">  
+          <lable for="js-userResponse" role="textbox"> 
+            <input class="js-inputBox" id="js-userResponse" type="text" value="Enter Answer" />
+          </lable>
+            <button type="submit" id="submitAnswerBtn">Check Answer</button>
+          </div>
+        </div>
     </section>
 
     <button id="returnDash" onclick="abandonSession()">Quit Training<br>Return to Dashboard</button>
@@ -41,8 +50,8 @@
     <div id="recordWrapper">  
     <section class="record">
         <h4>Current Questions by Accuracy</h4>
-        <section class="record division incorrect" id="incorrectResponses"  ><span class="accuracy"></span></section>
-        <section class="record division correct" id="correctResponses"  ><span class="accuracy"></span></section>
+        <section class="division incorrect" id="incorrectResponses"  ><span class="accuracy"></span></section>
+        <section class="division correct" id="correctResponses"  ><span class="accuracy"></span></section>
     </section>
     </div>
 

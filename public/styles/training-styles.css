@@ -77,10 +77,35 @@ body{
     font-weight: bold;
 }
 
-.instructionFormat{
-    display: inline-block;
-    margin: 5px auto;
+#wrapperCurrentQuestion{
+    width: 100%;
+} 
+
+#currentQuestion{
+    background-color: black;
+    color: white;
+    width: 20%;
+    padding: 7px;
+    border-radius: 9px;
+    margin: auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+} 
+
+#wrapperUserResponse{
+    width: 100%;
 }
+#cssUserResponse{
+    background-color: rgba(255, 255, 255, 0.63);
+    width: 25%;
+    padding: 7px;
+    border-radius: 9px;
+    margin: auto;
+    margin-top: 25px;
+    margin-bottom: 15px;
+} 
+
+
 
 #recordWrapper{
     width: 100%;
@@ -88,19 +113,20 @@ body{
 
 .record{
     display: inline-block;
-    background-color: rgba(255, 255, 255, 0.63);
+    background-color: rgba(56, 54, 54, 0.616);
+    border-radius: 9px;
     width: 80%;
     margin: auto;
 }
 
 .division{
+    display: inline-block;
     width: 48%;
-    height: 100px;
 }
 
 .correct{
     vertical-align: top;
-    color: green;
+    color: rgb(6, 172, 6);
 }
  
 .incorrect{
@@ -118,7 +144,7 @@ body{
     position: fixed;
     left: 0;
     top: 0;
-    background: rgb(224, 223, 127);
+    background: #0CCC50;
 }
 
 #loader {

@@ -50,7 +50,7 @@ function displayUserRecord(data){
     const payloadData = parseJwt(token);
     const lengthOfTraining = data.length;
     for (let i = 0; i < lengthOfTraining; i++){
-        if ( data[ i ].pointsAwarded ){
+        if ( data[ i ].pointsAwarded >= 0 ){
             const sessionDetails = dateFormat(data[i]).pastPractice; 
             let numberSession = sessionNumber + i;
             const sessionClass = dateFormat(data[i]).classColor;
