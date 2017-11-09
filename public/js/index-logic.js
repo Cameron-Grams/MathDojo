@@ -123,17 +123,19 @@ $( '#js-startExercise' ).on( 'click', sendValues);
    
 //handler to read in values from inputs and call the AJAX call function, requestSession
 function sendValues(){
+    let selectMin, selectMax;
     let operation = $( '#js-operationType' ).val();   
     let number = $( '#js-practiceType' ).val();
     let min = $( '#js-minRange' ).val();
     let max = $( '#js-maxRange' ).val();
     let mobileMin = $( '#js-mobileMinRange' ).val(); 
-    let mobileMax = $( '#js-mobileMaxRange' ).val();
+    let mobileMax = $( '#js-mobileMaxRange' ).val(); 
     if ( ( isNaN(min) || isNaN(max) ) && ( isNaN( mobileMax ) || isNaN( mobileMin ) ) ){
         reselectRange();
     } else { 
         let validNumber = ( Math.abs(+max - +min) < 5) || ( Math.abs( +mobileMax - +mobileMin ) < 5 ); 
-        return (validNumber) ? reselectRange(): requestSession( operation, number, min, max );
+        [ selectMin, selectMax ] = ( isNaN( min ) && isNaN( max ) ) ? [ mobileMin, mobileMax ]: [ min, max ];
+        return (validNumber) ? reselectRange(): requestSession( operation, number, selectMin, selectMax );
     }
 };
 
