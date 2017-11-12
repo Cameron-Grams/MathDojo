@@ -162,12 +162,17 @@ function evaluateResponse( userResponse ){
     let responseString = `<div>${ sessionProblemsArray[ questionNumber ].problem } = ${ userResponse }</div>`;
     let correct = +userResponse === sessionProblemsArray[ questionNumber ].correctResponse;
     if ( correct ){
-        $( responseString ).attr( 'class', 'correct' );
-        $( '#correctResponses' ).append( responseString );
+        let displayCorrect = $( responseString ).attr( 'class', 'correct' );
+        $( '#mobileRecord' ).prepend( displayCorrect );
+        $( '#correctResponses' ).append( displayCorrect );
+
+        console.log( displayCorrect );
         numberCorrect += 1;
     } else {
-        $( responseString ).attr( 'class', 'incorrect' ); 
-        $( '#incorrectResponses' ).append( responseString );
+        let displayError = $( responseString ).attr( 'class', 'incorrect' ); 
+        $( '#mobileRecord' ).prepend( displayError );
+        $( '#incorrectResponses' ).append( displayError );
+
     }
     sessionProblemsArray[ questionNumber ].userResponse = userResponse; 
     updateProblem( sessionId, questionNumber, userResponse );

@@ -37,9 +37,7 @@
 
         <div id="wrapperUserResponse"> 
           <div id="cssUserResponse">  
-          <lable for="js-userResponse" role="textbox"> 
             <input class="js-inputBox" id="js-userResponse" type="text" value="Enter Answer" />
-          </lable>
             <button type="submit" id="submitAnswerBtn">Check Answer</button>
           </div>
         </div>
@@ -49,16 +47,23 @@
 
     <div id="recordWrapper">  
     <section class="record">
+        <div id="deskTopRecord">  
         <h4>Current Questions by Accuracy</h4>
         <section class="division incorrect" id="incorrectResponses"  ><span class="accuracy"></span></section>
         <section class="division correct" id="correctResponses"  ><span class="accuracy"></span></section>
+        </div>
+    </section>
+    <section class="record">  
+        <div id="mobileRecord">
+        
+        </div>
     </section>
     </div>
 
     <div id="loader-wrapper">
         <div id="loader"></div>
     </div>
-
+ 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="./js/userLevel.js" ></script>   
 <script src="./js/training-logic.js" ></script>   

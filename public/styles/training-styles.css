@@ -69,9 +69,6 @@ body{
     margin-bottom: 25px;
 }
 
-
-
-
 .headerInfo{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
@@ -91,6 +88,13 @@ body{
     margin-top: 25px;
     margin-bottom: 25px;
 } 
+
+#js-userResponse{
+    text-align: center;
+    width: 100%;
+    margin-bottom: 5%;
+}
+
 
 #wrapperUserResponse{
     width: 100%;
@@ -122,6 +126,15 @@ body{
 .division{
     display: inline-block;
     width: 48%;
+}
+
+#mobileRecord{
+    display: block;
+}
+
+#deskTopRecord{
+    display: none;
+    width: 100%;
 }
 
 .correct{
@@ -167,6 +180,21 @@ body{
 }
 
 /*desk-top features */
-@media only screen and (min-width: 760 ) {
-    
+
+@media only screen and (min-width: 760px){
+    #js-userResponse{
+        width: 30%;
+        margin-bottom: 0px;
+    }
+
+    #mobileRecord{
+        display: none;
+    }
+
+    #deskTopRecord{
+        display: inline-block;
+        margin: auto;
+    }
+
+
 }
