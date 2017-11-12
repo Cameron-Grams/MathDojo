@@ -222,6 +222,7 @@ a:hover{
 }
  
 @media only screen and (min-width: 760px){
+   
     #mobileNumberRange{
         display: none;
     }
