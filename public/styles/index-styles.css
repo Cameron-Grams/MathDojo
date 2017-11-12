@@ -7,6 +7,7 @@ body{
     Font-Family: 'Roboto', Sans-Serif;
     text-align: center;
     margin: 0;
+    margin-right: -20px;
     padding: 0;
 }
  
@@ -56,11 +57,6 @@ body{
 #showInstructionsBtn, #logOutBtn{
     background-color: white;
     margin: auto; 
-}
-
-#spacer{
-    display: inline-block;
-    width: 5%;
 }
 
 #showInstructionsBtn:hover{
@@ -113,6 +109,8 @@ body{
 #mobileTrainingTypeFormat{
     width: 60%;
     border: 1px solid grey;
+    border-radius: 9px;
+    background-color: rgba(255, 255, 255, 0.63);
     margin: 10px auto 10px;
 }
 
@@ -128,10 +126,6 @@ body{
 .instructionFormat{
     display: inline-block;
     margin: 5px auto;
-}
-
-.js-inputBox{
-    font-size: 1.25em;
 }
 
 .record{
@@ -177,6 +171,24 @@ body{
 #mobileNumberRange{
     display: block;
 }
+
+#detailsWrapper{
+    background-color: rgba(255, 255, 255, 0.63);
+    width: 45%;
+    padding: 15px;
+    border-radius: 9px;
+    margin: 15px auto 15px auto;
+}
+
+
+#formatLowerItems{
+    background-color: rgba(255, 255, 255, 0.63);
+    width: 45%;
+    padding: 15px;
+    border-radius: 9px;
+    margin: 15px auto 15px auto;
+}
+
 
 #js-mobileMinRange{
     width: 30%;
@@ -248,18 +260,18 @@ a:hover{
     #outerTrainingWrapper{
         width: 100%;
     }
+
     #trainingTypeWrapper{
-        background-color: rgba(255, 255, 255, 0.63);
-        width: 15%;
+        width: 45%;
         padding: 15px;
         border-radius: 9px;
         margin: 15px auto 15px auto;
-
     }
 
     #outerDetailsWrapper{
         width: 100%;
     }
+
     #detailsWrapper{
         background-color: rgba(255, 255, 255, 0.63);
         width: 45%;
