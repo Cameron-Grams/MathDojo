@@ -125,16 +125,13 @@ body{
 
 .division{
     display: inline-block;
-    width: 48%;
-}
-
-#mobileRecord{
-    display: block;
+    width: 100%;
 }
 
 #deskTopRecord{
-    display: none;
-    width: 100%;
+    width: 90%;
+    display: inline-block;
+    margin: auto;
 }
 
 .correct{
@@ -191,10 +188,9 @@ body{
         display: none;
     }
 
-    #deskTopRecord{
-        display: inline-block;
-        margin: auto;
+
+
+    .division{
+        width: 48%;
     }
-
-
 }

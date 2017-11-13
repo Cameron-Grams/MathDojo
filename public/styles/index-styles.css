@@ -7,7 +7,6 @@ body{
     Font-Family: 'Roboto', Sans-Serif;
     text-align: center;
     margin: 0;
-    margin-right: -20px;
     padding: 0;
 }
  
@@ -53,6 +52,7 @@ body{
     background-color: black;
     width: 100%;
     padding: 10px;
+    box-sizing: border-box;
 }
 #showInstructionsBtn, #logOutBtn{
     background-color: white;
@@ -280,8 +280,6 @@ a:hover{
         margin: 15px auto 15px auto;
     }
 
-
-
     #deskTrainingTypeFormat{
         display: inline-block;
         width: 100%;
@@ -290,7 +288,6 @@ a:hover{
         width: 15%;
         height: 250px;
     }
-    
 
     #js-deskTopPastPractices{
         display: block;
