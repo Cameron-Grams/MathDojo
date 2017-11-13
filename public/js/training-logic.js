@@ -158,27 +158,48 @@ function displayProblem( sessionProblemsArray ){
 
 //evaluates user answer based on questionNumber in session array, controls advance of the 
 // global questionNumber variable
+// user responses are captured by helper functions and displayed on DOM based on size of display
 function evaluateResponse( userResponse ){
     let responseString = `<div>${ sessionProblemsArray[ questionNumber ].problem } = ${ userResponse }</div>`;
     let correct = +userResponse === sessionProblemsArray[ questionNumber ].correctResponse;
     if ( correct ){
-        let displayCorrect = $( responseString ).attr( 'class', 'correct' );
-        $( '#mobileRecord' ).prepend( displayCorrect );
-        $( '#correctResponses' ).append( displayCorrect );
-
-        console.log( displayCorrect );
+        configureDeskTop( responseString, 'correct' );
+        configureMobile( responseString, 'correct' );
         numberCorrect += 1;
     } else {
-        let displayError = $( responseString ).attr( 'class', 'incorrect' ); 
-        $( '#mobileRecord' ).prepend( displayError );
-        $( '#incorrectResponses' ).append( displayError );
-
+        configureDeskTop( responseString, 'incorrect' );
+        configureMobile( responseString, 'incorrect' );
     }
     sessionProblemsArray[ questionNumber ].userResponse = userResponse; 
     updateProblem( sessionId, questionNumber, userResponse );
     questionNumber += 1;
     displayProblem( sessionProblemsArray );
 }
+
+// helper function to add response elements to the Mobile record
+function configureMobile( responseString, className ){
+    let showString = $( responseString ).attr( 'class', className );
+    $( '#mobileRecord' ).prepend( showString );
+}
+
+// helper function to add the response elements to the Desk Top display record
+function configureDeskTop( responseString, className ){
+    let showString = $( responseString ).attr( 'class', className );
+    if ( className === 'correct' ){
+        $( '#correctResponses' ).append( showString );
+    }
+    if ( className === 'incorrect' ){
+        $( '#incorrectResponses' ).append( showString );
+    }
+}
+
+
+
+
+
+
+
+
 
 //helper function to return to dashboard (index) 
 function returnDashboard(){
