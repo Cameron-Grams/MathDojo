@@ -58,7 +58,7 @@ h4{
     padding: 20px;
     width: 85%;
     border-radius: 25px;
-    background-color: #55996D;
+    background-color: #2E7F4B;
 }
 
 #lowerImage{
@@ -75,14 +75,14 @@ h4{
     width: 20%;
     height: 10%;
     font-size: 1.5em;
-    background-color: rgb(172, 6, 6);
+    background-color: rgb(178, 7, 0);
     color: white;
     border-radius: 9px;
     margin: 10px;
 }
 
 #returnDashboard:hover{
-    background-color: yellow;
+    background-color: #FF2219;
     color: black;
     cursor: pointer;
 }
