@@ -1,7 +1,7 @@
 body{
     margin: 0;
     padding: 0;
-    background-color: rgba(224, 223, 127, 0.87);
+    background-color: #0CCC50;
     text-align: center;
 }
 
@@ -47,8 +47,13 @@ body{
     Font-Size: 1em;
 }
 
+#logIn{
+    background-color: #35CB6B;
+}
+
 #logIn:hover{
-    background-color: yellow;
+    background-color: #FF2219;
+    color: white;
     cursor: pointer;
 }
 
@@ -57,12 +62,13 @@ body{
 }
 
 #loginImage{
+    display: none;
     width: 100%;
 }
 
 
 #registrationBody{
-    background-color: rgba(224, 223, 127, 0.87);
+    background-color: #0CCC50;
 }
 
 #registration{
@@ -70,12 +76,11 @@ body{
     top: 0px;
     width: 100%;
     height: 100%;
-    background-color: rgba(217, 217, 223, 0.418); 
 }
 
 #mobileHeader{
     display: block;
-    background-color: rgba(255, 255, 255, 1);
+    background-color: #2E7F4B;
     padding: 2px;
     border-radius: 15px;
     width: 50%;
@@ -86,10 +91,10 @@ body{
 }
 #header{
     display: none;
-    background-color: white;
+    background-color: #2E7F4B;
     padding: 2px;
     border-radius: 15px;
-    width: 50%;
+    width: 30%;
     margin: auto;
     margin-top: 3%;
     font-size: 1.75em;
@@ -108,10 +113,15 @@ a{
     text-decoration: none;
 }
 
+a:visited{
+    color: black;
+}
+
 a:hover{
-    color: blue;
+    color: white;
     cursor: pointer;
 }
+
 
 #innerText{
     margin: auto;
@@ -119,26 +129,37 @@ a:hover{
     padding: 10px;
     width: 85%;
     border-radius: 25px;
-    background-color: white;
+    background-color: #2E7F4B;
+}
+
+.inputEntries{
+    background-color: #35CB6B;
+}
+
+#instructionsBtn{
+    background-color: rgb(178, 7, 0);
+    padding: 4px;
 }
 
 #instructionsBtn:hover{
-    background-color: yellow;
+    background-color: #FF2219;
     cursor: pointer;
 }
 
 #demoInstructions{
     margin: auto;
-
 }
+
+
 #sendRegistration{
+    background-color: #35CB6B;
     display: inline-block;
     border-radius: 3px;
     margin: 10px;
 }
 
 #sendRegistration:hover{
-    background-color: yellow;
+    background-color: #FF2219;
     cursor: pointer; 
 }
 
@@ -150,9 +171,14 @@ ul {
 .invisible{
     display:none;
 }
-
+ 
 
 @media only screen and ( min-width: 760px ) {
+    #loginImage{
+        display: block;
+    }
+
+
     #innerText{
         width: 30%;
     }
