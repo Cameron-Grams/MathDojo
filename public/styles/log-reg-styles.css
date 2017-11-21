@@ -49,6 +49,7 @@ body{
 
 #logIn{
     background-color: #35CB6B;
+    margin-top: 2%;
 }
 
 #logIn:hover{
@@ -125,7 +126,7 @@ a:hover{
 
 #innerText{
     margin: auto;
-    margin-top: 3%;
+    margin-top: 7%;
     padding: 10px;
     width: 85%;
     border-radius: 25px;
@@ -165,7 +166,7 @@ a:hover{
 
 ul {
     text-align: left;
-    margin-left: 9%;
+    margin-left: 11%;
 }
 
 .invisible{
@@ -191,6 +192,6 @@ ul {
     }
 
     ul{
-        margin-left: 17%;
+        margin-left: 19%;
     }
 }

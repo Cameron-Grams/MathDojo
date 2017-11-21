@@ -50,13 +50,15 @@ body{
     top: 0px;
     margin: 0;
     background-color: black;
+    text-align: right;
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
 }
 #showInstructionsBtn, #logOutBtn{
-    background-color: white;
-    margin: auto; 
+    background-color: inherit;
+    color: white;
+    border: 1px solid transparent;
 }
 
 #showInstructionsBtn:hover{
@@ -66,6 +68,7 @@ body{
 }
 
 #logOutBtn:hover{
+    color: black;
     background-color: yellow;
     cursor: pointer;
 }
@@ -81,21 +84,27 @@ body{
     font-size: 2.5em;
     border-radius: 9px;
     margin: auto;
-    margin-top: 75px;
-    margin-bottom: 25px;
+    margin-top: 6%;
+    margin-bottom: 3%;
 }
 
 #beltDiv {
     background-color: white;
     width: 100%;
+    border-radius: 9px;
     margin: 10px auto 10px auto;
-    padding: 10px 0 10px 0;
+    padding: 0px;
     text-align: center;
 }
 
 #beltText{
     width: 85%;
     margin: auto;
+    padding: 2px;
+}
+
+#trainingTitle{
+    margin: 0px;
 }
 
 #outerDeskShell{
@@ -172,7 +181,7 @@ body{
     display: block;
 }
 
-#detailsWrapper{
+#detailWrapper{
     background-color: rgba(255, 255, 255, 0.63);
     width: 45%;
     padding: 15px;
@@ -183,10 +192,10 @@ body{
 
 #formatLowerItems{
     background-color: rgba(255, 255, 255, 0.63);
-    width: 45%;
+    width: 35%;
     padding: 15px;
     border-radius: 9px;
-    margin: 15px auto 15px auto;
+    margin: 0px auto 15px auto;
 }
 
 
@@ -265,7 +274,7 @@ a:hover{
         width: 45%;
         padding: 15px;
         border-radius: 9px;
-        margin: 15px auto 15px auto;
+        margin: 15px auto 0px auto;
     }
 
     #outerDetailsWrapper{
@@ -274,7 +283,7 @@ a:hover{
 
     #detailsWrapper{
         background-color: rgba(255, 255, 255, 0.63);
-        width: 45%;
+        width: 25%;
         padding: 15px;
         border-radius: 9px;
         margin: 15px auto 15px auto;
