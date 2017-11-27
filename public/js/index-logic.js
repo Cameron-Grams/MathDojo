@@ -111,6 +111,21 @@ function showInstructions(){
     location.href="math-dojo.html";
 }
 
+// handlers to control the selection of training type by clicking images and image highlights by select
+$( () => {
+    $( '.deskTrainingTypeFormat').on( 'click', 'img', function(){
+        $( '.deskTrainingTypeFormat > img' ).removeClass( 'active' );
+        $( this ).addClass( 'active' );
+        const value = $( this ).data( 'val' );
+        $( '#js-practiceType' ).val( value ); 
+    });
+    $( '#js-practiceType' ).change( function(){
+        const selected = $( '#js-practiceType option:selected' ).val();
+        $( '.deskTrainingTypeFormat > img' ).removeClass( 'active' ); 
+        $( `.deskTrainingTypeFormat > img[data-val = ${selected} ]` ).addClass( 'active' ); 
+    })
+})
+
 //handler to send on enter
 $('#js-maxRange').on('keypress', (e) => {
     if (e.keyCode === 13){

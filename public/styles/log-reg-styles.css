@@ -48,8 +48,10 @@ body{
 }
 
 #logIn{
+    border-radius: 7px;
     background-color: #35CB6B;
     margin-top: 2%;
+    padding: 5px;
 }
 
 #logIn:hover{
@@ -80,6 +82,7 @@ body{
 }
 
 #mobileHeader{
+    min-width: 220px;
     display: block;
     background-color: #2E7F4B;
     padding: 2px;
@@ -125,6 +128,7 @@ a:hover{
 
 
 #innerText{
+    min-width: 300px;
     margin: auto;
     margin-top: 7%;
     padding: 10px;
@@ -138,8 +142,9 @@ a:hover{
 }
 
 #instructionsBtn{
+    border-radius: 7px;
     background-color: rgb(178, 7, 0);
-    padding: 4px;
+    padding: 7px;
 }
 
 #instructionsBtn:hover{

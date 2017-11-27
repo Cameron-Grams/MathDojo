@@ -114,6 +114,7 @@ body{
 }
 
 #submitAnswerBtn{
+    background-color: #35CB6B;
     border-radius: 5px;
 }
 
@@ -154,7 +155,7 @@ body{
 }
 #cssUserResponse{
     min-width: 120px;
-    background-color: rgba(255, 255, 255, 0.63);
+    background-color: rgba(56, 54, 54, 0.616);
     width: 25%;
     padding: 7px;
     border-radius: 9px;
@@ -164,9 +165,14 @@ body{
 } 
 
 #js-userResponse{
+    width: 75%;
     font-size: 1.5em;
+    color: grey;
 }
 
+#js-userResponse:focus{
+    color: black;
+}
 #recordWrapper{
     width: 100%;
 }
@@ -210,8 +216,7 @@ body{
 
 @media only screen and (min-width: 760px){
     #js-userResponse{
-        width: 50%;
-        margin-bottom: 0px;
+     margin-bottom: 0px;
     }
 
     #mobileRecord{

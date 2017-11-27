@@ -38,7 +38,15 @@ body{
     100% { transform: rotate(360deg); }
 }
 
+a{
+    text-decoration: none;
+    color: inherit;
+}
 
+a:hover{
+    color: white;
+    cursor: pointer;
+}
 
 .headerInfo{
     font-family: Arial, Helvetica, sans-serif;
@@ -111,7 +119,7 @@ body{
     display: none;
 }
 
-#deskTrainingTypeFormat{
+.deskTrainingTypeFormat{
     display: none;
 }
 
@@ -160,6 +168,10 @@ body{
     font-size: 1.1em;
 }
 
+.js-inputBox:focus{
+    color: black;
+}
+
 #js-practiceType{
     height: 25px;
 }
@@ -195,9 +207,9 @@ body{
 
 
 #formatLowerItems{
-    min-width: 395px;
+    min-width: 300px;
     background-color: rgba(255, 255, 255, 0.63);
-    width: 35%;
+    width: 30%;
     padding: 15px;
     border-radius: 9px;
     margin: 0px auto 15px auto;
@@ -221,17 +233,6 @@ body{
     margin: 20px auto 20px;
     padding: 10px;
 }
-
-a{
-    text-decoration: none;
-    color: inherit;
-}
-
-a:hover{
-    color: white;
-    cursor: pointer;
-}
-
 .js-pastRecord{
     margin: 10px;
 }
@@ -264,16 +265,25 @@ a:hover{
         width: 100%;
     }
 
-    #deskTrainingTypeFormat{
+    .deskTrainingTypeFormat{
         box-sizing: border-box;
         display: inline-block;
         width: 100%;
     }
 
-    .imageButton:hover{
+    .deskImage{
+        width: 15%;
+        height: 250px;
+        box-sizing: border-box;
+    }
+
+    img:hover{
         border: 3px solid yellow;
     }
 
+    img.active{
+        border: 3px solid yellow;
+    }
 
     #outerDeskShell{
         position: relative;
@@ -310,11 +320,6 @@ a:hover{
         padding: 15px;
         border-radius: 9px;
         margin: 15px auto 15px auto;
-    }
-
-    .deskImage{
-        width: 15%;
-        height: 250px;
     }
 
     #js-deskTopPastPractices{
