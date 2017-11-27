@@ -123,8 +123,15 @@ body{
     margin: 10px auto 10px;
 }
 
+#js-startExercise{
+    background-color: rgb( 178, 7, 0);
+    width: 25%;
+    font-size: 1.1em;
+    border-radius: 7px;
+}
+
 #js-startExercise:hover{
-    background-color: yellow;
+    background-color: #FF2219;
     cursor: pointer;
 }
 
@@ -147,10 +154,16 @@ body{
     height: 100px;
 }
 
+.js-inputBox{
+    text-align: center;
+    color: grey;
+    font-size: 1.1em;
+}
+
 #js-practiceType{
     height: 25px;
-    
 }
+
 #js-practiceType:hover{
     cursor: pointer;
 }
@@ -171,7 +184,8 @@ body{
     display: block;
 }
 
-#detailWrapper{
+#detailsWrapper{
+    min-width: 140px; 
     background-color: rgba(255, 255, 255, 0.63);
     width: 45%;
     padding: 15px;
@@ -181,6 +195,7 @@ body{
 
 
 #formatLowerItems{
+    min-width: 395px;
     background-color: rgba(255, 255, 255, 0.63);
     width: 35%;
     padding: 15px;
@@ -296,8 +311,6 @@ a:hover{
         border-radius: 9px;
         margin: 15px auto 15px auto;
     }
-
- 
 
     .deskImage{
         width: 15%;
