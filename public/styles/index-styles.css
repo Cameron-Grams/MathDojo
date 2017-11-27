@@ -152,7 +152,6 @@ body{
     
 }
 #js-practiceType:hover{
-    background-color: yellow;
     cursor: pointer;
 }
 
@@ -161,16 +160,7 @@ body{
 }
 
 #js-operationType:hover{
-    background-color: yellow;
     cursor: pointer;
-}
-
-#js-maxRange:hover, #js-minRange:hover{
-    background-color:  rgba(255, 102, 0, 0.63); 
-}
-
-#js-mobileMinRange:hover, #js-mobileMaxRange:hover{
-    background-color: rgba(255, 102, 0, 0.63);
 }
 
 #numberRange{
@@ -259,6 +249,16 @@ a:hover{
         width: 100%;
     }
 
+    #deskTrainingTypeFormat{
+        box-sizing: border-box;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .imageButton:hover{
+        border: 3px solid yellow;
+    }
+
 
     #outerDeskShell{
         position: relative;
@@ -281,6 +281,14 @@ a:hover{
         width: 100%;
     }
 
+    .instructionFormat{
+        font-size: 1.5em;
+    }
+
+    #js-operationType{
+        font-size: 1.3em;
+    }
+
     #detailsWrapper{
         background-color: rgba(255, 255, 255, 0.63);
         width: 25%;
@@ -289,10 +297,8 @@ a:hover{
         margin: 15px auto 15px auto;
     }
 
-    #deskTrainingTypeFormat{
-        display: inline-block;
-        width: 100%;
-    }
+ 
+
     .deskImage{
         width: 15%;
         height: 250px;
@@ -303,16 +309,19 @@ a:hover{
     }
 
     #js-lowPerformance{
+        vertical-align: top;
         display: inline-block;
         width: 32%;
     }
 
     #js-midPerformance{
+        vertical-align: top;
         display: inline-block;
         width: 32%;
     }
 
     #js-highPerformance{
+        vertical-align: top;
         display: inline-block;
         width: 32%;
     }

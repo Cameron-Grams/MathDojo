@@ -22,12 +22,12 @@
 
     <div id="outerDeskShell">  
         <div id="deskTrainingTypeFormat">
-            <img class="deskImage" id="mouse" src="./images/mouse.jpg" alt="mouse image">
-            <img class="deskImage" id="dolphin" src="./images/dolphin2.jpg" alt="dolphin image">
-            <img class="deskImage" id="dog" src="./images/dog.jpg" alt="dog image">
-            <img class="deskImage" id="tiger" src="./images/tiger.jpg" alt="tiger image">
-            <img class="deskImage" id="eagle" src="./images/eagle.jpg" alt="eagle image">
-            <img class="deskImage" id="bear" src="./images/bear.jpg" alt="bear image">
+            <a class="imageButton" onclick="imageClick( 'Dolphin', 10 )" ><img class="deskImage" id="mouse" src="./images/mouse.jpg" alt="mouse image"></a>
+            <a class="imageButton" onclick="imageClick( 'Dolphin', 10 )" ><img class="deskImage" id="dolphin" src="./images/dolphin2.jpg" alt="dolphin image"></a>
+            <a class="imageButton" onclick="imageClick( 'Dog', 15 )" ><img class="deskImage" id="dog" src="./images/dog.jpg" alt="dog image"></a>
+            <a class="imageButton" onclick="imageClick( 'Tiger', 25 )" > <img class="deskImage" id="tiger" src="./images/tiger.jpg" alt="tiger image"></a>
+            <a class="imageButton" onclick="imageClick( 'Eagle', 50 )" ><img class="deskImage" id="eagle" src="./images/eagle.jpg" alt="eagle image"></a>
+            <a class="imageButton" onclick="imageClick( 'Bear', 1000 )" ><img class="deskImage" id="bear" src="./images/bear.jpg" alt="bear image"></a>
         </div>
      </div>
   
@@ -56,9 +56,6 @@
 
 <div id="outerDetailsWrapper">  
     <div id="detailsWrapper">
-
-
-
     <section >  
             <h2 id="trainingTitle" >Train like a:</h2>
             <label role="select">
@@ -72,8 +69,8 @@
                 </select>
             </label>
     </section>
-    </div>
-    </div>
+  </div>
+</div>
 
 </section>
       
@@ -95,10 +92,10 @@
 
     <section class="spaceSection" id="numberRange" >    
     <label role="min text">  
-        <span class="instructionFormat">From <input  type="text" class="js-inputBox" id="js-minRange" value="Enter min" /> to </span>
+        <span class="instructionFormat">From<br> <input  type="text" class="js-inputBox" id="js-minRange" value="Enter min" /></span>
     </label>
     <label role="max text" > 
-        <span class="instructionFormat"><input type="text" class="js-inputBox" id="js-maxRange" value="Enter max" /></span>
+        <span class="instructionFormat">To <br><input type="text" class="js-inputBox" id="js-maxRange" value="Enter max" /></span>
     </label>
     </section>
     
@@ -115,7 +112,7 @@
       <button class="spaceSection" id="js-startExercise" >Begin</button>
     </label>
     </div>
-    </div>
+</div>
 
 
 
