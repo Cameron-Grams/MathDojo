@@ -1,3 +1,6 @@
+[![Build Status](
+https://travis-ci.org/Cameron-Grams/MathDojo.svg?branch=master )]( https://github.com/Cameron-Grams/MathDojo)
+
 # Math Dojo
 
 ## [The Site on Heroku](https://warm-badlands-54373.herokuapp.com/math-dojo.html) 
