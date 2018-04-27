@@ -15,7 +15,7 @@
     "chai-http": "^3.0.0"
   },
   "dependencies": {
-    "bcrypt": "1.0.2",
+    "bcrypt": "^2.0.1",
     "body-parser": "^1.18.2",
     "express": "^4.16.1",
     "jsonwebtoken": "^8.0.1",
@@ -23,6 +23,7 @@
     "morgan": "^1.9.0",
     "nodemon": "^1.12.1",
     "passport": "^0.4.0",
-    "passport-jwt": "^3.0.0"
+    "passport-jwt": "^3.0.0",
+    "save": "^2.3.2"
   }
 }
